@@ -1,3 +1,18 @@
 body {
-    background-color: skyblue;
+    background-color: rgb(17, 255, 0);
+}
+
+
+.my-button {
+    padding: 10px 20px;
+    background-color: #f00;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.my-button:hover {
+    background-color: #c00;
 }

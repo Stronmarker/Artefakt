@@ -1,0 +1,12 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    test
+{% endblock title %}
+
+{% block body %}
+<div {{ stimulus_controller('three') }}>
+    <div data-three-target="canvasContainer"></div>
+    <button data-three-target="pauseButton" class="my-button">Pause Rotation</button>
+</div>
+{% endblock body %}
