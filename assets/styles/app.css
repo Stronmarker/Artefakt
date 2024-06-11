@@ -1,9 +1,9 @@
 body {
-    background-color: rgb(17, 255, 0);
+    background-color: rgb(126, 132, 201);
 }
 
 
-.my-button {
+#pauseButton {
     padding: 10px 20px;
     background-color: #f00;
     color: #fff;
@@ -13,6 +13,6 @@ body {
     font-size: 16px;
 }
 
-.my-button:hover {
+#pauseButton:hover {
     background-color: #c00;
 }

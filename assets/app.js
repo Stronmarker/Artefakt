@@ -4,3 +4,12 @@
 import './styles/app.css';
 
 //import './bootstrap';
+
+import { Application } from "@hotwired/stimulus";
+import ThreeController from "./controllers/three-controller";
+
+// Initialisation de l'application Stimulus
+const application = Application.start();
+
+// Enregistrement du contrôleur
+application.register("three", ThreeController);
