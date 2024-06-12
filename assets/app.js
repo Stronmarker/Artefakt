@@ -3,6 +3,7 @@
 
 
 import './styles/bootstrap.css';
+import './styles/app.css'
 
 import { Application } from "@hotwired/stimulus";
 import ThreeController from "./controllers/three-controller";
