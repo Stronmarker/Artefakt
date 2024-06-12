@@ -91,7 +91,7 @@ class ResetPasswordControllerTest extends WebTestCase
             'change_password_form[plainPassword][second]' => 'newStrongPassword',
         ]);
 
-        self::assertResponseRedirects('/hello');
+        self::assertResponseRedirects('/rendering');
 
         $user = $this->userRepository->findOneBy(['email' => 'me@example.com']);
 
