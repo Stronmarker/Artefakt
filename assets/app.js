@@ -1,9 +1,8 @@
 // register any custom, 3rd party controllers here
 // app.register('some_controller_name', SomeImportedController);
 
-import './styles/app.css';
 
-//import './bootstrap';
+import './styles/bootstrap.css';
 
 import { Application } from "@hotwired/stimulus";
 import ThreeController from "./controllers/three-controller";
