@@ -11,26 +11,28 @@
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
-        
     </head>
     <body>
         {% block header %}
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <nav class="navbar navbar-expand-lg bg-dark">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="{{ path('app_home') }}">Artefakt</a>
+                    <a class="navbar-brand" href="{{ path('app_home') }}">
+                        <img class="img_logo" src="{{ asset('images/logopetit.png') }}" alt="Logo Artefakt">
+                    </a>
+                        <img class="img_logo" src="{{ asset('images/logo-compo-agarta_3.gif') }}">
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ path('app_price') }}">Tarif</a>
+                                <a class="nav-link text-light ft_orbitron" href="{{ path('app_price') }}">Tarif</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ path('app_about_us') }}">Qui sommes nous ?</a>
+                                <a class="nav-link text-light ft_orbitron" href="{{ path('app_about_us') }}">Qui sommes nous ?</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ path('app_login') }}">Connexion</a>
+                                <a class="nav-link text-light ft_orbitron" href="{{ path('app_login') }}">Connexion</a>
                             </li>
                         </ul>
                     </div>
@@ -38,6 +40,9 @@
             </nav>
         {% endblock %}
         {% block body %}
+        {% endblock %}
+
+        {% block footer %}
         {% endblock %}
     </body>
 </html>
