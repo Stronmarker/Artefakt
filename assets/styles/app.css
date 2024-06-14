@@ -42,3 +42,14 @@ body {
 .ft_wallpoet {
     font-family: 'Wallpoet', sans-serif;
 }
+
+#gold {
+    background-image: url('../images/gold_back.png');
+    background-size: cover;
+    background-position: center;
+    color: #fff; /* Change the text color if needed */
+}
+
+.list-group-item-transparent {
+    background-color: transparent !important;
+}
