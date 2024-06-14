@@ -23,7 +23,7 @@ class RegistrationFormType extends AbstractType
                 'label' => 'Accepter les conditions d\'utilisation',
                 'constraints' => [
                     new IsTrue([
-                        'message' => 'You should agree to our terms.',
+                        'message' => 'Merci d\'accepter les conditions d\'utilisation',
                     ]),
                 ],
             ])

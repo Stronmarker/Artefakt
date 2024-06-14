@@ -47,18 +47,18 @@
     </main>
 
         {% block footer %}
-        <footer class="bg-dark py-1 text-light mt-auto">
-            <div class="container">
+        <footer class="bg-dark text-light mt-auto py-3">
+            <div class="container d-flex flex-column justify-content-center">
                 <div class="row">
                     <div class="col-md-6">
-                    <p>© {{ "now"|date("Y") }} Agarta Tous droits réservés.</p>
+                        <p class="mb-0">© {{ "now"|date("Y") }} Agarta Tous droits réservés.</p>
                     </div>
                     <div class="col-md-6 text-md-right">
-                        <a href="{{ path('app_cgu') }}" class="text-danger">Conditions Générales d'Utilisation</a> <!--TODO Hover blanc-->
+                        <a href="{{ path('app_cgu') }}" class="text-danger">Conditions Générales d'Utilisation</a> <!-- TODO Hover blanc -->
                     </div>
                 </div>
             </div>
-        </footer>
+        </footer>        
         {% endblock %}
     </body>
 </html>
