@@ -3,20 +3,48 @@
 {% block title %}Reset your password{% endblock %}
 
 {% block body %}
-    {% for flash_error in app.flashes('reset_password_error') %}
-        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
-    {% endfor %}
-    <h1>Reset your password</h1>
 
-    {{ form_start(requestForm) }}
-        {{ form_row(requestForm.email) }}
-        <div>
-            <small>
-                Enter your email address, and we will send you a
-                link to reset your password.
-            </small>
+<style>
+    @media (max-width: 768px) {
+        .form-reset {
+            padding: 15px;
+        }
+    }
+    .form-control::placeholder { /* Style for placeholders */
+        color: rgb(252, 201, 201);
+    }
+</style>
+
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-sm-10 col-md-8 col-lg-6">
+            <form method="post" class="form-reset" style="padding: 20px; background: rgba(85, 85, 85, 0.8); border-radius: 8px; box-shadow: 0 0 15px red;">
+                {% for flash_error in app.flashes('reset_password_error') %}
+                    <div class="alert alert-danger">{{ flash_error }}</div>
+                {% endfor %}
+
+                <h1 class="h1 mb-3 font-weight-normal text-center text-light">Réinitialiser mot de passe</h1>
+
+                {{ form_start(requestForm, {'attr': {'class': 'form-horizontal'}}) }}
+                <div class="form-group mt-4 mb-4">
+                    {{ form_row(requestForm.email, {
+                        'label': 'Email',
+                        'attr': {'class': 'form-control', 'style': 'background: transparent; border: 1px solid red; color: white'}
+                    }) }}
+                </div>
+
+                <div>
+                    <small class="text-light">
+                       Entrer le mail lié à votre compte pour recevoir le mail de Réinitialisation. 
+                    </small>
+                </div>
+
+                <button class="btn btn-lg btn-danger btn-block" type="submit" style="border: 1px solid red; display: block; margin: 20px auto; width: 80%; max-width: 300px; padding: 10px 0; font-size: 16px;">Send password reset email</button>
+                
+                {{ form_end(requestForm) }}
+            </form>
         </div>
+    </div>
+</div>
 
-        <button class="btn btn-primary">Send password reset email</button>
-    {{ form_end(requestForm) }}
 {% endblock %}

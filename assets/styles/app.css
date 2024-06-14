@@ -2,12 +2,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Orbitron:wght@400..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&family=Wallpoet&display=swap');
 
+html, body {
+    height: 100%;
+}
+
+.main-container {
+    flex-grow: 1;
+}
+
 body {
     background-image: url('../images/background.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .img_logo {
@@ -26,10 +37,10 @@ body {
 
 .ft_fell {
     font-family: 'IM Fell English SC', sans-serif;
-    font-size: large;
+    font-size: 18px;
 }
 
 .ft_wallpoet {
     font-family: 'Wallpoet', sans-serif;
-    font-size: medium;
+    font-size: 38px;
 }

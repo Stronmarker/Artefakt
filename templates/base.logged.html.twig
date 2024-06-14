@@ -46,7 +46,23 @@
                 </div>
             </nav>
         {% endblock %}
+
         {% block body %}
+        {% endblock %}
+
+        {% block footer %}
+        <footer class="bg-dark text-light py-3 mt-auto">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                    <p>© {{ "now"|date("Y") }} Agarta Tous droits réservés.</p>
+                    </div>
+                    <div class="col-md-6 text-md-right">
+                        <a href="{{ path('app_cgu') }}" class="text-light">Conditions Générales d'Utilisation</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
         {% endblock %}
     </body>
 </html>
