@@ -52,10 +52,10 @@ class RegistrationController extends AbstractController
             );
 
             $this->addFlash('success', 'Pour accéder au site, merci de confirmer votre adresse mail. Un email vous a été envoyé.');
-
+            return $this->redirectToRoute('app_register');
             // do anything else you need here, like send an email
 
-            //return $this->redirectToRoute('rendering');
+            
         }
 
         return $this->render('registration/register.html.twig', [
