@@ -1,20 +1,84 @@
 {% extends 'base.logged.html.twig' %}
 
-{% block title %}Hello DashboardController!{% endblock %}
+{% block title %}Tableau de Bord{% endblock %}
 
 {% block body %}
+
 <style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    /* Style de la page */
+    .example-wrapper {
+        margin: 1em auto;
+        max-width: 800px;
+        width: 95%;
+        font: 18px/1.5 sans-serif;
+    }
+    .card {
+        background-color: rgba(85, 85, 85, 0.95); 
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 15px rgb(110, 236, 240); 
+        color: white; 
+        text-align: center;
+    }
+    .card-title {
+        font-size: 1.25rem;
+        color: black;
+    }
+    .card-text {
+        font-size: 0.875rem;
+    }
+    .img_logo_Home {
+        width: 300px;
+        height: auto;
+        margin-bottom: 20px;
+    }
+    /* Style des boutons */
+    .btn-custom {
+        background-color: rgba(85, 85, 85, 0.8); 
+        color: black; 
+        border: 2px solid white; 
+    }
+    .btn-custom:hover {
+        background-color: white;
+        color: black; 
+    }
+    
 </style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+<div class="container mt-5">
+    <h1 class="mb-5">Bienvenue sur <img class="img_logo_Home" src="{{ asset('images/logopetit.png') }}" alt="Logo Artefakt" /></h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/Applications/MAMP/htdocs/Artefakt-old/src/Controller/DashboardController.php</code></li>
-        <li>Your template at <code>/Applications/MAMP/htdocs/Artefakt-old/templates/dashboard/index.html.twig</code></li>
-    </ul>
+    <div class="jumbotron">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Mes Projets</h5>
+                        <p class="card-text">Gérez vos projets de graphisme ici.</p>
+                        <a href="#" class="btn btn-custom">Voir mes projets</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Créer un Nouveau Projet</h5>
+                        <p class="card-text">Commencez un nouveau projet de graphisme.</p>
+                        <a href="#" class="btn btn-custom">Créer un projet</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Mon Profil</h5>
+                        <p class="card-text">Mettez à jour vos informations de profil.</p>
+                        <a href="#" class="btn btn-custom">Modifier le profil</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
 {% endblock %}

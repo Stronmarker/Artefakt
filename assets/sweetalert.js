@@ -1,16 +1,21 @@
 import Swal from 'sweetalert2';
 
-
-
-document.addEventListener('DOMContentLoaded', () => {
-    const button = document.querySelector('#alertButton'); // Modifiez l'ID en fonction de votre besoin
-    if (button) {
-      button.addEventListener('click', () => {
-        Swal.fire({
-          title: "Good job!",
-          text: "You clicked the button!",
-          icon: "success",
-        });
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelector(".confirm-button").addEventListener("click", function() {
+      Swal.fire({
+          title: "Merci de confirmer votre inscription",
+          icon: "info",
+          showCancelButton: true,
+          confirmButtonText: "Confirmation",
+          confirmButtonColor: "#ff0055",
+          cancelButtonColor: "#999999",
+          reverseButtons: true,
+          focusConfirm: false,
+          focusCancel: true
+      }).then((result) => {
+          if (result.isConfirmed) {
+              document.getElementById("registrationForm").submit();
+          }
       });
-    }
-  })
+  });
+});
