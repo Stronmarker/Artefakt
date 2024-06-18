@@ -30,6 +30,7 @@
     "sass": "^1.77.5",
     "sass-loader": "^14.2.1",
     "sweetalert2": "^11.11.1",
+    "sweetalert2": "^11.11.1",
     "three": "^0.164.1"
   },
   "author": "",

@@ -9,6 +9,7 @@ import './sweetalert.js'
 
 
 
+import './sweetalert.js'
 
 import { Application } from "@hotwired/stimulus";
 import ThreeController from "./controllers/three-controller";

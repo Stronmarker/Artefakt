@@ -3,31 +3,65 @@
 {% block title %}Tarifs{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { 
-        margin: 1em auto; 
-        max-width: 800px; 
-        width: 95%; 
-        font: 18px/1.5 sans-serif; 
-    }
-    .example-wrapper code { 
-        background: #F5F5F5; 
-        padding: 2px 6px; 
-    }
-
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/Applications/MAMP/htdocs/Artefakt/src/Controller/PriceController.php</code></li>
-        <li>Your template at <code>/Applications/MAMP/htdocs/Artefakt/templates/price/index.html.twig</code></li>
-    </ul>
-
-    <button id="alertButton">Clique ici</button>
-</div>
-
-    
+    <div class="container mt-5">
+        <div class="row text-center">
+            <h1 class="mb-5">Nos Offres</h1>
+        </div>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 border-danger">
+                    <div class="card-header bg-dark text-light">
+                        <h2>Offre Basique</h2>
+                        <h4>9,99$</h4>
+                    </div>
+                    <div id="bronze" class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Avantage 1</li>
+                            <li class="list-group-item">Avantage 2</li>
+                            <li class="list-group-item">Avantage 3</li>
+                            
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 border-danger" id="silver">
+                    <div class="card-header bg-dark text-light">
+                        <h2>Offre Médium</h2>
+                        <h4>14,99$</h4>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item-transparent">Avantage 1</li>
+                            <li class="list-group-item-transparent">Avantage 2</li>
+                            <li class="list-group-item-transparent">Avantage 3</li>
+                            
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 border-danger" id="gold">
+                    <div class="card-header text-light">
+                        <h2>Offre Prémium</h2>
+                        <h4>19,99$</h4>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Avantage 1</li>
+                            <li class="list-group-item">Avantage 2</li>
+                            <li class="list-group-item">Avantage 3</li>
+                            
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-5 text-center">
+            <div class="col-12">
+                <p class="text-light">Vous êtes intéressé ? Rejoignez-nous !</p>
+                <a href="{{ path('app_login') }}" class="btn btn-danger">S'inscrire</a>
+            </div>
+        </div>
+    </div>
 {% endblock %}

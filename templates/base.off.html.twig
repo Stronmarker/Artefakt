@@ -21,7 +21,6 @@
       <nav class="navbar navbar-expand-lg bg-dark">
         <div class="container-fluid">
           <a class="navbar-brand" href="{{ path('app_home') }}"><img class="img_logo" src="{{ asset('images/logopetit.png') }}" alt="Logo Artefakt" /></a>
-          <a class="navbar-brand" href="https://www.agarta-agency.fr"><img class="img_logo" src="{{ asset('images/logo-compo-agarta_3.gif') }}" alt="Logo Agarta" /></a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
@@ -40,7 +39,7 @@
       </nav>
     {% endblock %}
 
-    <main class="main-container">
+    <main class="main-container py-3">
       {% block body %}
 
       {% endblock %}
