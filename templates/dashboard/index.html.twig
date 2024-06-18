@@ -4,7 +4,7 @@
 
 {% block body %}
 
-<style>
+{# <style>
     /* Style de la page */
     .example-wrapper {
         margin: 1em auto;
@@ -43,45 +43,50 @@
         color: black; 
     }
     
-</style>
+</style> #}
 
-<div class="container mt-5">
-    {% if app.user %}
-        <h1 class="mb-5">Bienvenue, {{ app.user.firstname }}!</h1>
 
-        <div class="jumbotron">
+
+{# Style du code avec boostrap pour alléger le code du css brut #}
+
+<div class="container mt-5"> {# Utilisation de la classe container avec la variable boostrap mt-5 pour une marge en haut #}
+
+    {% if app.user %} {# Utilisation de la syntaxe twig '{% --- %}' pour vérifier la connexion de l'utilisateur #}
+        <h1 class="mb-5 text-white">Bienvenue, {{ app.user.firstname }}!</h1>
+
+        <div class="jumbotron"> {# jumbotron, composant de boostrap pour créer une section pour attirer l'oeil des utilisateurs #}
             <div class="row">
                 <div class="col-md-4">
-                    <div class="card mb-4">
+                    <div class="card mb-4 text-center bg-secondary text-white"> {# Utilisation de la classe card de boostrap avec plusieurs variables #}
                         <div class="card-body">
-                            <h5 class="card-title">Mes Projets</h5>
+                            <h5 class="card-title text-black">Mes Projets</h5> {# Utilisation de card-title pour les titres et card-text pour les textes des cartes #}
                             <p class="card-text">Gérez vos projets de graphisme ici.</p>
-                            <a href="#" class="btn btn-custom">Voir mes projets</a>
+                            <a href="#" class="btn btn-outline-light">Voir mes projets</a> {# Stylisation des boutons #}
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="card mb-4">
+                    <div class="card mb-4 text-center bg-secondary text-white">
                         <div class="card-body">
-                            <h5 class="card-title">Créer un Nouveau Projet</h5>
+                            <h5 class="card-title text-black">Créer un Nouveau Projet</h5>
                             <p class="card-text">Commencez un nouveau projet de graphisme.</p>
-                            <a href="#" class="btn btn-custom">Créer un projet</a>
+                            <a href="#" class="btn btn-outline-light">Créer un projet</a>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="card mb-4">
+                    <div class="card mb-4 text-center bg-secondary text-white">
                         <div class="card-body">
-                            <h5 class="card-title">Mon Profil</h5>
+                            <h5 class="card-title text-black">Mon Profil</h5>
                             <p class="card-text">Mettez à jour vos informations de profil.</p>
-                            <a href="#" class="btn btn-custom">Modifier le profil</a>
+                            <a href="{{ path('app_profil') }}" class="btn btn-outline-light">Modifier le profil</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     {% else %}
-        <div class="alert alert-danger" role="alert">
+        <div class="alert alert-danger" role="alert"> {# Utilisation du role alert pour prévenir l'utilisateur que s'il veut accéder à cette page il doit être connecté, c'est un système de sécurité #}
             Vous devez être connecté pour accéder à cette page.
         </div>
     {% endif %}
