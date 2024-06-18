@@ -1,18 +1,95 @@
 {% extends 'base.off.html.twig' %}
 
 {% block body %}
+
+
 <style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    /* Style de la page  */
+    .example-wrapper {
+        margin: 1em auto; 
+        max-width: 800px; 
+        width: 95%; 
+        font: 18px/1.5 sans-serif; 
+    }
+    .jumbotron {
+        background-color: rgba(85, 85, 85, 0.95); 
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 15px rgb(110, 236, 240);
+        color: white; 
+        text-align: center;
+    }
+    .jumbotron a.btn {
+        background-color: rgba(255, 255, 255, 0.3); 
+        color: black; 
+        border: 2px solid white; 
+    }
+    .jumbotron a.btn:hover {
+        background-color: white; 
+        color: black; 
+    }
+    .cta-button {
+        text-align: center;
+        margin-top: 2rem;
+    }
+    .card {
+        background-color: rgba(255, 255, 255, 0.3); 
+        color: black; 
+        border: none;
+        margin-bottom: 20px; 
+    }
+    .card-title {
+        font-size: 1.25rem; 
+    }
+    .card-text {
+        font-size: 0.875rem; 
+    }
+    .img_logo_Home {
+        width: 300px; 
+        height: auto; 
+    }
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <div class="jumbotron">   
+            <img class="img_logo_Home" src="{{ asset('images/LogoHome.png') }}" alt="Logo Artefakt" />
+        <p class="lead">Votre partenaire de graphisme pour des projets professionnels réussis.</p>
+        <hr class="my-4">
+        
+        <div clas"
+        <div class="container mt-4">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Design de logo et branding</h5>
+                            <p class="card-text">Créez une identité visuelle unique pour vos clients.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Supports marketing</h5>
+                            <p class="card-text">Brochures, flyers, affiches, cartes de visite – tout ce dont vos clients ont besoin.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Illustrations personnalisées</h5>
+                                <p class="card-text">Des illustrations sur mesure pour vos projets.</p>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/Applications/MAMP/htdocs/Artefakt-old/src/Controller/HomeController.php</code></li>
-        <li>Your template at <code>/Applications/MAMP/htdocs/Artefakt-old/templates/home/index.html.twig</code></li>
-    </ul>
+        <p>Inscrivez-vous dès aujourd'hui et transformez vos idées en œuvres d'art visuel.</p>
+        <a class="btn btn-primary btn-lg" href="/register" role="button">Inscrivez-vous maintenant</a>
+    </div>
 </div>
+
 {% endblock %}
