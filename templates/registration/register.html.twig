@@ -14,14 +14,36 @@
     .form-control::placeholder {
         color: rgb(252, 201, 201);
     }
+
+    .my-swal-popup {
+        background-color: #fff; /* Couleur de fond */
+        border-radius: 10px; /* Coins arrondis */
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Ombre */
+        /* Ajoutez d'autres styles selon vos besoins */
+    }
 </style>
 
-<div class="container mt-2 mb-2">
+<!-- Ajout de SweetAlert -->
+<link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.min.js"></script> 
+
+<div class="container mt-4 mb-2">
     <div class="row justify-content-center">
         <div class="col-12 col-sm-10 col-md-8 col-lg-6">
             <form method="post" class="form-signup" style="padding: 20px; background: rgba(85, 85, 85, 0.8); border-radius: 8px; box-shadow: 0 0 15px white;">
                 {% for flash_success in app.flashes('success') %}
-                    <div class="alert alert-success" role="alert">{{ flash_success }}</div>
+                    <script>
+                        Swal.fire({
+                            title: 'Success',
+                            text: '{{ flash_success }}',
+                            icon: 'success',
+                            confirmButtonText: 'Ok',
+                            customClass: {
+                                popup: 'my-swal-popup'
+                            }
+                        });
+                        
+                    </script>
                 {% endfor %}
 
                 <h1 class="h1 mb-2 font-weight-normal text-center text-light ft_audiowide">Inscription</h1>
