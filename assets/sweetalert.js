@@ -20,6 +20,4 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
-import Swal from 'sweetalert2';
 
-window.Swal = Swal;

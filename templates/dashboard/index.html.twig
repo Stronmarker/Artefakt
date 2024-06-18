@@ -46,39 +46,45 @@
 </style>
 
 <div class="container mt-5">
-    <h1 class="mb-5">Bienvenue sur <img class="img_logo_Home" src="{{ asset('images/logopetit.png') }}" alt="Logo Artefakt" /></h1>
+    {% if app.user %}
+        <h1 class="mb-5">Bienvenue, {{ app.user.firstname }}!</h1>
 
-    <div class="jumbotron">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <h5 class="card-title">Mes Projets</h5>
-                        <p class="card-text">Gérez vos projets de graphisme ici.</p>
-                        <a href="#" class="btn btn-custom">Voir mes projets</a>
+        <div class="jumbotron">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title">Mes Projets</h5>
+                            <p class="card-text">Gérez vos projets de graphisme ici.</p>
+                            <a href="#" class="btn btn-custom">Voir mes projets</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <h5 class="card-title">Créer un Nouveau Projet</h5>
-                        <p class="card-text">Commencez un nouveau projet de graphisme.</p>
-                        <a href="#" class="btn btn-custom">Créer un projet</a>
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title">Créer un Nouveau Projet</h5>
+                            <p class="card-text">Commencez un nouveau projet de graphisme.</p>
+                            <a href="#" class="btn btn-custom">Créer un projet</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <h5 class="card-title">Mon Profil</h5>
-                        <p class="card-text">Mettez à jour vos informations de profil.</p>
-                        <a href="#" class="btn btn-custom">Modifier le profil</a>
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title">Mon Profil</h5>
+                            <p class="card-text">Mettez à jour vos informations de profil.</p>
+                            <a href="#" class="btn btn-custom">Modifier le profil</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    {% else %}
+        <div class="alert alert-danger" role="alert">
+            Vous devez être connecté pour accéder à cette page.
+        </div>
+    {% endif %}
 </div>
 
 {% endblock %}
