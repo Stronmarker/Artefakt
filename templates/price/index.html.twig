@@ -3,65 +3,53 @@
 {% block title %}Tarifs{% endblock %}
 
 {% block body %}
-    <div class="container mt-5">
-        <div class="row text-center">
-            <h1 class="mb-5">Nos Offres</h1>
-        </div>
-        <div class="row">
-            <div class="col-md-4 mb-4">
-                <div class="card h-100 border-danger">
-                    <div class="card-header bg-dark text-light">
-                        <h2>Offre Basique</h2>
-                        <h4>9,99$</h4>
-                    </div>
-                    <div id="bronze" class="card-body">
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">Avantage 1</li>
-                            <li class="list-group-item">Avantage 2</li>
-                            <li class="list-group-item">Avantage 3</li>
-                            
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 mb-4">
-                <div class="card h-100 border-danger" id="silver">
-                    <div class="card-header bg-dark text-light">
-                        <h2>Offre Médium</h2>
-                        <h4>14,99$</h4>
-                    </div>
-                    <div class="card-body">
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">Avantage 1</li>
-                            <li class="list-group-item">Avantage 2</li>
-                            <li class="list-group-item">Avantage 3</li>
-                            
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 mb-4">
-                <div class="card h-100 border-danger" id="silver">
-                    <div class="card-header bg-dark text-light">
-                        <h2>Offre Prémium</h2>
-                        <h4>19,99$</h4>
-                    </div>
-                    <div class="card-body">
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">Avantage 1</li>
-                            <li class="list-group-item">Avantage 2</li>
-                            <li class="list-group-item">Avantage 3</li>
-                            
-                        </ul>
-                    </div>
+<style>
+    .centered-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 80vh; 
+        position: static;
+    }
+    .card-shadow {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1); /* Application d'une effet de relief */
+        border-radius: 20px; 
+        border: 7px solid #000;
+    }
+</style>
+
+<div class="container centered-container mb-4"> 
+    <div class="row justify-content-center align-items-center">
+        <div class="col-md-6 mb-4 d-flex justify-content-center"> 
+            <div class="card card-shadow"> 
+                <div class="card-body text-center">
+                    <h5 class="card-title text-success fw-bold text-center ft_orbitron">Abonnement Gratuit</h5><br>
+                    <h6 class="card-subtitle mb-2 text-dark fw-bold text-center">€0/mois</h6><br>
+                    <ul class="list-unstyled">
+                        <li class="ft_audiowide">Création de 3 projets</li>
+                        <li class="ft_audiowide">Outils limités</li>
+                        <li class="ft_audiowide">Assistance par e-mail</li>
+                        <li class="ft_audiowide">Accès au centre d'aide</li>
+                    </ul>
                 </div>
             </div>
         </div>
-        <div class="row mt-5 text-center">
-            <div class="col-12">
-                <p class="text-light">Vous êtes intéressé ? Rejoignez-nous !</p>
-                <a href="{{ path('app_login') }}" class="btn btn-danger">S'inscrire</a>
+
+        <div class="col-md-6 mb-4 d-flex justify-content-center"> 
+            <div class="card card-shadow"> 
+                <div class="card-body text-center">
+                    <h5 class="card-title text-success fw-bold text-center ft_orbitron">Abonnement Premium</h5><br>
+                    <h6 class="card-subtitle mb-2 text-dark fw-bold text-center">€19.99/mois</h6><br>
+                    <ul class="list-unstyled">
+                        <li class="ft_audiowide">Création de projets illimités</li>
+                        <li class="ft_audiowide">Outils illimités</li>
+                        <li class="ft_audiowide">Assistance par e-mail et téléphone</li>
+                        <li class="ft_audiowide">Accès au centre d'aide</li>
+                    </ul>
+                    <a class="btn btn-success btn-lg text-white" href="subscription" role="button">Inscrivez-vous maintenant</a>
+                </div>
             </div>
         </div>
     </div>
+</div>
 {% endblock %}

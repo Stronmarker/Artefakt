@@ -6,95 +6,37 @@
 
 {# stylisation de certains paramètres du code car pas réussi en boostrap #}
 <style>
-    .pricing-table {
-        margin-top: 50px; 
+    .centered-container {
+        display: flex ;
+        justify-content: center;
+        align-items: center;
+        min-height: 80vh; 
+        
+       
     }
-    .pricing-card {
-        background-color: rgba(248, 245, 245, 0.7); 
-        border: 5px solid #fff; 
-        border-radius: 20px;
-        transition: all 0.3s ease;
+    .card-shadow {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1); /* Application d'une effet de relief */
+        border-radius: 20px; 
+        border: 7px solid #000;
+        position: absolute;
+        
     }
-    
-    .pricing-card .list-group-item {
-        background-color: transparent;
-        border: none;
-    }
+      
 </style>
 
-<div class="container mt-5 mb-5"> 
-    <div class="row pricing-table">
-        <div class="col-md-4">
-            <div class="card mb-4 mt-5 pricing-card"> 
-                <div class="card-body">
-                    <h5 class="card-title text-success fw-bold">Abonnement de Base</h5>
-                    <h6 class="card-subtitle mb-2 text-dark fw-bold">€9.99/mois</h6>
-                    <p class="card-text text-dark fw-bold">Accès de base à nos services.</p>
-                    <a href="#" class="btn btn-success mt-3 fw-bold">Souscrire</a>
-                </div>
-            </div>
+<div class="container centered-container mb-4"> 
+    <div class="card card-shadow"> 
+        <div class="card-body">
+            <h5 class="card-title text-success fw-bold text-center ft_orbitron">Abonnement Premium</h5><br>
+            <h6 class="card-subtitle mb-2 text-dark fw-bold text-center">€19.99/mois</h6><br>
+            <ul>
+                <li class="ft_audiowide">Création de projets illimités</li>
+                <li class="ft_audiowide">Outils illimités</li>
+                <li class="ft_audiowide">Assistance par e-mail et téléphone</li>
+                <li class="ft_audiowide">Accés au centre d'aide</li>
+            </ul>
+            <a href="#" class="btn btn-success mt-3 fw-bold d-block mx-auto ft_fell">Souscrire</a>
         </div>
-        <div class="col-md-4">
-            <div class="card mb-4 mt-5 pricing-card"> 
-                <div class="card-body">
-                    <h5 class="card-title text-success fw-bold">Abonnement Médium</h5>
-                    <h6 class="card-subtitle mb-2 text-dark fw-bold">€14.99/mois</h6>
-                    <p class="card-text text-dark fw-bold">Accès de base plus certaines fonctionnalités.</p>
-                    <a href="#" class="btn btn-success mt-3 fw-bold">Souscrire</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card mb-4 mt-5 pricing-card"> 
-                <div class="card-body">
-                    <h5 class="card-title text-success fw-bold">Abonnement Premium</h5>
-                    <h6 class="card-subtitle mb-2 text-dark fw-bold">€19.99/mois</h6>
-                    <p class="card-text text-dark fw-bold">Accès complet à toutes nos fonctionnalités.</p>
-                    <a href="#" class="btn btn-success mt-3 fw-bold">Souscrire</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="container mb-5"> 
-    <div class="comparison-table">
-        <table class="table table-bordered table-dark">
-            <thead>
-                <tr>
-                
-                    <th scope="col">Base</th>
-                    <th scope="col">Medium</th>
-                    <th scope="col">Premium</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    
-                    <td><i class="text-white">Avantage 1</i></td>
-                    <td><i class="text-white">Avantage 1</i></td>
-                    <td><i class="text-white">Avantage 1</i></td>
-                </tr>
-                <tr>
-                    
-                    <td><i class="text-white"></i>Avantage 2</td>
-                    <td><i class="text-white"></i>Avantage 2</td>
-                    <td><i class="text-white"></i>Avantage 2</td>
-                </tr>
-                <tr>
-                    
-                    <td></td>
-                    <td><i class="text-white"></i>Avantage 3</td>
-                    <td><i class="text-white"></i>Avantage 3</td>
-                </tr>
-                <tr>
-                    
-                    <td></td>
-                    <td></td>
-                    <td><i class="text-white">Avantage 4</i></td>
-                </tr>
-            </tbody>
-        </table>
     </div>
 </div>
 
