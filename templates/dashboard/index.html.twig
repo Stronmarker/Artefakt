@@ -4,7 +4,7 @@
 
 {% block body %}
 
-{# <style>
+{# <style> 
     /* Style de la page */
     .example-wrapper {
         margin: 1em auto;
@@ -59,18 +59,9 @@
                 <div class="col-md-4">
                     <div class="card mb-4 text-center bg-secondary text-white"> {# Utilisation de la classe card de boostrap avec plusieurs variables #}
                         <div class="card-body">
-                            <h5 class="card-title text-black">Mes Projets</h5> {# Utilisation de card-title pour les titres et card-text pour les textes des cartes #}
-                            <p class="card-text">Gérez vos projets de graphisme ici.</p>
-                            <a href="#" class="btn btn-outline-light">Voir mes projets</a> {# Stylisation des boutons #}
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card mb-4 text-center bg-secondary text-white">
-                        <div class="card-body">
-                            <h5 class="card-title text-black">Créer un Nouveau Projet</h5>
-                            <p class="card-text">Commencez un nouveau projet de graphisme.</p>
-                            <a href="#" class="btn btn-outline-light">Créer un projet</a>
+                            <h5 class="card-title text-black">Mon compte</h5> {# Utilisation de card-title pour les titres et card-text pour les textes des cartes #}
+                            <p class="card-text">Mettez à jour vos informations de compte.</p>
+                            <a href="#" class="btn btn-outline-light fw-bold">Modifier le compte</a> {# Stylisation des boutons #}
                         </div>
                     </div>
                 </div>
@@ -79,7 +70,34 @@
                         <div class="card-body">
                             <h5 class="card-title text-black">Mon Profil</h5>
                             <p class="card-text">Mettez à jour vos informations de profil.</p>
-                            <a href="{{ path('app_profil') }}" class="btn btn-outline-light">Modifier le profil</a>
+                            <a href="{{ path('app_profil') }}" class="btn btn-outline-light fw-bold">Modifier le profil</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card mb-4 text-center bg-secondary text-white">
+                        <div class="card-body">
+                            <h5 class="card-title text-black">Mes Factures</h5>
+                            <p class="card-text">Historique de vos factures</p>
+                            <a href="{{ path('app_profil') }}" class="btn btn-outline-light fw-bold">Visualisez vos paiements</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card mb-4 text-center bg-secondary text-white">
+                        <div class="card-body">
+                            <h5 class="card-title text-black">Nouveau Projet</h5>
+                            <p class="card-text">Commencez un nouveau projet de graphisme</p>
+                            <a href="#" class="btn btn-outline-light fw-bold">Création</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card mb-4 text-center bg-secondary text-white">
+                        <div class="card-body">
+                            <h5 class="card-title text-black">Mes Projets</h5>
+                            <p class="card-text">Gérez vos projets de graphisme ici.</p>
+                            <a href="{{ path('app_profil') }}" class="btn btn-outline-light fw-bold">Mes projets</a>
                         </div>
                     </div>
                 </div>
