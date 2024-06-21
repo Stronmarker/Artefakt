@@ -1,23 +1,61 @@
 {% extends 'base.logged.html.twig' %}
 
-{% block title %}Hello ProjectController!{% endblock %}
+{% block title %}Projects{% endblock %}
 
 {% block body %}
 <style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    .project-card {
+        cursor: pointer;
+        transition: transform 0.3s ease;
+    }
+    .project-card:hover {
+        transform: scale(1.05);
+    }
+    .project-card a {
+        text-decoration: none;
+        color: inherit;
+    }
+    .project-card h3 {
+        margin-top: 0;
+    }
+    .create-card {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        font-size: 1.5em;
+        background-color: #f8f9fa;
+        border: 2px dashed #6c757d;
+        height: 100%;
+    }
 </style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+<div class="container mt-4">
+    <h1>Projects</h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/Applications/MAMP/htdocs/Artefakt/src/Controller/ProjectController.php</code></li>
-        <li>Your template at <code>/Applications/MAMP/htdocs/Artefakt/templates/project/index.html.twig</code></li>
-    </ul>
+    <div class="row">
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card project-card create-card">
+                <a href="{{ path('project_create') }}">
+                    <div class="card-body d-flex align-items-center justify-content-center">
+                        <h3 class="card-title">+ Create a new Project</h3>
+                    </div>
+                </a>
+            </div>
+        </div>
+        {% for project in projects %}
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card project-card">
+                    <a href="{{ path('project_show', {id: project.id}) }}">
+                        <div class="card-body text-center">
+                            <h3 class="card-title">{{ project.projectName }}</h3>
+                            <p class="card-text">Created on: {{ project.createdAt|date('Y-m-d H:i:s') }}</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
 </div>
-
-<a href="{{ path('project_create') }}" class="btn btn-primary">Create a new Project</a>
 
 {% endblock %}

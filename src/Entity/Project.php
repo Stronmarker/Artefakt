@@ -3,31 +3,30 @@
 namespace App\Entity;
 
 use App\Repository\ProjectRepository;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 #[ORM\Entity(repositoryClass: ProjectRepository::class)]
 class Project
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $project_name = null;
+    private ?string $projectName = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $creation_date = null;
+    #[Gedmo\Timestampable(on: 'create')]
+    #[ORM\Column(name: 'created_at', type: 'datetime')]
+    private ?\DateTimeInterface $createdAt = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $modification_date = null;
+    #[Gedmo\Timestampable(on: 'update')]
+    #[ORM\Column(name: 'updated_at', type: 'datetime', nullable: true)]
+    private ?\DateTimeInterface $updatedAt = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?Client $client = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $client_name = null;
+    #[ORM\Column(name: 'client_name', length: 255, nullable: true)]
+    private ?string $clientName = null;
 
     public function getId(): ?int
     {
@@ -36,61 +35,48 @@ class Project
 
     public function getProjectName(): ?string
     {
-        return $this->project_name;
+        return $this->projectName;
     }
 
-    public function setProjectName(string $project_name): static
+    public function setProjectName(string $projectName): self
     {
-        $this->project_name = $project_name;
+        $this->projectName = $projectName;
 
         return $this;
     }
 
-    public function getCreationDate(): ?\DateTimeInterface
+    public function getCreatedAt(): ?\DateTimeInterface
     {
-        return $this->creation_date;
+        return $this->createdAt;
     }
 
-    public function setCreationDate(\DateTimeInterface $creation_date): static
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
-        $this->creation_date = $creation_date;
+        $this->createdAt = $createdAt;
 
         return $this;
     }
 
-    public function getModificationDate(): ?\DateTimeInterface
+    public function getUpdatedAt(): ?\DateTimeInterface
     {
-        return $this->modification_date;
+        return $this->updatedAt;
     }
 
-    public function setModificationDate(\DateTimeInterface $modification_date): static
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
-        $this->modification_date = $modification_date;
-
-        return $this;
-    }
-
-    public function getClient(): ?Client
-    {
-        return $this->client;
-    }
-
-    public function setClient(?Client $client): static
-    {
-        $this->client = $client;
-        $this->client_name = $client ? $client->getName() : null;
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }
 
     public function getClientName(): ?string
     {
-        return $this->client_name;
+        return $this->clientName;
     }
 
-    public function setClientName(string $client_name): static
+    public function setClientName(?string $clientName): self
     {
-        $this->client_name = $client_name;
+        $this->clientName = $clientName;
 
         return $this;
     }

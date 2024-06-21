@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use App\Repository\ClientRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ClientRepository::class)]
@@ -10,40 +9,40 @@ class Client
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $name = null;
+    #[ORM\Column(type: 'string', length: 255)]
+    private ?string $clientName = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $email = null;
+    #[ORM\Column(type: 'string', length: 255)]
+    private ?string $clientEmail = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getClientName(): ?string
     {
-        return $this->name;
+        return $this->clientName;
     }
 
-    public function setName(string $name): static
+    public function setClientName(string $clientName): self
     {
-        $this->name = $name;
+        $this->clientName = $clientName;
 
         return $this;
     }
 
-    public function getEmail(): ?string
+    public function getClientEmail(): ?string
     {
-        return $this->email;
+        return $this->clientEmail;
     }
 
-    public function setEmail(string $email): static
+    public function setClientEmail(string $clientEmail): self
     {
-        $this->email = $email;
+        $this->clientEmail = $clientEmail;
 
         return $this;
     }

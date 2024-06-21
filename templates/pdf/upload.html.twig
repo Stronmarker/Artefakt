@@ -5,14 +5,9 @@
 {% block body %}
 <h1>Upload PDF</h1>
 
-<form action="{{ path('upload_pdf') }}" method="post" enctype="multipart/form-data">
-    <input type="file" name="file" id="file" required>
-    <label for="dimensions">Choisissez les dimensions :</label>
-    <select name="dimensions" id="dimensions" required>
-        <option value="84x55">84 mm x 55 mm</option>
-        <option value="148x148">148 mm x 148 mm</option>
-        <option value="105x148">105 mm x 148 mm</option>
-    </select>
-    <input type="submit" value="Upload">
-</form>
+{{ form_start(form) }}
+    {{ form_row(form.file) }}
+    {{ form_row(form.dimensions) }}
+    <button type="submit">Upload</button>
+{{ form_end(form) }}
 {% endblock %}

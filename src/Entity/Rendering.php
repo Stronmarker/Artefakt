@@ -14,16 +14,16 @@ class Rendering
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $front_png = null;
+    private ?string $frontPng = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $toward_png = null;
+    private ?string $towardPng = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $gilding_svg = null;
+    private ?string $gildingSvg = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $toward_svg = null;
+    private ?string $laminationSvg = null;
 
     #[ORM\Column(length: 255)]
     private ?string $link = null;
@@ -35,48 +35,48 @@ class Rendering
 
     public function getFrontPng(): ?string
     {
-        return $this->front_png;
+        return $this->frontPng;
     }
 
-    public function setFrontPng(string $front_png): static
+    public function setFrontPng(string $frontPng): static
     {
-        $this->front_png = $front_png;
+        $this->frontPng = $frontPng;
 
         return $this;
     }
 
     public function getTowardPng(): ?string
     {
-        return $this->toward_png;
+        return $this->towardPng;
     }
 
-    public function setTowardPng(string $toward_png): static
+    public function setTowardPng(string $towardPng): static
     {
-        $this->toward_png = $toward_png;
+        $this->towardPng = $towardPng;
 
         return $this;
     }
 
     public function getGildingSvg(): ?string
     {
-        return $this->gilding_svg;
+        return $this->gildingSvg;
     }
 
-    public function setGildingSvg(?string $gilding_svg): static
+    public function setGildingSvg(?string $gildingSvg): static
     {
-        $this->gilding_svg = $gilding_svg;
+        $this->gildingSvg = $gildingSvg;
 
         return $this;
     }
 
     public function getTowardSvg(): ?string
     {
-        return $this->toward_svg;
+        return $this->laminationSvg;
     }
 
-    public function setTowardSvg(?string $toward_svg): static
+    public function setTowardSvg(?string $laminationSvg): static
     {
-        $this->toward_svg = $toward_svg;
+        $this->laminationSvg = $laminationSvg;
 
         return $this;
     }

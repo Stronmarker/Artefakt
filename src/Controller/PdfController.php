@@ -5,12 +5,12 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Mime\Part\DataPart;
 use Symfony\Component\Mime\Part\Multipart\FormDataPart;
+use App\Form\UploadPdfFormType;
 
 class PdfController extends AbstractController
 {
@@ -26,18 +26,15 @@ class PdfController extends AbstractController
     #[Route('/upload-pdf', name: 'upload_pdf')]
     public function uploadPdf(Request $request): Response
     {
-        if ($request->isMethod('POST')) {
+        $form = $this->createForm(UploadPdfFormType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
             $this->logger->info('POST request received');
 
-            // Log all the request details
-            $this->logger->info('Request details', [
-                'request' => $request->request->all(),
-                'files' => $request->files->all()
-            ]);
-
-            /** @var UploadedFile $file */
-            $file = $request->files->get('file');
-            $dimensions = $request->request->get('dimensions');
+            $data = $form->getData();
+            $file = $data['file'];
+            $dimensions = $data['dimensions'];
 
             if (!$file) {
                 $this->logger->error('No file received in the request');
@@ -45,7 +42,7 @@ class PdfController extends AbstractController
             }
 
             $this->logger->info('Received a request', [
-                'file' => $file ? $file->getClientOriginalName() : 'No file received',
+                'file' => $file->getClientOriginalName(),
                 'dimensions' => $dimensions
             ]);
 
@@ -102,7 +99,9 @@ class PdfController extends AbstractController
             }
         }
 
-        return $this->render('pdf/upload.html.twig');
+        return $this->render('pdf/upload.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 
     #[Route('/display-pngs', name: 'display_pngs')]

@@ -3,9 +3,8 @@
 {% block title %}Project Details{% endblock %}
 
 {% block body %}
-    <h1>{{ project.project_name }}</h1>
-    <p>Client: {{ project.client.client_name }}</p>
-    <p>Client Email: {{ project.client.client_email }}</p>
-    <p>Creation Date: {{ project.creation_date|date('Y-m-d') }}</p>
-    <p>Modification Date: {{ project.modification_date|date('Y-m-d') }}</p>
+    <h1>{{ project.projectName }}</h1>
+    <p>Client: {{ project.clientName }}</p>
+    <p>Creation Date: {{ project.createdAt|date('Y-m-d H:i:s') }}</p>
+    <p>Modification Date: {{ project.updatedAt|date('Y-m-d H:i:s') }}</p>
 {% endblock %}

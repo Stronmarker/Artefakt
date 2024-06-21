@@ -4,8 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Client;
 use App\Entity\Project;
+use App\Form\ProjectClientType;
 use Doctrine\ORM\EntityManagerInterface;
-use App\Form\ProjectClientType; //Oublies pas ça, il faut importer le form dans le controller 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,10 +14,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProjectController extends AbstractController
 {
     #[Route('/project', name: 'app_project')]
-    public function index(): Response
+    public function index(EntityManagerInterface $entityManager): Response
     {
+        $projects = $entityManager->getRepository(Project::class)->findAll();
+
         return $this->render('project/index.html.twig', [
-            'controller_name' => 'ProjectController',
+            'projects' => $projects,
         ]);
     }
 
@@ -31,15 +33,17 @@ class ProjectController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $client = new Client();
-            $client->setClientName($form->get('client_name')->getData());
-            $client->setClientEmail($form->get('client_email')->getData());
+            $client->setClientName($form->get('clientName')->getData());
+            $client->setClientEmail($form->get('clientEmail')->getData());
 
             $entityManager->persist($client);
             $entityManager->flush();
 
-            $project->setClient($client);
-            $project->setCreationDate(new \DateTime());
-            $project->setModificationDate(new \DateTime());
+            $project->setClientName($client->getClientName());
+
+            if (null === $project->getCreatedAt()) {
+                $project->setCreatedAt(new \DateTime());
+            }
 
             $entityManager->persist($project);
             $entityManager->flush();
@@ -59,5 +63,4 @@ class ProjectController extends AbstractController
             'project' => $project,
         ]);
     }
-
 }
