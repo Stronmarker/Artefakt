@@ -1,67 +1,74 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>
-            {% block title %}Welcome!{% endblock %}
-        </title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
-    </head>
-    <body>
-        {% block header %}
-            <nav class="navbar navbar-expand-lg bg-dark">
-                <div class="container-fluid">
-                    <a class="navbar-brand" href="{{ path('app_dashboard') }}"><img class="img_logo" src="{{ asset('images/logopetit.png') }}" alt="Logo Artefakt" /></a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav ms-auto">
-                            <li class="nav-item">
-                                <a class="nav-link text-light ft_orbitron" href="{{ path('app_project') }}">Projet</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-light ft_orbitron" href="{{ path('app_rendering') }}">Rendu</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-light ft_orbitron" href="{{ path('app_subscription') }}">Abonnement</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-light ft_orbitron" href="{{ path('app_help') }}">FAQ</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-light ft_orbitron" href="{{ path('app_logout') }}">Déconnexion</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-        {% endblock %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+        {% block title %}Welcome!{% endblock %}
+    </title>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+    {% block stylesheets %}
+    {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+    {% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
+    {% endblock %}
+</head>
+<body>
+    {% block header %}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{{ path('app_dashboard') }}">
+                <img class="img_logo" src="{{ asset('images/logopetit.png') }}" alt="Logo Artefakt" />
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link ft_orbitron" href="{{ path('app_project') }}">Projet</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link ft_orbitron" href="{{ path('app_rendering') }}">Rendu</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link ft_orbitron" href="{{ path('app_subscription') }}">Offre Premium</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link ft_orbitron" href="{{ path('app_help') }}">FAQ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link ft_orbitron" href="{{ path('app_logout') }}">Déconnexion</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+{% endblock %}
 
-                <main class="main-container py-3">
-            {% block body %}
+    <main class="main-container py-3">
+        {% block body %}
 
 
         {% endblock %}
 
         {% block footer %}
-        <footer class="bg-dark text-light mt-auto py-3 ">
-            <div class="container d-flex flex-column justify-content-center">
+        <footer class="bg-dark text-light py-3 fixed-bottom w-100">
+            <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-6">
-                    <p>© {{ "now"|date("Y") }} Agarta Tous droits réservés.</p>
+                        <p class="mb-0">© {{ "now"|date("Y") }} Agarta Tous droits réservés.</p>
                     </div>
                     <div class="col-md-6 text-md-right">
-                        <a href="{{ path('app_cgu') }}" class="text-light">Conditions Générales d'Utilisation</a>
+                        <a href="{{ path('app_cgu') }}" style="color: #dc3545; transition: color 0.3s;">Conditions Générales d'Utilisation</a>
                     </div>
                 </div>
             </div>
         </footer>
         {% endblock %}
-    </body>
+</body>
+
 </html>

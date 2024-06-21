@@ -1,6 +1,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Orbitron:wght@400..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&family=Wallpoet&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');
 
 html, body {
     height: 100%;
@@ -37,6 +38,7 @@ body {
 
 .ft_fell {
     font-family: 'IM Fell English SC', sans-serif;
+    font-size: 18px;
 }
 
 .ft_wallpoet {
@@ -53,3 +55,22 @@ body {
 .list-group-item-transparent {
     background-color: transparent !important;
 }
+
+/* .comparison-table {
+    margin-top: 50px;
+}
+
+.comparison-table th, .comparison-table td {
+    text-align: center;
+    vertical-align: middle;
+    border: none;
+}
+
+.comparison-table td {
+    background-color: transparent;
+}
+
+.comparison-table i {
+    color: #28a745; 
+} */
+
