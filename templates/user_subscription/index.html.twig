@@ -3,6 +3,7 @@
 {% block title %}Mon Abonnement{% endblock %}
 
 {% block body %}
+
 {% set subscription = {
     'type': 'Premium',
     'price': '19.99€/mois',
@@ -15,22 +16,66 @@
     'status': 'Active'
 } %}
 
+<style>
+    /* Centrer le contenu verticalement */
+    .centered-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 80vh; /* Hauteur minimale de 80% de la vue */
+    }
+    
+    /* Conteneur de la carte avec styles */
+    .card-container {
+        width: 100%;
+        max-width: 600px; /* Largeur maximale de la carte */
+        padding: 20px 30px; /* Espacement intérieur */
+        margin-top: 20px; /* Marge supérieure */
+        border: 7px solid #000; /* Bordure épaisse noire */
+        border-radius: 20px; /* Coins arrondis */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1), 0 0 15px white; /* Effet de relief plus ombre */
+    }
+    
+    /* Style du titre centré */
+    .centered-title {
+        margin-bottom: 60px; /* Marge inférieure importante pour le titre */
+    }
+    
+    /* Style du titre de la carte */
+    .card-title {
+        margin-bottom: 30px; /* Marge inférieure du titre de la carte */
+    }
+</style>
 
-
-<div class="container">
-    <h1 class="text-center text-white">Mon Abonnement</h1>
-    <div class="card mt-3">
+<div class="container centered-container mb-4">
+    <!-- Titre principal centré -->
+    <h1 class="text-center text-white centered-title">Mon Abonnement</h1>
+    
+    <!-- Conteneur de la carte d'abonnement -->
+    <div class="card card-container">
         <div class="card-body">
+            <!-- Type d'abonnement avec style et données dynamiques -->
             <h5 class="card-title text-success fw-bold text-center ft_orbitron">Type d'abonnement : {{ subscription.type }}</h5>
-            <p class="card-subtitle mb-2 text-dark fw-bold">Prix : {{ subscription.price }}</p>
-            <p class="card-subtitle mb-2 text-dark fw-bold">Statut : {{ subscription.status }}</p>
-            <ul>
+            
+            <!-- Prix de l'abonnement avec style et données dynamiques -->
+            <p class="card-subtitle mb-2 text-dark fw-bold ft_audiowide">Prix : {{ subscription.price }}</p>
+            
+            <!-- Statut de l'abonnement avec style et données dynamiques -->
+            <p class="card-subtitle mb-2 text-dark fw-bold ft_audiowide">Statut : {{ subscription.status }}</p>
+            
+            <!-- Liste des fonctionnalités de l'abonnement qui se trouve dans set subscription qui se trouve en haut de page  -->
+            <ul class="list-unstyled text-start">
                 {% for feature in subscription.features %}
-                    <li>{{ feature }}</li>
+                    <li class="fw-bold ft_audiowide">{{ feature }}</li>
                 {% endfor %}
             </ul>
-            <a href="#" class="btn btn-success mt-3 fw-bold ft_fell">Changer d'offre</a>
-            <a href="#" class="btn btn-danger mt-3 fw-bold ft_fell">Résilier l'abonnement</a>
+            
+            <!-- Boutons d'action centrés -->
+            <div class="d-flex justify-content-around mt-4">
+                <a href="#" class="btn btn-success fw-bold ft_fell">Changer mon R.I.B</a>
+                <a href="#" class="btn btn-danger fw-bold ft_fell">Résilier l'abonnement</a>
+            </div>
         </div>
     </div>
 </div>

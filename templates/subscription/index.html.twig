@@ -4,40 +4,62 @@
 
 {% block body %}
 
-{# stylisation de certains paramètres du code car pas réussi en boostrap #}
+{# <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.min.js"></script> #}
+
+
 <style>
     .centered-container {
-        display: flex ;
+        display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
         min-height: 80vh; 
-        
-       
     }
     .card-shadow {
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1); /* Application d'une effet de relief */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1), 0 0 15px white; /* Effet de relief plus ombre */
         border-radius: 20px; 
-        border: 7px solid #000;
-        position: absolute;
-        
+        border: 7px solid #000; /* Taille de la bordure */
+        width: 100%;
+        max-width: 600px;
+        padding: 20px;
     }
-      
+    .centered-title {
+        margin-bottom: 20px; /* Ajustement de la marge pour une meilleure visibilité */
+    }
+    .card-title {
+        margin-bottom: 10px; 
+    }
 </style>
 
-<div class="container centered-container mb-4"> 
+<div class="container centered-container mb-4">
+    <h1 class="text-center text-white centered-title">Notre Offre Premium</h1> 
     <div class="card card-shadow"> 
         <div class="card-body">
-            <h5 class="card-title text-success fw-bold text-center ft_orbitron">Abonnement Premium</h5><br>
-            <h6 class="card-subtitle mb-2 text-dark fw-bold text-center">€19.99/mois</h6><br>
-            <ul>
+            <h5 class="card-title text-success fw-bold text-center ft_orbitron">Abonnement Premium</h5>
+            <h6 class="card-subtitle mb-2 text-dark fw-bold text-center ft_audiowide">€19.99/mois</h6>
+            <ul class="list-unstyled">
                 <li class="ft_audiowide">Création de projets illimités</li>
                 <li class="ft_audiowide">Outils illimités</li>
                 <li class="ft_audiowide">Assistance par e-mail et téléphone</li>
-                <li class="ft_audiowide">Accés au centre d'aide</li>
+                <li class="ft_audiowide">Accès au centre d'aide</li>
             </ul>
-            <a href="#" class="btn btn-success mt-3 fw-bold d-block mx-auto ft_fell">Souscrire</a>
+            <a href="{{ path('app_dashboard') }}" class="btn btn-success mt-3 fw-bold d-block mx-auto ft_fell">Souscrire</a>
         </div>
     </div>
 </div>
+
+{# {% for flash_success in app.flashes('success') %}
+    <div class="subscription-success-alert"></div>
+    <script>
+        Swal.fire({
+            title: 'Succès',
+            text: '{{ flash_success }}',
+            icon: 'success',
+            confirmButtonText: 'Ok',
+            confirmButtonColor: '#4caf50'
+        });
+    </script>
+{% endfor %} #}
 
 {% endblock %}

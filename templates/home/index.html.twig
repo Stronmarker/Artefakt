@@ -2,93 +2,103 @@
 
 {% block body %}
 
-
 <style>
-    /* Style de la page  */
-    .example-wrapper {
-        margin: 1em auto; 
-        max-width: 800px; 
-        width: 95%; 
-        font: 18px/1.5 sans-serif; 
-    }
-    .jumbotron {
-        background-color: rgba(32, 32, 32, 0.95); 
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 0 15px rgb(110, 236, 240);
-        color: white; 
-        text-align: center;
-    }
-    .jumbotron a.btn {
-        background-color: rgba(255, 255, 255, 0.3); 
-        color: black; 
-        border: 2px solid white; 
-    }
-    .jumbotron a.btn:hover {
-        background-color: white; 
-        color: black; 
-    }
-    .cta-button {
-        text-align: center;
-        margin-top: 2rem;
-    }
-    .card {
-        background-color: rgba(255, 255, 255, 0.3); 
-        color: black; 
-        border: none;
-        margin-bottom: 20px; 
-    }
-    .card-title {
-        font-size: 1.25rem; 
-    }
-    .card-text {
-        font-size: 0.875rem; 
-    }
+    /* Style de l'image du logo */
     .img_logo_Home {
-        width: 300px; 
-        height: auto; 
+        width: 300px; /* Largeur fixe de l'image */
+        height: auto; /* Hauteur automatique pour garder les proportions */
+        margin-bottom: 20px; /* Marge en bas de l'image */
+        position: relative; /* Position relative pour gérer le filtre */
+        filter: invert(1); /* Inversion des couleurs de l'image (noir et blanc) */
+    }
+    
+    /* Style du jumbotron personnalisé */
+    .jumbotron-custom {
+        background-color: rgb(255, 255, 255); /* Fond blanc */
+        padding: 20px; /* Espacement intérieur */
+        border-radius: 20px; /* Coins arrondis du conteneur */
+        box-shadow: 0 0 20px rgb(3, 3, 3); /* Ombre légère */
+        color: white; /* Couleur du texte */
+        border: 7px solid black; /* Bordure épaisse noire */
+    }
+    
+    /* Style des liens dans le jumbotron */
+    .jumbotron-custom a.btn {
+        background-color: rgb(255, 255, 255); /* Fond blanc pour les boutons */
+        color: #00561b; /* Couleur du texte des boutons */
+        border: 5px solid black; /* Bordure épaisse noire pour les boutons */
+    }
+   
+    /* Style des cartes */
+    .card-custom {
+        background-color: rgb(181, 174, 174); /* Fond gris clair */
+        color: black; /* Couleur du texte */
+        border: 5px solid black; /* Bordure épaisse noire */
+        border-radius: 15px; /* Coins arrondis des cartes */
+    }
+    
+    /* Style du conteneur principal */
+    .section-container {
+        min-height: calc(100vh - 150px); /* Hauteur minimale de la section (soustrait la hauteur du header estimée) */
+        display: flex; /* Utilisation de flexbox pour centrer le contenu verticalement */
+        justify-content: center; /* Centrage horizontal */
+        align-items: center; /* Centrage vertical */
     }
 </style>
 
-<div class="example-wrapper">
-    <div class="jumbotron">   
-            <img class="img_logo_Home" src="{{ asset('images/LogoHome.png') }}" alt="Logo Artefakt" />
-        <p class="lead">Votre partenaire de graphisme pour des projets professionnels réussis.</p>
-        <hr class="my-4">
-        
-        <div clas"
-        <div class="container mt-4">
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Design de logo et branding</h5>
-                            <p class="card-text">Créez une identité visuelle unique pour vos clients.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Supports marketing</h5>
-                            <p class="card-text">Brochures, flyers, affiches, cartes de visite – tout ce dont vos clients ont besoin.</p>
-                        </div>
-                    </div>
-                </div>
+<div class="container">
+    <div class="section-container">
+        <div class="jumbotron jumbotron-custom text-center">
+            <!-- Logo Artefakt en noir et blanc -->
+            <img class="img_logo_Home mx-auto d-block" src="{{ asset('images/LogoHome.png') }}" alt="Logo Artefakt" />
+            
+            <!-- Texte descriptif principal -->
+            <p class="text-black fw-bold ft_orbitron">Votre partenaire de graphisme pour des projets professionnels réussis.</p>
+            
+            <!-- Ligne de séparation -->
+            <hr class="my-4">
+            
+            <!-- Section des services -->
+            <div class="container mt-4">
                 <div class="row">
-                    <div class="col-md-6">
-                        <div class="card">
+                    <!-- Première carte : Design de logo et branding -->
+                    <div class="col-md-4 mb-4">
+                        <div class="card card-custom">
                             <div class="card-body">
-                                <h5 class="card-title">Illustrations personnalisées</h5>
-                                <p class="card-text">Des illustrations sur mesure pour vos projets.</p>
+                                <h5 class="card-title text-success fw-bold text-center ft_orbitron">Design de logo et branding</h5>
+                                <p class="card-text fw-bold ft_audiowide">Créez une identité visuelle unique pour vos clients.</p>
                             </div>
                         </div>
                     </div>
+                    
+                    <!-- Deuxième carte : Supports marketing -->
+                    <div class="col-md-4 mb-4">
+                        <div class="card card-custom">
+                            <div class="card-body">
+                                <h5 class="card-title text-success fw-bold text-center ft_orbitron">Supports marketing</h5>
+                                <p class="card-text fw-bold ft_audiowide">Brochures, flyers, affiches, cartes de visite – tout ce dont vos clients ont besoin.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Troisième carte : Illustrations personnalisées -->
+                    <div class="col-md-4 mb-4">
+                        <div class="card card-custom">
+                            <div class="card-body">
+                                <h5 class="card-title text-success fw-bold text-center ft_orbitron">Illustrations personnalisées</h5>
+                                <p class="card-text fw-bold ft_audiowide">Des illustrations sur mesure pour vos projets.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
 
-        <p>Inscrivez-vous dès aujourd'hui et transformez vos idées en œuvres d'art visuel.</p>
-        <a class="btn btn-primary btn-lg text-white" href="/register" role="button">Inscrivez-vous maintenant</a>
+            <!-- Texte d'incitation à l'action -->
+            <p class="text-black fw-bold ft_orbitron">Inscrivez-vous dès aujourd'hui et transformez vos idées en œuvres d'art visuel.</p>
+            
+            <!-- Bouton d'appel à l'action -->
+            <a class="btn btn-lg" href="/register" role="button">Inscrivez-vous maintenant</a>
+        </div>
     </div>
 </div>
 
