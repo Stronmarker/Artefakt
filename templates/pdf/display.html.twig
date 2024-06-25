@@ -1,0 +1,17 @@
+{% extends 'base.logged.html.twig' %}
+
+{% block title %}PDF to PNG Conversion{% endblock %}
+
+{% block body %}
+<h1>Converted PNG Images</h1>
+
+{% if png_urls %}
+    {% for url in png_urls %}
+        <div>
+            <img src="{{ url }}" alt="Converted PNG">
+        </div>
+    {% endfor %}
+{% else %}
+    <p>No images to display.</p>
+{% endif %}
+{% endblock %}

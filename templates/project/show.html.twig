@@ -1,0 +1,10 @@
+{% extends 'base.logged.html.twig' %}
+
+{% block title %}Project Details{% endblock %}
+
+{% block body %}
+    <h1>{{ project.projectName }}</h1>
+    <p>Client: {{ project.clientName }}</p>
+    <p>Creation Date: {{ project.createdAt|date('Y-m-d H:i:s') }}</p>
+    <p>Modification Date: {{ project.updatedAt|date('Y-m-d H:i:s') }}</p>
+{% endblock %}

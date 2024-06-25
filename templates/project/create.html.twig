@@ -1,0 +1,12 @@
+{% extends 'base.logged.html.twig' %}
+
+{% block title %}Create Project{% endblock %}
+
+{% block body %}
+    <h1>Create Project</h1>
+    
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button class="btn">Create Project</button>
+    {{ form_end(form) }}
+{% endblock %}
