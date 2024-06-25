@@ -42,6 +42,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private bool $isVerified = false;
 
+    #[ORM\Column(type: 'boolean')]
+    private bool $isSubscribed = false;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -149,6 +152,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setVerified(bool $isVerified): static
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    public function isSubscribed(): bool 
+    {
+        return $this->isSubscribed;
+    }
+
+    public function setSubscribed(bool $isSubscribed): static
+    {
+        $this->isSubscribed = $isSubscribed;
 
         return $this;
     }
