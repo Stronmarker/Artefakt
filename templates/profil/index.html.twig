@@ -28,7 +28,7 @@
                             {{ form_widget(form.email, {'attr': {'class': 'form-control', 'style': 'background: transparent; border: 2px solid green; color: dark;'}}) }}
                         </div>
                         <div class="text-center">
-                            <button id="submit-button" class="btn btn-success btn-block fw-bold ft_fell" type="button" style="border: 2px solid green; display: block; margin: 20px auto; width: 80%; max-width: 300px; padding: 10px 0; font-size: 16px;">Enregistrer</button>
+                            <button id="submit-button" class="btn btn-success btn-block fw-bold ft_wallpoet" type="button" style="border: 2px solid green; display: block; margin: 20px auto; width: 80%; max-width: 300px; padding: 10px 0; font-size: 16px;">Enregistrer</button>
                         </div>
                     {{ form_end(form) }}
                 </div>
@@ -64,17 +64,20 @@
 
             // Préparer les messages flash dans une variable JS
             const flashMessages = {{ app.flashes|json_encode|raw }};
+            console.log(flashMessages);  // Debugging line to check the structure of flashMessages
 
-            // Afficher les messages flash avec SweetAlert
-            for (const [type, messages] of Object.entries(flashMessages)) {
-                messages.forEach((message) => {
-                    Swal.fire({
-                        title: type.charAt(0).toUpperCase() + type.slice(1),
-                        text: message,
-                        icon: type,
-                        confirmButtonText: 'OK'
+            // Vérifier et afficher les messages flash avec SweetAlert
+            if (flashMessages) {
+                for (const [type, messages] of Object.entries(flashMessages)) {
+                    messages.forEach((message) => {
+                        Swal.fire({
+                            title: type.charAt(0).toUpperCase() + type.slice(1),
+                            text: message,
+                            icon: type,
+                            confirmButtonText: 'OK'
+                        });
                     });
-                });
+                }
             }
         });
     </script>

@@ -6,14 +6,14 @@
 
 {% set subscription = {
     'type': 'Premium',
-    'price': '19.99€/mois',
+    'price': '€19.99/mois',
     'features': [
         'Création de projets illimités',
         'Outils illimités',
         'Assistance par e-mail et téléphone',
         'Accès au centre d\'aide'
     ],
-    'status': 'Active'
+    'status': 'Actif'
 } %}
 
 <style>
@@ -24,6 +24,7 @@
         justify-content: center;
         align-items: center;
         min-height: 80vh; /* Hauteur minimale de 80% de la vue */
+        
     }
     
     /* Conteneur de la carte avec styles */
@@ -54,7 +55,7 @@
     
     <!-- Conteneur de la carte d'abonnement -->
     <div class="card card-container">
-        <div class="card-body">
+        <div class="card-body text-center">
             <!-- Type d'abonnement avec style et données dynamiques -->
             <h5 class="card-title text-success fw-bold text-center ft_orbitron">Type d'abonnement : {{ subscription.type }}</h5>
             
@@ -65,7 +66,7 @@
             <p class="card-subtitle mb-2 text-dark fw-bold ft_audiowide">Statut : {{ subscription.status }}</p>
             
             <!-- Liste des fonctionnalités de l'abonnement qui se trouve dans set subscription qui se trouve en haut de page  -->
-            <ul class="list-unstyled text-start">
+            <ul class="list-unstyled text-start text-center">
                 {% for feature in subscription.features %}
                     <li class="fw-bold ft_audiowide">{{ feature }}</li>
                 {% endfor %}
@@ -73,8 +74,8 @@
             
             <!-- Boutons d'action centrés -->
             <div class="d-flex justify-content-around mt-4">
-                <a href="#" class="btn btn-success fw-bold ft_fell">Changer mon R.I.B</a>
-                <a href="#" class="btn btn-danger fw-bold ft_fell">Résilier l'abonnement</a>
+                <a href="#" class="btn btn-success fw-bold ft_wallpoet">Changer mon R.I.B</a>
+                <a href="#" class="btn btn-danger fw-bold ft_wallpoet">Résilier l'abonnement</a>
             </div>
         </div>
     </div>

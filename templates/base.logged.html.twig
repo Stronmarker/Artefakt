@@ -49,21 +49,21 @@
     </nav>
 {% endblock %}
 
-    <main class="main-container py-3">
+    <main class="main-container">
         {% block body %}
 
 
         {% endblock %}
 
         {% block footer %}
-        <footer class="bg-dark text-light py-3 fixed-bottom w-100">
+        <footer class="bg-dark text-light p-3 w-100 sticky-bottom">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-6">
                         <p class="mb-0">© {{ "now"|date("Y") }} Agarta Tous droits réservés.</p>
                     </div>
                     <div class="col-md-6 text-md-right">
-                        <a href="{{ path('app_cgu') }}" style="color: #dc3545; transition: color 0.3s;">Conditions Générales d'Utilisation</a>
+                        <a href="{{ path('app_cgu') }}" style="color: #dc3545; transition: color 0.3s">Conditions Générales d'Utilisation</a>
                     </div>
                 </div>
             </div>
