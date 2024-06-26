@@ -11,7 +11,7 @@
                     <h1 class="text-center text-dark mb-4 ft_orbitron">Mon Profil</h1>
 
                     {% if app.user %}
-                        <p class="text-center text-dark mb-4">Bienvenue, {{ app.user.email }}!</p>
+                        <p class="text-center text-dark mb-4 fw-bold ft_audiowide">Bienvenue, {{ app.user.firstname }}</p>
                     {% endif %}
 
                     {{ form_start(form, {'attr': {'id': 'profil-form', 'class': 'form-horizontal'}}) }}
@@ -41,26 +41,41 @@
 {% block javascripts %}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
-<script>
-    document.addEventListener('DOMContentLoaded', (event) => {
-        const form = document.getElementById('profil-form'); 
-        const submitButton = document.getElementById('submit-button');
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const form = document.getElementById('profil-form'); 
+            const submitButton = document.getElementById('submit-button');
 
-        submitButton.addEventListener('click', function() {
-            Swal.fire({
-                title: 'Êtes-vous sûr?',
-                text: "Vous êtes sur le point d'enregistrer les modifications.",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Oui, enregistrer!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    form.submit();
-                }
+            submitButton.addEventListener('click', function() {
+                Swal.fire({
+                    title: 'Êtes-vous sûr?',
+                    text: "Vous êtes sur le point d'enregistrer les modifications.",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Oui, enregistrer!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+                });
             });
+
+            // Préparer les messages flash dans une variable JS
+            const flashMessages = {{ app.flashes|json_encode|raw }};
+
+            // Afficher les messages flash avec SweetAlert
+            for (const [type, messages] of Object.entries(flashMessages)) {
+                messages.forEach((message) => {
+                    Swal.fire({
+                        title: type.charAt(0).toUpperCase() + type.slice(1),
+                        text: message,
+                        icon: type,
+                        confirmButtonText: 'OK'
+                    });
+                });
+            }
         });
-    });
-</script>
+    </script>
 {% endblock %}
