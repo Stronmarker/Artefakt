@@ -4,17 +4,7 @@
 
 {% block body %}
 
-{% set subscription = {
-    'type': 'Premium',
-    'price': '€19.99/mois',
-    'features': [
-        'Création de projets illimités',
-        'Outils illimités',
-        'Assistance par e-mail et téléphone',
-        'Accès au centre d\'aide'
-    ],
-    'status': 'Actif'
-} %}
+{% set subscription = abonnement %}
 
 <style>
     /* Centrer le contenu verticalement */
@@ -24,7 +14,6 @@
         justify-content: center;
         align-items: center;
         min-height: 80vh; /* Hauteur minimale de 80% de la vue */
-        
     }
     
     /* Conteneur de la carte avec styles */
@@ -65,18 +54,20 @@
             <!-- Statut de l'abonnement avec style et données dynamiques -->
             <p class="card-subtitle mb-2 text-dark fw-bold ft_audiowide">Statut : {{ subscription.status }}</p>
             
-            <!-- Liste des fonctionnalités de l'abonnement qui se trouve dans set subscription qui se trouve en haut de page  -->
+            <!-- Liste des fonctionnalités de l'abonnement -->
             <ul class="list-unstyled text-start text-center">
                 {% for feature in subscription.features %}
                     <li class="fw-bold ft_audiowide">{{ feature }}</li>
                 {% endfor %}
             </ul>
             
-            <!-- Boutons d'action centrés -->
-            <div class="d-flex justify-content-around mt-4">
-                <a href="#" class="btn btn-success fw-bold ft_wallpoet">Changer mon R.I.B</a>
-                <a href="#" class="btn btn-danger fw-bold ft_wallpoet">Résilier l'abonnement</a>
-            </div>
+            {% if utilisateur_est_abonne %}
+                <!-- Boutons d'action centrés pour les abonnés -->
+                <div class="d-flex justify-content-around mt-4">
+                    <a href="#" class="btn btn-success fw-bold ft_wallpoet">Changer mon R.I.B</a>
+                    <a href="#" class="btn btn-danger fw-bold ft_wallpoet">Résilier l'abonnement</a>
+                </div>
+            {% endif %}
         </div>
     </div>
 </div>
