@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ProjectRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
@@ -18,7 +20,7 @@ class Project
     private ?string $projectName = null;
 
     #[Gedmo\Timestampable(on: 'create')]
-    #[ORM\Column(name: 'created_at', type: 'datetime')]
+    #[ORM\Column(name: 'created_at', type: 'datetime', nullable: true)]
     private ?\DateTimeInterface $createdAt = null;
 
     #[Gedmo\Timestampable(on: 'update')]
@@ -27,6 +29,14 @@ class Project
 
     #[ORM\Column(name: 'client_name', length: 255, nullable: true)]
     private ?string $clientName = null;
+
+    #[ORM\OneToMany(mappedBy: 'project', targetEntity: Rendering::class, cascade: ['persist', 'remove'])]
+    private Collection $renderings;
+
+    public function __construct()
+    {
+        $this->renderings = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -50,23 +60,9 @@ class Project
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
     public function getUpdatedAt(): ?\DateTimeInterface
     {
         return $this->updatedAt;
-    }
-
-    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
-    {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
     }
 
     public function getClientName(): ?string
@@ -77,6 +73,35 @@ class Project
     public function setClientName(?string $clientName): self
     {
         $this->clientName = $clientName;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Rendering>
+     */
+    public function getRenderings(): Collection
+    {
+        return $this->renderings;
+    }
+
+    public function addRendering(Rendering $rendering): self
+    {
+        if (!$this->renderings->contains($rendering)) {
+            $this->renderings[] = $rendering;
+            $rendering->setProject($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRendering(Rendering $rendering): self
+    {
+        if ($this->renderings->removeElement($rendering)) {
+            if ($rendering->getProject() === $this) {
+                $rendering->setProject(null);
+            }
+        }
 
         return $this;
     }

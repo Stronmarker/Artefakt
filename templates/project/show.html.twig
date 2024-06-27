@@ -3,8 +3,33 @@
 {% block title %}Project Details{% endblock %}
 
 {% block body %}
+<div class="container mt-4">
     <h1>{{ project.projectName }}</h1>
     <p>Client: {{ project.clientName }}</p>
     <p>Creation Date: {{ project.createdAt|date('Y-m-d H:i:s') }}</p>
-    <p>Modification Date: {{ project.updatedAt|date('Y-m-d H:i:s') }}</p>
+    <p>Modification Date: {{ project.updatedAt ? project.updatedAt|date('Y-m-d H:i:s') : 'Not updated yet' }}</p>
+
+    <h2>Renderings</h2>
+    <div class="row">
+        {% for rendering in project.renderings %}
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Rendering</h5>
+                        <div data-controller="single-image-3d" 
+                             data-front-png="{{ asset('uploads/renderings/' ~ rendering.frontPng) }}">
+                            <div data-single-image-3d-target="canvasContainer" style="width: 100%; height: 300px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <h2>Add a New Rendering</h2>
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button type="submit" class="btn btn-primary">Add Rendering</button>
+    {{ form_end(form) }}
+</div>
 {% endblock %}

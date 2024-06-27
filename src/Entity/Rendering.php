@@ -10,7 +10,7 @@ class Rendering
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
@@ -28,6 +28,10 @@ class Rendering
     #[ORM\Column(length: 255)]
     private ?string $link = null;
 
+    #[ORM\ManyToOne(targetEntity: Project::class, inversedBy: 'renderings')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Project $project = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -38,7 +42,7 @@ class Rendering
         return $this->frontPng;
     }
 
-    public function setFrontPng(string $frontPng): static
+    public function setFrontPng(string $frontPng): self
     {
         $this->frontPng = $frontPng;
 
@@ -50,7 +54,7 @@ class Rendering
         return $this->towardPng;
     }
 
-    public function setTowardPng(string $towardPng): static
+    public function setTowardPng(string $towardPng): self
     {
         $this->towardPng = $towardPng;
 
@@ -62,19 +66,19 @@ class Rendering
         return $this->gildingSvg;
     }
 
-    public function setGildingSvg(?string $gildingSvg): static
+    public function setGildingSvg(?string $gildingSvg): self
     {
         $this->gildingSvg = $gildingSvg;
 
         return $this;
     }
 
-    public function getTowardSvg(): ?string
+    public function getLaminationSvg(): ?string
     {
         return $this->laminationSvg;
     }
 
-    public function setTowardSvg(?string $laminationSvg): static
+    public function setLaminationSvg(?string $laminationSvg): self
     {
         $this->laminationSvg = $laminationSvg;
 
@@ -86,9 +90,21 @@ class Rendering
         return $this->link;
     }
 
-    public function setLink(string $link): static
+    public function setLink(string $link): self
     {
         $this->link = $link;
+
+        return $this;
+    }
+
+    public function getProject(): ?Project
+    {
+        return $this->project;
+    }
+
+    public function setProject(?Project $project): self
+    {
+        $this->project = $project;
 
         return $this;
     }
