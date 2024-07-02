@@ -21,7 +21,7 @@ class SubscriptionController extends AbstractController
         ]);
     }
 
-    #[Route('/subscribe', name: 'app_subscribe', methods: ['POST'])]
+    #[Route('/subscribe', name: 'app_subscribe')]
     public function subscribe(EntityManagerInterface $em, UserInterface $user): Response
     {
         if ($user->isSubscribed()) {

@@ -1,0 +1,48 @@
+{% extends 'base.logged.html.twig' %}
+
+{% block title %}Mon Abonnement{% endblock %}
+
+{% block body %}
+
+<style>
+    .centered-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 80vh; 
+    }
+    .card-shadow {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1), 0 0 15px white; /* Effet de relief plus ombre */
+        border-radius: 20px; 
+        border: 7px solid #000; /* Taille de la bordure */
+        width: 100%;
+        max-width: 600px;
+        padding: 20px;
+    }
+    .centered-title {
+        margin-bottom: 20px; /* Ajustement de la marge pour une meilleure visibilité */
+    }
+    .card-title {
+        margin-bottom: 10px; 
+    }
+</style>
+
+<div class="container centered-container mb-4">
+    <h1 class="text-center text-white centered-title ft_orbitron">Détails de l'offre souscrite</h1><hr><hr> 
+    <div class="card card-shadow"> 
+        <div class="card-body">
+            <h5 class="card-title text-success fw-bold text-center ft_orbitron"><strong>Abonnement Premium</strong></h5>
+            <ul class="list-unstyled">
+                <li class="ft_audiowide text-center">Projets illimités</li>
+                <li class="ft_audiowide text-center">Outils illimités</li>
+                <li class="ft_audiowide text-center">Assistance par e-mail</li>
+                <li class="ft_audiowide text-center">Accès au centre d'aide</li>
+            </ul>
+            <button type="submit" class="btn btn-dark mt-3 fw-bold d-block mx-auto ft_wallpoet">Changement de R.I.B</button>
+            <button type="submit" class="btn btn-danger mt-3 fw-bold d-block mx-auto ft_wallpoet">Résilier l'abonnement</button>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
