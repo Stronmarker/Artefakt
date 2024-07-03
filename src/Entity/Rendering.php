@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use App\Repository\RenderingRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: RenderingRepository::class)]
@@ -13,24 +12,32 @@ class Rendering
     #[ORM\Column(type: 'integer')]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: 'string', length: 255)]
     private ?string $frontPng = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: 'string', length: 255)]
     private ?string $towardPng = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $gildingSvg = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $laminationSvg = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: 'string', length: 255)]
+    private ?string $dimensions = null;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $link = null;
 
     #[ORM\ManyToOne(targetEntity: Project::class, inversedBy: 'renderings')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Project $project = null;
+
+    #[ORM\ManyToOne(inversedBy: 'renderings')]
+    private ?User $user = null;
+
+    // Getters and setters for all properties including link
 
     public function getId(): ?int
     {
@@ -85,12 +92,24 @@ class Rendering
         return $this;
     }
 
+    public function getDimensions(): ?string
+    {
+        return $this->dimensions;
+    }
+
+    public function setDimensions(string $dimensions): self
+    {
+        $this->dimensions = $dimensions;
+
+        return $this;
+    }
+
     public function getLink(): ?string
     {
         return $this->link;
     }
 
-    public function setLink(string $link): self
+    public function setLink(?string $link): self
     {
         $this->link = $link;
 
@@ -105,6 +124,18 @@ class Rendering
     public function setProject(?Project $project): self
     {
         $this->project = $project;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }

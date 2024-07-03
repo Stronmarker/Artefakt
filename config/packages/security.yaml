@@ -46,6 +46,11 @@ security:
         - { path: ^/project, roles: ROLE_USER }
         - { path: ^/rendering, roles: ROLE_USER }
         - { path: ^/subscription, roles: ROLE_USER }
+        - { path: ^/upload-pdf, roles: ROLE_USER }
+        - { path: ^/display-3d, roles: ROLE_USER }
+        - { path: ^/my-renderings, roles: ROLE_USER }
+        - { path: ^/project/create, roles: ROLE_USER }
+        - { path: ^/project, roles: ROLE_USER }
 
 when@test:
     security:

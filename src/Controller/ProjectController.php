@@ -13,13 +13,15 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class ProjectController extends AbstractController
 {
     #[Route('/project', name: 'app_project')]
     public function index(EntityManagerInterface $entityManager): Response
     {
-        $projects = $entityManager->getRepository(Project::class)->findAll();
+        $user = $this->getUser();
+        $projects = $entityManager->getRepository(Project::class)->findBy(['user' => $user]);
 
         return $this->render('project/index.html.twig', [
             'projects' => $projects,
@@ -30,6 +32,7 @@ class ProjectController extends AbstractController
     public function create(Request $request, EntityManagerInterface $entityManager): Response
     {
         $project = new Project();
+        $project->setUser($this->getUser());  // Associer le projet à l'utilisateur actuel
 
         $form = $this->createForm(ProjectType::class, $project);
         $form->handleRequest($request);
@@ -52,12 +55,20 @@ class ProjectController extends AbstractController
     #[Route('/project/{id}', name: 'project_show')]
     public function show(Project $project, Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
+        $user = $this->getUser();
+
+        // Vérifier que l'utilisateur actuel est bien le propriétaire du projet
+        if ($project->getUser() !== $user) {
+            throw new AccessDeniedException('You do not have permission to access this project.');
+        }
+
         $rendering = new Rendering();
         $form = $this->createForm(AddRenderingType::class, $rendering);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $rendering->setProject($project);
+            $rendering->setUser($user);  // Associer le rendu à l'utilisateur actuel
 
             $frontPngFile = $form->get('frontPng')->getData();
             $towardPngFile = $form->get('towardPng')->getData();

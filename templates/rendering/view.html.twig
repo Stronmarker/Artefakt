@@ -1,0 +1,16 @@
+{% extends 'base.logged.html.twig' %}
+
+{% block title %}PDF to PNG Conversion{% endblock %}
+
+{% block body %}
+<h1>Converted PNG Images</h1>
+
+{% if png_urls %}
+    <div data-controller="three">
+        <div data-three-target="canvasContainer" style="width: 100%; height: 100%;"></div>
+        <div data-three-front-png="{{ png_urls[0] }}" data-three-toward-png="{{ png_urls[1] }}"></div>
+    </div>
+{% else %}
+    <p>No images to display.</p>
+{% endif %}
+{% endblock %}

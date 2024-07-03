@@ -1,8 +1,10 @@
-<?php
+<?php 
 
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -41,6 +43,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column]
     private bool $isVerified = false;
+
+    /**
+     * @var Collection<int, Rendering>
+     */
+    #[ORM\OneToMany(targetEntity: Rendering::class, mappedBy: 'user')]
+    private Collection $renderings;
+
+    /**
+     * @var Collection<int, Project>
+     */
+    #[ORM\OneToMany(targetEntity: Project::class, mappedBy: 'user')]
+    private Collection $projects;
+
+    public function __construct()
+    {
+        $this->renderings = new ArrayCollection();
+        $this->projects = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -149,6 +169,66 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setVerified(bool $isVerified): static
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Rendering>
+     */
+    public function getRenderings(): Collection
+    {
+        return $this->renderings;
+    }
+
+    public function addRendering(Rendering $rendering): static
+    {
+        if (!$this->renderings->contains($rendering)) {
+            $this->renderings->add($rendering);
+            $rendering->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRendering(Rendering $rendering): static
+    {
+        if ($this->renderings->removeElement($rendering)) {
+            // set the owning side to null (unless already changed)
+            if ($rendering->getUser() === $this) {
+                $rendering->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Project>
+     */
+    public function getProjects(): Collection
+    {
+        return $this->projects;
+    }
+
+    public function addProject(Project $project): static
+    {
+        if (!$this->projects->contains($project)) {
+            $this->projects->add($project);
+            $project->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProject(Project $project): static
+    {
+        if ($this->projects->removeElement($project)) {
+            // set the owning side to null (unless already changed)
+            if ($project->getUser() === $this) {
+                $project->setUser(null);
+            }
+        }
 
         return $this;
     }

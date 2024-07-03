@@ -1,36 +1,19 @@
+{# templates/project/index.html.twig #}
+
 {% extends 'base.logged.html.twig' %}
 
-{% block title %}Project Details{% endblock %}
+{% block title %}Mes Projets{% endblock %}
 
 {% block body %}
-<div class="container mt-4">
-    <h1>{{ project.projectName }}</h1>
-    <p>Client: {{ project.clientName }}</p>
-    <p>Creation Date: {{ project.createdAt|date('Y-m-d H:i:s') }}</p>
-    <p>Modification Date: {{ project.updatedAt ? project.updatedAt|date('Y-m-d H:i:s') : 'Not updated yet' }}</p>
+<h1>Mes Projets</h1>
 
-    <h2>Renderings</h2>
-    <div class="row">
-        {% for rendering in project.renderings %}
-            <div class="col-md-6">
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <h5 class="card-title">Rendering</h5>
-                        <div data-controller="image-3d" 
-                             data-front-png="{{ asset('uploads/renderings/' ~ rendering.frontPng) }}" 
-                             data-toward-png="{{ asset('uploads/renderings/' ~ rendering.towardPng) }}">
-                            <div data-image-3d-target="canvasContainer" style="width: 100%; height: 300px;"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        {% endfor %}
-    </div>
+<a href="{{ path('project_create') }}" class="btn btn-primary">Nouveau Projet</a>
 
-    <h2>Add a New Rendering</h2>
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <button type="submit" class="btn btn-primary">Add Rendering</button>
-    {{ form_end(form) }}
-</div>
+<ul>
+    {% for project in project %}
+        <li>
+            <a href="{{ path('project_show', {'id': project.id}) }}">{{ project.projectName }}</a>
+        </li>
+    {% endfor %}
+</ul>
 {% endblock %}

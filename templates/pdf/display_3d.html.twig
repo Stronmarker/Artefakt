@@ -1,0 +1,14 @@
+{# templates/pdf/display_3d.html.twig #}
+
+{% extends 'base.logged.html.twig' %}
+
+{% block title %}Carte de Visite en 3D{% endblock %}
+
+{% block body %}
+<h1>Carte de Visite en 3D</h1>
+
+<div data-controller="image-3d" data-image-3d-front-png="{{ frontPng }}" data-image-3d-toward-png="{{ towardPng }}">
+    <div data-image-3d-target="canvasContainer" style="width: 100%; height: 500px;"></div>
+</div>
+
+{% endblock %}

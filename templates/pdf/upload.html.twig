@@ -1,3 +1,5 @@
+{# templates/pdf/upload.html.twig #}
+
 {% extends 'base.logged.html.twig' %}
 
 {% block title %}Upload PDF{% endblock %}
@@ -8,6 +10,6 @@
 {{ form_start(form) }}
     {{ form_row(form.file) }}
     {{ form_row(form.dimensions) }}
-    <button type="submit">Upload</button>
+    <button class="btn">Upload</button>
 {{ form_end(form) }}
 {% endblock %}

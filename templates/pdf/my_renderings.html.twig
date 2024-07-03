@@ -1,0 +1,23 @@
+{# templates/pdf/my_renderings.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes Rendus{% endblock %}
+
+{% block body %}
+<h1>Mes Rendus</h1>
+
+{% if renderings is empty %}
+    <p>Vous n'avez pas encore de rendus.</p>
+{% else %}
+    <ul>
+        {% for rendering in renderings %}
+            <li>
+                <h3>Rendu {{ loop.index }}</h3>
+                <p>Front PNG: <a href="{{ rendering.frontPng }}" target="_blank">{{ rendering.frontPng }}</a></p>
+                <p>Toward PNG: <a href="{{ rendering.towardPng }}" target="_blank">{{ rendering.towardPng }}</a></p>
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}
+{% endblock %}

@@ -11,16 +11,20 @@ use Psr\Log\LoggerInterface;
 use Symfony\Component\Mime\Part\DataPart;
 use Symfony\Component\Mime\Part\Multipart\FormDataPart;
 use App\Form\UploadPdfFormType;
+use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\Rendering;
 
 class PdfController extends AbstractController
 {
     private $httpClient;
     private $logger;
+    private $entityManager;
 
-    public function __construct(HttpClientInterface $httpClient, LoggerInterface $logger)
+    public function __construct(HttpClientInterface $httpClient, LoggerInterface $logger, EntityManagerInterface $entityManager)
     {
         $this->httpClient = $httpClient;
         $this->logger = $logger;
+        $this->entityManager = $entityManager;
     }
 
     #[Route('/upload-pdf', name: 'upload_pdf')]
@@ -76,7 +80,17 @@ class PdfController extends AbstractController
                             // Store PNG URLs in the session to display them in the next request
                             $request->getSession()->set('png_urls', $data['png_urls']);
 
-                            return $this->redirectToRoute('display_pngs');
+                            // Associer le rendu à l'utilisateur connecté
+                            $rendering = new Rendering();
+                            $rendering->setUser($this->getUser());
+                            $rendering->setFrontPng($data['png_urls'][0]);
+                            $rendering->setTowardPng($data['png_urls'][1]);
+                            $rendering->setDimensions($dimensions);
+
+                            $this->entityManager->persist($rendering);
+                            $this->entityManager->flush();
+
+                            return $this->redirectToRoute('display_3d');
                         } else {
                             $error = $response->toArray(false);
                             $this->logger->error('Error from Flask API', ['error' => $error]);
@@ -104,13 +118,25 @@ class PdfController extends AbstractController
         ]);
     }
 
-    #[Route('/display-pngs', name: 'display_pngs')]
-    public function displayPngs(Request $request): Response
+    #[Route('/display-3d', name: 'display_3d')]
+    public function display3D(Request $request): Response
     {
         $pngUrls = $request->getSession()->get('png_urls', []);
 
-        return $this->render('pdf/display.html.twig', [
-            'png_urls' => $pngUrls
+        return $this->render('pdf/display_3d.html.twig', [
+            'frontPng' => $pngUrls[0] ?? null,
+            'towardPng' => $pngUrls[1] ?? null,
+        ]);
+    }
+
+    #[Route('/my-renderings', name: 'my_renderings')]
+    public function myRenderings(): Response
+    {
+        $user = $this->getUser();
+        $renderings = $this->entityManager->getRepository(Rendering::class)->findBy(['user' => $user]);
+
+        return $this->render('pdf/my_renderings.html.twig', [
+            'renderings' => $renderings,
         ]);
     }
 }

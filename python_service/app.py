@@ -1,9 +1,11 @@
-from flask import Flask, request, jsonify, url_for
+from flask import Flask, request, jsonify, url_for, send_from_directory
+from flask_cors import CORS
 import os
 import fitz  # PyMuPDF
 import logging
 
 app = Flask(__name__)
+CORS(app)  # Ajoutez cette ligne pour activer CORS pour toutes les routes
 app.config['UPLOAD_FOLDER'] = 'uploads'
 app.config['OUTPUT_FOLDER'] = 'output'
 
@@ -49,7 +51,7 @@ def crop_convert_pdf_to_png_api():
         logging.info(f'Cropped and converted PNGs saved to {output_folder}')
 
         # Generate URLs for the PNG files
-        png_urls = [url_for('static', filename=os.path.join('output', origin_name, os.path.basename(png)), _external=True) for png in png_files]
+        png_urls = [url_for('get_image', filename=os.path.join(origin_name, os.path.basename(png)), _external=True) for png in png_files]
 
         return jsonify({'png_urls': png_urls})
     except Exception as e:
@@ -67,8 +69,8 @@ def crop_and_convert_pdf_to_png(input_pdf, output_folder, dimensions):
         crop_width = 84 * conversion
         crop_height = 55 * conversion
     elif dimensions == "148x105":
-        crop_width = 105 * conversion
-        crop_height = 148 * conversion
+        crop_width = 148 * conversion
+        crop_height = 105 * conversion
     else:
         raise ValueError("Dimensions non valides")
 
@@ -100,6 +102,10 @@ def crop_and_convert_pdf_to_png(input_pdf, output_folder, dimensions):
     
     pdf_document.close()
     return png_files
+
+@app.route('/output/<path:filename>')
+def get_image(filename):
+    return send_from_directory(app.config['OUTPUT_FOLDER'], filename)
 
 if __name__ == '__main__':
     app.run(debug=True)

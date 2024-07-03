@@ -33,6 +33,10 @@ class Project
     #[ORM\OneToMany(mappedBy: 'project', targetEntity: Rendering::class, cascade: ['persist', 'remove'])]
     private Collection $renderings;
 
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'projects')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
+
     public function __construct()
     {
         $this->renderings = new ArrayCollection();
@@ -102,6 +106,18 @@ class Project
                 $rendering->setProject(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

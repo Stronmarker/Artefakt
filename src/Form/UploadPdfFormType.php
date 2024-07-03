@@ -22,7 +22,7 @@ class UploadPdfFormType extends AbstractType
                 'choices' => [
                     '84 mm x 55 mm' => '84x55',
                     '148 mm x 148 mm' => '148x148',
-                    '105 mm x 148 mm' => '148x105',
+                    '148 mm x 105 mm' => '148x105',
                 ],
                 'required' => true,
             ]);

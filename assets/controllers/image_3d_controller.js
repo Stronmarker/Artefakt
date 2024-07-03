@@ -1,3 +1,5 @@
+// public/js/controllers/image_3d_controller.js
+
 import { Controller } from "@hotwired/stimulus";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
@@ -25,11 +27,11 @@ export default class extends Controller {
         console.log("Renderer initialisé et ajouté au DOM");
 
         // Charger les images
-        const frontPng = this.element.dataset.frontPng;
-        const towardPng = this.element.dataset.towardPng;
+        const frontPng = this.data.get("frontPng");
+        const towardPng = this.data.get("towardPng");
         console.log("Front PNG URL:", frontPng);
         console.log("Toward PNG URL:", towardPng);
-
+        
         // Vérifiez si les URLs des images sont définies
         if (!frontPng || !towardPng) {
             console.error("Les URLs des images ne sont pas définies:", { frontPng, towardPng });
