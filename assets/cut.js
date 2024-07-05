@@ -156,7 +156,7 @@ function traitePDF(pdf_url, is_mask) { // Fonction pour traiter le pdf
       $("#upload-button-mask").show();
 
       alert(error.message);
-    });
+    }); 
 }
 
 
@@ -266,7 +266,7 @@ function showPage(is_mask) {
       to_upload();
     });
   });
-}
+} 
 
 function resize_image(cavas_ctx, imageData) { // canvas 2048 + image extraite
   var destCtx = cavas_ctx;

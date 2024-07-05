@@ -12,15 +12,12 @@
     }
   
     .form-control::placeholder {
-        color: rgb(252, 201, 201);
+        color: rgb(107, 207, 183);
     }
-
-    .my-swal-popup {
-        background-color: #fff; /* Couleur de fond */
-        border-radius: 10px; /* Coins arrondis */
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Ombre */
+  
+        
         /* Ajoutez d'autres styles selon vos besoins */
-    }
+    
 </style>
 
 
@@ -29,7 +26,7 @@
 <div class="container mt-4 mb-2">
     <div class="row justify-content-center">
         <div class="col-12 col-sm-10 col-md-8 col-lg-6">
-            <form method="post" class="form-signup" style="padding: 20px; background: rgba(85, 85, 85, 0.8); border-radius: 8px; box-shadow: 0 0 15px white;">
+            <form method="post" class="form-signup" style="padding: 20px; background: rgba(252, 251, 251); border-radius: 8px; box-shadow: 0 0 15px white; border: 5px solid black">
                 {% for flash_success in app.flashes('success') %}
                     <script>
                         Swal.fire({
@@ -45,7 +42,7 @@
                     </script>
                 {% endfor %}
 
-                <h1 class="h1 mb-2 font-weight-normal text-center text-light ft_audiowide">Inscription</h1>
+                <h1 class="h1 mb-2 font-weight-normal text-center text-dark ft_orbitron">Inscription</h1>
 
                 {{ form_errors(registrationForm) }}
 
@@ -54,45 +51,45 @@
                 <div class="form-group mt-2 mb-2">
                     {{ form_row(registrationForm.email, {
                         'label': 'Email',
-                        'label_attr': {'class': 'p-2 m-1 h5 text-danger'},
-                        'attr': {'class': 'form-control', 'style': 'background: transparent; border: 1px solid red; color: white', 'placeholder': "mail@mail.com"}
+                        'label_attr': {'class': 'p-2 m-1 h5 text-dark ft_audiowide'},
+                        'attr': {'class': 'form-control', 'style': 'background: transparent; border: 2px solid green; color: dark', 'placeholder': "mail@mail.com"}
                     }) }}
                 </div>
 
                 <div class="form-group mt-2 mb-2">
                     {{ form_row(registrationForm.plainPassword, {
                         'label': 'Password',
-                        'label_attr': {'class': 'p-2 m-1 h5 text-danger'},
-                        'attr': {'class': 'form-control', 'style': 'background: transparent; border: 1px solid red; color: white', 'placeholder': "******"}
+                        'label_attr': {'class': 'p-2 m-1 h5 text-dark ft_audiowide'},
+                        'attr': {'class': 'form-control', 'style': 'background: transparent; border: 2px solid green; color: dark', 'placeholder': "******"}
                     }) }}
                 </div>
 
                 <div class="form-group mt-2 mb-2">
                     {{ form_row(registrationForm.firstname, {
                         'label': 'Prénom',
-                        'label_attr': {'class': 'p-2 m-1 h5 text-danger'},
-                        'attr': {'class': 'form-control', 'style': 'background: transparent; border: 1px solid red; color: white', 'placeholder': "Votre Prénom"}
+                        'label_attr': {'class': 'p-2 m-1 h5 text-dark ft_audiowide'},
+                        'attr': {'class': 'form-control', 'style': 'background: transparent; border: 2px solid green; color: dark', 'placeholder': "Votre Prénom"}
                     }) }}
                 </div>
 
                 <div class="form-group mt-2 mb-2">
                     {{ form_row(registrationForm.lastname, {
                         'label': "Nom de famille",
-                        'label_attr': {'class': 'p-2 m-1 h5 text-danger'},
-                        'attr': {'class': 'form-control', 'style': 'background: transparent; border: 1px solid red; color: white', 'placeholder': "Votre Nom"}
+                        'label_attr': {'class': 'p-2 m-1 h5 text-dark ft_audiowide'},
+                        'attr': {'class': 'form-control', 'style': 'background: transparent; border: 2px solid green; color: dark', 'placeholder': "Votre Nom"}
                     }) }}
                 </div>
 
                 <div class="checkbox mb-2">
                     {{ form_widget(registrationForm.agreeTerms, {
-                        'attr': {'class': 'text-light', 'style': 'accent-color: red;'}
+                        'attr': {'class': 'text-dark', 'style': 'accent-color: green;'}
                     }) }}
                     {{ form_label(registrationForm.agreeTerms, null, {
-                        'label_attr': {'class': 'text-light'}
+                        'label_attr': {'class': 'text-dark'}
                     }) }}
                 </div>
                 
-                <button type="submit" class="btn btn-lg btn-danger btn-block" style="border: 1px solid red; display: block; margin: 20px auto; width: 80%; max-width: 300px; padding: 10px 0; font-size: 16px;">Register</button>
+                <button type="submit" class="btn btn-lg btn-success btn-block ft_wallpoet fw-bold" style="display: block; margin: 20px auto; width: 80%; max-width: 300px; padding: 10px 0; font-size: 16px;">Register</button>
                 
                 {{ form_end(registrationForm) }}
             </form>

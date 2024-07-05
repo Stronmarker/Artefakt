@@ -1,26 +1,41 @@
 {% extends 'base.logged.html.twig' %}
+{# Étend le modèle de base pour les utilisateurs connectés #}
 
 {% block title %}Réinitialisation mot de passe{% endblock %}
-
+{# Définit le titre de la page #}
 {% block body %}
 <div class="container mt-5 mb-5">
+    {# Conteneur avec des marges supérieures et inférieures #}
     <div class="row justify-content-center">
+        {# Ligne centrée horizontalement #}
         <div class="col-md-6">
-            <div class="card shadow" style="background: rgba(85, 85, 85, 0.8); border-radius: 8px; box-shadow: 0 0 15px red;">
+            {# Colonne qui occupe la moitié de la largeur de l'écran sur les dispositifs de taille moyenne et plus #}
+            <div class="card shadow" style="background: rgb(252, 251, 251); border-radius: 20px; border: 5px solid black; box-shadow: 0 0 15px white !important;">
+                {# Carte avec une ombre, un fond blanc, des coins arrondis, une bordure noire et une ombre blanche #}
                 <div class="card-body">
-                    <h1 class="text-center text-light mb-4">Réinitialiser votre mon de passe</h1>
+                    {# Corps de la carte #}
+                    <h1 class="text-center text-dark mb-4 ft_orbitron">Réinitialiser votre mot de passe</h1>
+                    {# Titre principal de la page, centré et avec une marge inférieure #}
                     {{ form_start(resetForm, {'attr': {'class': 'form-horizontal'}}) }}
+                        {# Démarre le formulaire avec une classe CSS pour un style horizontal #}
                         <div class="form-group">
-                            {{ form_label(resetForm.plainPassword, 'New Password', {'label_attr': {'class': 'text-light'}}) }}
-                            {{ form_widget(resetForm.plainPassword, {'attr': {'class': 'form-control', 'style': 'background: transparent; border: 1px solid red; color: white'}}) }}
+                            {# Groupe de formulaire #}
+                            {{ form_label(resetForm.plainPassword, 'New Password', {'label_attr': {'class': 'text-dark fw_bold ft_audiowide'}}) }}
+                            {# Étiquette du champ de mot de passe avec le texte en noir #}
+                            {{ form_widget(resetForm.plainPassword, {'attr': {'class': 'form-control', 'style': 'background: transparent; border: 2px solid green; color: dark;'}}) }}
+                            {# Champ de saisie du mot de passe avec un fond transparent, une bordure verte et du texte noir #}
                         </div>
                         <div class="text-center">
-                            <button class="btn btn-danger btn-block" type="submit" style="border: 1px solid red; display: block; margin: 20px auto; width: 80%; max-width: 300px; padding: 10px 0; font-size: 16px;">Reset password</button>
+                            {# Div centrée pour le bouton #}
+                            <button class="btn btn-success btn-block fw-bold ft_wallpoet" type="submit" style="border: 2px solid green; display: block; margin: 20px auto; width: 80%; max-width: 300px; padding: 10px 0; font-size: 16px;">Reset password</button>
+                            {# Bouton de soumission vert avec une bordure verte, centré, avec des marges et un padding #}
                         </div>
                     {{ form_end(resetForm) }}
+                    {# Termine le formulaire #}
                 </div>
             </div>
         </div>
     </div>
 </div>
 {% endblock %}
+{# Fin du bloc body #}

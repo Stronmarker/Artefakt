@@ -5,7 +5,7 @@
 {% block body %}
 
 {# <style> 
-    /* Style de la page */
+    /* Style de la page avant de le changer au maximum avec boostrap */
     .example-wrapper {
         margin: 1em auto;
         max-width: 800px;
@@ -48,70 +48,82 @@
 
 
 <style>
+    /* Styles CSS pour le tableau de bord  */
     .centered-container {
         display: flex;
         justify-content: center;
         align-items: center;
-        min-height: 80vh;
-        flex-wrap: wrap;
+        min-height: 80vh; /* Hauteur minimale de 80% de la vue */
+        flex-wrap: wrap; /* Permet le retour à la ligne des cartes sur les petits écrans */
     }
     .card-shadow {
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1); /* Application d'un effet de relief */
-        border-radius: 20px;
-        border: 7px solid #000;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1), 0 0 15px white; /* Effet de relief */
+        border-radius: 20px; /* Coins arrondis */
+        border: 7px solid #000; /* Bordure épaisse */
     }
     .card-body {
-        text-align: center;
+        text-align: center; /* Centrage du contenu dans chaque carte */
     }
     .btn {
-        margin: 0 auto;
+        margin: 0 auto; /* Centrage horizontal des boutons */
     }
 </style>
 
 <div class="container centered-container mb-4">
+    <h1 class="text-center text-white centered-title ft_orbitron">Accueil</h1>
     <div class="row justify-content-center">
+        <!-- Colonne pour la carte "Mon Abonnement" -->
         <div class="col-md-4 mb-4">
             <div class="card card-shadow">
                 <div class="card-body">
                     <h5 class="card-title text-success fw-bold text-center ft_orbitron">Mon Abonnement</h5><br>
                     <h6 class="card-subtitle mb-2 text-dark fw-bold text-center">Mettez à jour vos informations</h6><br>
-                    <a class="btn btn-success mt-3 fw-bold d-block mx-auto ft_fell" href="user/subscription" role="button">Visualiser votre abonnement</a>
+                    <a class="btn btn-success mt-3 fw-bold d-block mx-auto ft_wallpoet" href="user/subscription" role="button">Visualiser votre abonnement</a>
+
                 </div>
             </div>
         </div>
+        
+        <!-- Colonne pour la carte "Mon Profil" -->
         <div class="col-md-4 mb-4">
             <div class="card card-shadow">
                 <div class="card-body">
                     <h5 class="card-title text-success fw-bold text-center ft_orbitron">Mon Profil</h5><br>
                     <h6 class="card-subtitle mb-2 text-dark fw-bold text-center">Mettez à jour vos informations de profil</h6><br>
-                    <a class="btn btn-success mt-3 fw-bold d-block mx-auto ft_fell" href="profil" role="button">Modifier le profil</a>
+                    <a class="btn btn-success mt-3 fw-bold d-block mx-auto ft_wallpoet" href="profil" role="button">Modifier le profil</a>
                 </div>
             </div>
         </div>
+        
+        <!-- Colonne pour la carte "Mes Factures" -->
         <div class="col-md-4 mb-4">
             <div class="card card-shadow">
                 <div class="card-body">
                     <h5 class="card-title text-success fw-bold text-center ft_orbitron">Mes Factures</h5><br>
                     <h6 class="card-subtitle mb-2 text-dark fw-bold text-center">Historique de vos factures</h6><br>
-                    <a href="#" class="btn btn-success mt-3 fw-bold d-block mx-auto ft_fell">Visualiser vos paiements</a>
+                    <a href="#" class="btn btn-success mt-3 fw-bold d-block mx-auto ft_wallpoet">Visualiser vos paiements</a>
                 </div>
             </div>
         </div>
+        
+        <!-- Colonne pour la carte "Nouveau Projet" -->
         <div class="col-md-4 mb-4">
             <div class="card card-shadow">
                 <div class="card-body">
                     <h5 class="card-title text-success fw-bold text-center ft_orbitron">Nouveau Projet</h5><br>
                     <h6 class="card-subtitle mb-2 text-dark fw-bold text-center">Commencer un nouveau projet de graphisme</h6><br>
-                    <a href="#" class="btn btn-success mt-3 fw-bold d-block mx-auto ft_fell">Création</a>
+                    <a href="#" class="btn btn-success mt-3 fw-bold d-block mx-auto ft_wallpoet">Création</a>
                 </div>
             </div>
         </div>
+        
+        <!-- Colonne pour la carte "Mes Projets" -->
         <div class="col-md-4 mb-4">
             <div class="card card-shadow">
                 <div class="card-body">
                     <h5 class="card-title text-success fw-bold text-center ft_orbitron">Mes Projets</h5><br>
                     <h6 class="card-subtitle mb-2 text-dark fw-bold text-center">Gérez vos projets de graphisme ici</h6><br>
-                    <a class="btn btn-success mt-3 fw-bold d-block mx-auto ft_fell" href="project" role="button">Ma bibliothéque</a>
+                    <a class="btn btn-success mt-3 fw-bold d-block mx-auto ft_wallpoet" href="project" role="button">Ma bibliothèque</a>
                 </div>
             </div>
         </div>

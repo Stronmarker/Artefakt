@@ -232,4 +232,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function isSubscribed(): bool 
+    {
+        return $this->isSubscribed;
+    }
+
+    public function setSubscribed(bool $isSubscribed): static
+    {
+        $this->isSubscribed = $isSubscribed;
+
+        return $this;
+    }
 }

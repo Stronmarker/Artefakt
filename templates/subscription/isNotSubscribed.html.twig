@@ -1,0 +1,53 @@
+{# templates/subscription/isNotSubscribed.html.twig #}
+
+{% extends 'base.logged.html.twig' %}
+
+{% block title %}Abonnement Gratuit{% endblock %}
+
+{% block body %}
+
+
+
+<style>
+    .centered-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 80vh; 
+    }
+    .card-shadow {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1), 0 0 15px white; /* Effet de relief plus ombre */
+        border-radius: 20px; 
+        border: 7px solid #000; /* Taille de la bordure */
+        width: 100%;
+        max-width: 600px;
+        padding: 20px;
+    }
+    .centered-title {
+        margin-bottom: 20px; /* Ajustement de la marge pour une meilleure visibilité */
+    }
+    .card-title {
+        margin-bottom: 10px; 
+    }
+</style>
+
+<div class="container centered-container mb-4">
+    <h1 class="text-center text-white centered-title ft_orbitron">Détails de l'offre</h1><hr><hr> 
+    <div class="card card-shadow"> 
+        <div class="card-body">
+            <h5 class="card-title text-success fw-bold text-center ft_orbitron"><strong>Abonnement Gratuit</strong></h5>
+            <ul class="list-unstyled">
+                <li class="ft_audiowide text-center">Projets limités à 3</li>
+                <li class="ft_audiowide text-center">Outils limités</li>
+                <li class="ft_audiowide text-center">Assistance par e-mail limitée</li>
+                <li class="ft_audiowide text-center">Accès au centre d'aide limitée</li>
+                <li class="ft_audiowide text-center">Pour plus de fonctionnalités passez à l'offre Premium</li>
+            </ul>
+            <a class="btn btn-dark mt-3 fw-bold d-block mx-auto ft_wallpoet" href="/subscription" role="button">Passez A L'offre Premium</a>
+            
+        </div>
+    </div>
+</div>
+{% endblock %}
+
