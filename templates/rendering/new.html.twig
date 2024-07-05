@@ -1,0 +1,15 @@
+{# templates/rendering/new.html.twig #}
+{% extends 'base.logged.html.twig' %}
+
+{% block title %}New Rendering{% endblock %}
+
+{% block body %}
+    <h1>Create new Rendering for Project: {{ project.name }}</h1>
+
+    {{ form_start(form, {'attr': {'enctype': 'multipart/form-data'}}) }}
+        {{ form_widget(form) }}
+        <button class="btn">{{ button_label|default('Save') }}</button>
+    {{ form_end(form) }}
+
+    <a href="{{ path('app_rendering', {'projectId': project.id}) }}">back to project</a>
+{% endblock %}

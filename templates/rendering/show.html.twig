@@ -1,0 +1,46 @@
+{# templates/rendering/show.html.twig #}
+{% extends 'base.logged.html.twig' %}
+
+{% block title %}Rendering{% endblock %}
+
+{% block body %}
+    <h1>Rendering</h1>
+
+    <div data-controller="threejs" 
+         data-image-3d-front-png="{{ asset('uploads/' ~ rendering.frontPng) }}"
+         data-image-3d-toward-png="{{ asset('uploads/' ~ rendering.towardPng) }}"
+         data-threejs-target="canvasContainer">
+        <div data-threejs-target="canvasContainer"></div>
+    </div>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ rendering.id }}</td>
+            </tr>
+            <tr>
+                <th>Rendering Name</th>
+                <td>{{ rendering.renderingName }}</td>
+            </tr>
+            <tr>
+                <th>Project</th>
+                <td>{{ project.name }}</td>
+            </tr>
+            <tr>
+                <th>Front PNG</th>
+                <td><img src="{{ asset('uploads/' ~ rendering.frontPng) }}" alt="Front PNG"></td>
+            </tr>
+            <tr>
+                <th>Toward PNG</th>
+                <td><img src="{{ asset('uploads/' ~ rendering.towardPng) }}" alt="Toward PNG"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_rendering', {'projectId': project.id}) }}">back to project</a>
+
+    <a href="{{ path('app_rendering_edit', {'projectId': project.id, 'id': rendering.id}) }}">edit</a>
+
+    {{ include('rendering/_delete_form.html.twig', {'rendering': rendering, 'projectId': project.id}) }}
+{% endblock %}
