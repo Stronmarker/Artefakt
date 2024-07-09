@@ -1,0 +1,43 @@
+{% extends 'base.logged.html.twig' %}
+
+{% block title %}Abonnements{% endblock %}
+
+{% block body %}
+
+{# stylisation de certains paramètres du code car pas réussi en boostrap #}
+<style>
+    .centered-container {
+        display: flex ;
+        justify-content: center;
+        align-items: center;
+        min-height: 80vh; 
+        
+       
+    }
+    .card-shadow {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1); /* Application d'une effet de relief */
+        border-radius: 20px; 
+        border: 7px solid #000;
+        position: absolute;
+        
+    }
+      
+</style>
+
+<div class="container centered-container mb-4"> 
+    <div class="card card-shadow"> 
+        <div class="card-body">
+            <h5 class="card-title text-success fw-bold text-center ft_orbitron">Abonnement Premium</h5><br>
+            <h6 class="card-subtitle mb-2 text-dark fw-bold text-center">€19.99/mois</h6><br>
+            <ul>
+                <li class="ft_audiowide">Création de projets illimités</li>
+                <li class="ft_audiowide">Outils illimités</li>
+                <li class="ft_audiowide">Assistance par e-mail et téléphone</li>
+                <li class="ft_audiowide">Accés au centre d'aide</li>
+            </ul>
+            <a href="#" class="btn btn-success mt-3 fw-bold d-block mx-auto ft_fell">Souscrire</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

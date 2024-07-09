@@ -1,0 +1,37 @@
+{% extends 'base.logged.html.twig' %}
+
+{% block title %}Mon Abonnement{% endblock %}
+
+{% block body %}
+{% set subscription = {
+    'type': 'Premium',
+    'price': '19.99€/mois',
+    'features': [
+        'Création de projets illimités',
+        'Outils illimités',
+        'Assistance par e-mail et téléphone',
+        'Accès au centre d\'aide'
+    ],
+    'status': 'Active'
+} %}
+
+
+
+<div class="container">
+    <h1 class="text-center text-white">Mon Abonnement</h1>
+    <div class="card mt-3">
+        <div class="card-body">
+            <h5 class="card-title text-success fw-bold text-center ft_orbitron">Type d'abonnement : {{ subscription.type }}</h5>
+            <p class="card-subtitle mb-2 text-dark fw-bold">Prix : {{ subscription.price }}</p>
+            <p class="card-subtitle mb-2 text-dark fw-bold">Statut : {{ subscription.status }}</p>
+            <ul>
+                {% for feature in subscription.features %}
+                    <li>{{ feature }}</li>
+                {% endfor %}
+            </ul>
+            <a href="#" class="btn btn-success mt-3 fw-bold ft_fell">Changer d'offre</a>
+            <a href="#" class="btn btn-danger mt-3 fw-bold ft_fell">Résilier l'abonnement</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'base.logged.html.twig' %}
+
+{% block title %}Réinitialisation mot de passe{% endblock %}
+
+{% block body %}
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow" style="background: rgba(85, 85, 85, 0.8); border-radius: 8px; box-shadow: 0 0 15px red;">
+                <div class="card-body">
+                    <h1 class="text-center text-light mb-4">Réinitialiser votre mon de passe</h1>
+                    {{ form_start(resetForm, {'attr': {'class': 'form-horizontal'}}) }}
+                        <div class="form-group">
+                            {{ form_label(resetForm.plainPassword, 'New Password', {'label_attr': {'class': 'text-light'}}) }}
+                            {{ form_widget(resetForm.plainPassword, {'attr': {'class': 'form-control', 'style': 'background: transparent; border: 1px solid red; color: white'}}) }}
+                        </div>
+                        <div class="text-center">
+                            <button class="btn btn-danger btn-block" type="submit" style="border: 1px solid red; display: block; margin: 20px auto; width: 80%; max-width: 300px; padding: 10px 0; font-size: 16px;">Reset password</button>
+                        </div>
+                    {{ form_end(resetForm) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

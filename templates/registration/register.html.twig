@@ -1,0 +1,105 @@
+{% extends 'base.off.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+
+<style>
+    @media (max-width: 768px) {
+        .form-signup {
+            padding: 15px;
+        }
+    }
+  
+    .form-control::placeholder {
+        color: rgb(252, 201, 201);
+    }
+
+    .my-swal-popup {
+        background-color: #fff; /* Couleur de fond */
+        border-radius: 10px; /* Coins arrondis */
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Ombre */
+        /* Ajoutez d'autres styles selon vos besoins */
+    }
+</style>
+
+
+
+
+<div class="container mt-4 mb-2">
+    <div class="row justify-content-center">
+        <div class="col-12 col-sm-10 col-md-8 col-lg-6">
+            <form method="post" class="form-signup" style="padding: 20px; background: rgba(85, 85, 85, 0.8); border-radius: 8px; box-shadow: 0 0 15px white;">
+                {% for flash_success in app.flashes('success') %}
+                    <script>
+                        Swal.fire({
+                            title: 'Success',
+                            text: '{{ flash_success }}',
+                            icon: 'success',
+                            confirmButtonText: 'Ok',
+                            customClass: {
+                                popup: 'my-swal-popup'
+                            }
+                        });
+                        
+                    </script>
+                {% endfor %}
+
+                <h1 class="h1 mb-2 font-weight-normal text-center text-light ft_audiowide">Inscription</h1>
+
+                {{ form_errors(registrationForm) }}
+
+                {{ form_start(registrationForm, {'attr': {'class': 'form-horizontal'}}) }}
+                
+                <div class="form-group mt-2 mb-2">
+                    {{ form_row(registrationForm.email, {
+                        'label': 'Email',
+                        'label_attr': {'class': 'p-2 m-1 h5 text-danger'},
+                        'attr': {'class': 'form-control', 'style': 'background: transparent; border: 1px solid red; color: white', 'placeholder': "mail@mail.com"}
+                    }) }}
+                </div>
+
+                <div class="form-group mt-2 mb-2">
+                    {{ form_row(registrationForm.plainPassword, {
+                        'label': 'Password',
+                        'label_attr': {'class': 'p-2 m-1 h5 text-danger'},
+                        'attr': {'class': 'form-control', 'style': 'background: transparent; border: 1px solid red; color: white', 'placeholder': "******"}
+                    }) }}
+                </div>
+
+                <div class="form-group mt-2 mb-2">
+                    {{ form_row(registrationForm.firstname, {
+                        'label': 'Prénom',
+                        'label_attr': {'class': 'p-2 m-1 h5 text-danger'},
+                        'attr': {'class': 'form-control', 'style': 'background: transparent; border: 1px solid red; color: white', 'placeholder': "Votre Prénom"}
+                    }) }}
+                </div>
+
+                <div class="form-group mt-2 mb-2">
+                    {{ form_row(registrationForm.lastname, {
+                        'label': "Nom de famille",
+                        'label_attr': {'class': 'p-2 m-1 h5 text-danger'},
+                        'attr': {'class': 'form-control', 'style': 'background: transparent; border: 1px solid red; color: white', 'placeholder': "Votre Nom"}
+                    }) }}
+                </div>
+
+                <div class="checkbox mb-2">
+                    {{ form_widget(registrationForm.agreeTerms, {
+                        'attr': {'class': 'text-light', 'style': 'accent-color: red;'}
+                    }) }}
+                    {{ form_label(registrationForm.agreeTerms, null, {
+                        'label_attr': {'class': 'text-light'}
+                    }) }}
+                </div>
+                
+                <button type="submit" class="btn btn-lg btn-danger btn-block" style="border: 1px solid red; display: block; margin: 20px auto; width: 80%; max-width: 300px; padding: 10px 0; font-size: 16px;">Register</button>
+                
+                {{ form_end(registrationForm) }}
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}
