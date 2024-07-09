@@ -4,15 +4,14 @@ namespace App\Controller;
 
 use App\Entity\Project;
 use App\Entity\Rendering;
-use App\Form\ProjectType;
 use App\Form\AddRenderingType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 class ProjectController extends AbstractController
 {
@@ -35,8 +34,8 @@ class ProjectController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $project->getCreatedAt(new \DateTime());
-            $project->getUpdatedAt(new \DateTime());
+            $project->setCreatedAt(new \DateTime());
+            $project->setUpdatedAt(new \DateTime());
 
             $entityManager->persist($project);
             $entityManager->flush();
@@ -58,6 +57,7 @@ class ProjectController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $rendering->setProject($project);
+            $rendering->setUser($this->getUser());
 
             $frontPngFile = $form->get('frontPng')->getData();
             $towardPngFile = $form->get('towardPng')->getData();
@@ -84,8 +84,6 @@ class ProjectController extends AbstractController
                 $rendering->setLaminationSvg($laminationSvgFileName);
             }
 
-            $project->getUpdatedAt(new \DateTime());
-
             $entityManager->persist($rendering);
             $entityManager->persist($project);
             $entityManager->flush();
@@ -99,7 +97,7 @@ class ProjectController extends AbstractController
         ]);
     }
 
-    private function uploadFile($file, SluggerInterface $slugger)
+    private function uploadFile($file, SluggerInterface $slugger): string
     {
         $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
         $safeFilename = $slugger->slug($originalFilename);

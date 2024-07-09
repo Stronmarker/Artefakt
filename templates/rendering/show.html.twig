@@ -1,0 +1,18 @@
+{# templates/rendering/show.html.twig #}
+
+{% extends 'base.logged.html.twig' %}
+
+{% block title %}Rendering Details{% endblock %}
+
+{% block body %}
+    <h1>{{ rendering.renderingName }}</h1>
+    <div>
+        <h2>Images</h2>
+        {% if rendering.frontPng %}
+            <img src="{{ asset('uploads/renderings/' ~ rendering.frontPng) }}" alt="Front PNG">
+        {% endif %}
+        {% if rendering.towardPng %}
+            <img src="{{ asset('uploads/renderings/' ~ rendering.towardPng) }}" alt="Toward PNG">
+        {% endif %}
+    </div>
+{% endblock %}

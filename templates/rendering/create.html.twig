@@ -1,0 +1,18 @@
+{# templates/rendering/create.html.twig #}
+
+{% extends 'base.logged.html.twig' %}
+
+{% block title %}Create Rendering{% endblock %}
+
+{% block body %}
+    <h1>Create Rendering for Project: {{ project.projectName }}</h1>
+
+    {{ form_start(form) }}
+        {{ form_row(form.frontPng) }}
+        {{ form_row(form.towardPng) }}
+        {{ form_row(form.gildingSvg) }}
+        {{ form_row(form.laminationSvg) }}
+        {{ form_row(form.dimensions) }}
+        <button class="btn btn-primary">Create Rendering</button>
+    {{ form_end(form) }}
+{% endblock %}
