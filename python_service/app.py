@@ -32,7 +32,7 @@ def crop_convert_pdf_to_png_api():
         return jsonify({'error': 'Importez un PDF'}), 400
     
     dimensions = request.form.get('dimensions')
-    if dimensions not in ["84x55", "148x148", "105x148"]:
+    if dimensions not in ["84x55", "148x148", "148x105"]:
         logging.error('Invalid dimensions')
         return jsonify({'error': 'Dimensions non valides'}), 400
     
@@ -66,9 +66,9 @@ def crop_and_convert_pdf_to_png(input_pdf, output_folder, dimensions):
     elif dimensions == "84x55":
         crop_width = 84 * conversion
         crop_height = 55 * conversion
-    elif dimensions == "105x148":
-        crop_width = 105 * conversion
-        crop_height = 148 * conversion
+    elif dimensions == "148x105":
+        crop_width = 148 * conversion
+        crop_height = 105 * conversion
     else:
         raise ValueError("Dimensions non valides")
 
@@ -98,6 +98,7 @@ def crop_and_convert_pdf_to_png(input_pdf, output_folder, dimensions):
         pix.save(output_png)
         png_files.append(output_png)
     
+
     pdf_document.close()
     return png_files
 

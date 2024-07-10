@@ -1,3 +1,5 @@
+
+
 {% extends 'base.logged.html.twig' %}
 
 {% block title %}Project Details{% endblock %}
@@ -5,6 +7,22 @@
 {% block body %}
     <h1>{{ project.projectName }}</h1>
     <p>Client: {{ project.clientName }}</p>
-    <p>Creation Date: {{ project.createdAt|date('Y-m-d H:i:s') }}</p>
-    <p>Modification Date: {{ project.updatedAt|date('Y-m-d H:i:s') }}</p>
+
+    <h2>Renderings</h2>
+    <div class="row">
+        {% for rendering in project.renderings %}
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card rendering-card">
+                    <a href="{{ path('rendering_show', {'project_id': project.id, 'rendering_id': rendering.id}) }}">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">{{ rendering.renderingName }}</h5>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <h2>Add a New Rendering</h2>
+    <a href="{{ path('rendering_create',{ id: project.id }) }}" class="btn btn-primary">Create New Rendering</a>
 {% endblock %}

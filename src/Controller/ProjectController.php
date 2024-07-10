@@ -2,14 +2,17 @@
 
 namespace App\Controller;
 
-use App\Entity\Client;
 use App\Entity\Project;
-use App\Form\ProjectClientType;
+use App\Entity\Rendering;
+use App\Form\ProjectType;
+use App\Form\AddRenderingType;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 class ProjectController extends AbstractController
 {
@@ -28,27 +31,17 @@ class ProjectController extends AbstractController
     {
         $project = new Project();
 
-        $form = $this->createForm(ProjectClientType::class, $project);
+        $form = $this->createForm(ProjectType::class, $project);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $client = new Client();
-            $client->setClientName($form->get('clientName')->getData());
-            $client->setClientEmail($form->get('clientEmail')->getData());
-
-            $entityManager->persist($client);
-            $entityManager->flush();
-
-            $project->setClientName($client->getClientName());
-
-            if (null === $project->getCreatedAt()) {
-                $project->setCreatedAt(new \DateTime());
-            }
+            $project->getCreatedAt(new \DateTime());
+            $project->getUpdatedAt(new \DateTime());
 
             $entityManager->persist($project);
             $entityManager->flush();
 
-            return $this->redirectToRoute('project_show', ['id' => $project->getId()]);
+            return $this->redirectToRoute('app_project');
         }
 
         return $this->render('project/create.html.twig', [
@@ -57,10 +50,69 @@ class ProjectController extends AbstractController
     }
 
     #[Route('/project/{id}', name: 'project_show')]
-    public function show(Project $project): Response
+    public function show(Project $project, Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
+        $rendering = new Rendering();
+        $form = $this->createForm(AddRenderingType::class, $rendering);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $rendering->setProject($project);
+            $rendering->setUser($this->getUser());
+
+            $frontPngFile = $form->get('frontPng')->getData();
+            $towardPngFile = $form->get('towardPng')->getData();
+            $gildingSvgFile = $form->get('gildingSvg')->getData();
+            $laminationSvgFile = $form->get('laminationSvg')->getData();
+
+            if ($frontPngFile) {
+                $frontPngFileName = $this->uploadFile($frontPngFile, $slugger);
+                $rendering->setFrontPng($frontPngFileName);
+            }
+
+            if ($towardPngFile) {
+                $towardPngFileName = $this->uploadFile($towardPngFile, $slugger);
+                $rendering->setTowardPng($towardPngFileName);
+            }
+
+            if ($gildingSvgFile) {
+                $gildingSvgFileName = $this->uploadFile($gildingSvgFile, $slugger);
+                $rendering->setGildingSvg($gildingSvgFileName);
+            }
+
+            if ($laminationSvgFile) {
+                $laminationSvgFileName = $this->uploadFile($laminationSvgFile, $slugger);
+                $rendering->setLaminationSvg($laminationSvgFileName);
+            }
+
+            $entityManager->persist($rendering);
+            $entityManager->persist($project);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('project_show', ['id' => $project->getId()]);
+        }
+
         return $this->render('project/show.html.twig', [
             'project' => $project,
+            'form' => $form->createView(),
         ]);
+    }
+
+    private function uploadFile($file, SluggerInterface $slugger): string
+    {
+        $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+        $safeFilename = $slugger->slug($originalFilename);
+        $newFilename = $safeFilename . '-' . uniqid() . '.' . $file->guessExtension();
+
+        try {
+            $file->move(
+                $this->getParameter('renderings_directory'),
+                $newFilename
+            );
+        } catch (FileException $e) {
+            // Handle exception
+        }
+
+        return $newFilename;
     }
 }

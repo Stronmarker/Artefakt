@@ -2,16 +2,82 @@
 
 namespace App\Controller;
 
+use App\Entity\Project;
+use App\Entity\Rendering;
+use App\Form\AddRenderingType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 class RenderingController extends AbstractController
 {
-     #[Route('/rendering', name: 'app_rendering')]
-    public function index(): Response
+
+
+    #[Route('/project/{id}/new-rendering', name: 'rendering_create', methods: ['GET', 'POST'])]
+    public function createRendering(Request $request, Project $project, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
-        return $this->render('rendering/index.html.twig');
+        $rendering = new Rendering();
+        $form = $this->createForm(AddRenderingType::class, $rendering);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $rendering->setProject($project);
+            $rendering->setUser($this->getUser());
+
+            $entityManager->persist($rendering);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('rendering_show', ['project_id' => $project->getId(), 'rendering_id' => $rendering->getId()]);
+        }
+
+        return $this->render('rendering/create.html.twig', [
+            'form' => $form->createView(),
+            'project' => $project,
+        ]);
+    }
+
+
+    #[Route(
+        '/project/{project_id}/rendering/{rendering_id}',
+        name: 'rendering_show',
+        requirements: [
+            'project_id' => '\d+',
+            'rendering_id' => '\d+'
+        ],
+        methods: ['GET']
+    )]
+    public function showRendering(int $project_id, int $rendering_id, EntityManagerInterface $entityManager): Response
+    {
+        $rendering = $entityManager->getRepository(Rendering::class)->find($rendering_id);
+
+        if (!$rendering) {
+            throw $this->createNotFoundException('Rendering not found');
+        }
+
+        return $this->render('rendering/show.html.twig', [
+            'rendering' => $rendering,
+        ]);
+    }
+
+    private function uploadFile($file, SluggerInterface $slugger): string
+    {
+        $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+        $safeFilename = $slugger->slug($originalFilename);
+        $newFilename = $safeFilename . '-' . uniqid() . '.' . $file->guessExtension();
+
+        try {
+            $file->move(
+                $this->getParameter('renderings_directory'),
+                $newFilename
+            );
+        } catch (FileException $e) {
+            // Handle exception
+        }
+
+        return $newFilename;
     }
 }
-
