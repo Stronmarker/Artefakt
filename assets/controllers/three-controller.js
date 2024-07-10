@@ -2,7 +2,6 @@ import { Controller } from "@hotwired/stimulus";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
-
 export default class extends Controller {
     static targets = ["canvasContainer", "pauseButton", "resetButton"];
 
@@ -22,9 +21,18 @@ export default class extends Controller {
         this.canvasContainerTarget.appendChild(this.renderer.domElement);
 
         // Ajout de la forme 3D
+        const frontTexture = new THREE.TextureLoader().load(this.element.dataset.image3dFrontPng);
+        const towardTexture = new THREE.TextureLoader().load(this.element.dataset.image3dTowardPng);
+        const materials = [
+            new THREE.MeshBasicMaterial({ map: frontTexture }),
+            new THREE.MeshBasicMaterial({ map: towardTexture }),
+            new THREE.MeshBasicMaterial({ map: frontTexture }),
+            new THREE.MeshBasicMaterial({ map: frontTexture }),
+            new THREE.MeshBasicMaterial({ map: towardTexture }),
+            new THREE.MeshBasicMaterial({ map: frontTexture })
+        ];
         const geometry = new THREE.BoxGeometry(3.5, 2, 0.1);
-        const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-        this.card = new THREE.Mesh(geometry, material);
+        this.card = new THREE.Mesh(geometry, materials);
         this.scene.add(this.card);
 
         // Initialisation des contrôles pour bouger la carte

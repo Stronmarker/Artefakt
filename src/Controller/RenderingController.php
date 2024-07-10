@@ -28,38 +28,6 @@ class RenderingController extends AbstractController
             $rendering->setProject($project);
             $rendering->setUser($this->getUser());
 
-            $frontPngFile = $form->get('frontPng')->getData();
-            $towardPngFile = $form->get('towardPng')->getData();
-            $gildingSvgFile = $form->get('gildingSvg')->getData();
-            $laminationSvgFile = $form->get('laminationSvg')->getData();
-            $dimensions = $form->get('dimensions')->getData();
-            
-            $rendering->setDimensions($dimensions);
-
-            if ($frontPngFile) {
-                $frontPngFileName = $this->uploadFile($frontPngFile, $slugger);
-                $rendering->setFrontPng($frontPngFileName);
-            } else {
-                $rendering->setFrontPng('default_front.png'); // ou autre valeur par défaut
-            }
-
-            if ($towardPngFile) {
-                $towardPngFileName = $this->uploadFile($towardPngFile, $slugger);
-                $rendering->setTowardPng($towardPngFileName);
-            } else {
-                $rendering->setTowardPng('default_toward.png'); // ou autre valeur par défaut
-            }
-
-            if ($gildingSvgFile) {
-                $gildingSvgFileName = $this->uploadFile($gildingSvgFile, $slugger);
-                $rendering->setGildingSvg($gildingSvgFileName);
-            }
-
-            if ($laminationSvgFile) {
-                $laminationSvgFileName = $this->uploadFile($laminationSvgFile, $slugger);
-                $rendering->setLaminationSvg($laminationSvgFileName);
-            }
-
             $entityManager->persist($rendering);
             $entityManager->flush();
 
@@ -85,7 +53,7 @@ class RenderingController extends AbstractController
     public function showRendering(int $project_id, int $rendering_id, EntityManagerInterface $entityManager): Response
     {
         $rendering = $entityManager->getRepository(Rendering::class)->find($rendering_id);
-        
+
         if (!$rendering) {
             throw $this->createNotFoundException('Rendering not found');
         }

@@ -4,13 +4,14 @@ namespace App\Controller;
 
 use App\Entity\Project;
 use App\Entity\Rendering;
+use App\Form\ProjectType;
 use App\Form\AddRenderingType;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 class ProjectController extends AbstractController
@@ -34,8 +35,8 @@ class ProjectController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $project->setCreatedAt(new \DateTime());
-            $project->setUpdatedAt(new \DateTime());
+            $project->getCreatedAt(new \DateTime());
+            $project->getUpdatedAt(new \DateTime());
 
             $entityManager->persist($project);
             $entityManager->flush();

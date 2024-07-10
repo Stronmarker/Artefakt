@@ -8,11 +8,7 @@
     <h1>Create Rendering for Project: {{ project.projectName }}</h1>
 
     {{ form_start(form) }}
-        {{ form_row(form.frontPng) }}
-        {{ form_row(form.towardPng) }}
-        {{ form_row(form.gildingSvg) }}
-        {{ form_row(form.laminationSvg) }}
-        {{ form_row(form.dimensions) }}
+        {{ form_widget(form) }}
         <button class="btn btn-primary">Create Rendering</button>
     {{ form_end(form) }}
 {% endblock %}

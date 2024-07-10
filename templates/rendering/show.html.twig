@@ -8,11 +8,15 @@
     <h1>{{ rendering.renderingName }}</h1>
     <div>
         <h2>Images</h2>
-        {% if rendering.frontPng %}
-            <img src="{{ asset('uploads/renderings/' ~ rendering.frontPng) }}" alt="Front PNG">
-        {% endif %}
-        {% if rendering.towardPng %}
-            <img src="{{ asset('uploads/renderings/' ~ rendering.towardPng) }}" alt="Toward PNG">
-        {% endif %}
+        <div data-controller="image" 
+             data-image-front-png="{{ vich_uploader_asset(rendering, 'frontPngFile') }}" 
+             data-image-toward-png="{{ vich_uploader_asset(rendering, 'towardPngFile') }}">
+             
+            
+            <div data-image-target="canvasContainer" style="width: 100%; height: 500px;"></div>
+        
+            <button data-action="click->image#toggleRotation" data-image-target="pauseButton">Pause Rotation</button>
+            <button data-action="click->image#resetCamera" data-image-target="resetButton">Reset Camera</button>
+        </div>
     </div>
 {% endblock %}

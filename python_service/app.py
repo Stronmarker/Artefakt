@@ -98,6 +98,7 @@ def crop_and_convert_pdf_to_png(input_pdf, output_folder, dimensions):
         pix.save(output_png)
         png_files.append(output_png)
     
+
     pdf_document.close()
     return png_files
 
