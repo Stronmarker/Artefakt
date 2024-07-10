@@ -3,44 +3,48 @@
 {% block title %}Abonnements{% endblock %}
 
 {% block body %}
-
 <style>
     .centered-container {
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        min-height: 80vh; 
+        min-height: 80vh;
     }
     .card-shadow {
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1), 0 0 15px white; /* Effet de relief plus ombre */
-        border-radius: 20px; 
-        border: 7px solid #000; /* Taille de la bordure */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1), 0 0 15px white;
+        border-radius: 20px;
+        border: 7px solid #000;
         width: 100%;
         max-width: 600px;
         padding: 20px;
     }
     .centered-title {
-        margin-bottom: 20px; /* Ajustement de la marge pour une meilleure visibilité */
+        margin-bottom: 20px;
     }
     .card-title {
-        margin-bottom: 10px; 
+        margin-bottom: 10px;
     }
 </style>
 
 <div class="container centered-container mb-4">
-    <h1 class="text-center text-white centered-title ft_orbitron">Notre Offre Premium</h1> 
-    <div class="card card-shadow"> 
+    <h1 class="text-center text-white centered-title ft_orbitron">Notre Offre Premium</h1>
+    <div class="card card-shadow">
         <div class="card-body">
             <h5 class="card-title text-success fw-bold text-center ft_orbitron">Abonnement Premium</h5>
-            <h6 class="card-subtitle mb-2 text-dark fw-bold text-center ft_audiowide text-center">€19.99/mois</h6>
+            <h6 class="card-subtitle mb-2 text-dark fw-bold text-center ft_audiowide">€20/mois</h6>
             <ul class="list-unstyled">
                 <li class="ft_audiowide text-center">Projets illimités</li>
                 <li class="ft_audiowide text-center">Outils illimités</li>
                 <li class="ft_audiowide text-center">Assistance par e-mail</li>
                 <li class="ft_audiowide text-center">Accès au centre d'aide</li>
             </ul>
-            <button id="subscribeButton" class="btn btn-success mt-3 fw-bold d-block mx-auto ft_wallpoet">Souscrire</button>
+
+            <form id="subscription-form">
+                <input type="email" id="email" placeholder="Email" required class="form-control mb-3" />
+                <div id="card-element" class="form-control mb-3"></div>
+                <button type="submit" class="btn btn-success mt-3 fw-bold d-block mx-auto ft_wallpoet">Souscrire</button>
+            </form>
         </div>
     </div>
 </div>
@@ -48,17 +52,44 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="https://js.stripe.com/v3/"></script>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            document.getElementById('subscribeButton').addEventListener('click', function () {
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const stripe = Stripe('{{ public_key }}');
+        const elements = stripe.elements();
+        const cardElement = elements.create('card');
+        cardElement.mount('#card-element');
+
+        document.getElementById('subscription-form').addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const email = document.getElementById('email').value;
+            const { error, paymentMethod } = await stripe.createPaymentMethod({
+                type: 'card',
+                card: cardElement,
+                billing_details: { email: email }
+            });
+
+            if (error) {
+                console.error(error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erreur',
+                    text: error.message,
+                });
+            } else {
                 fetch('{{ path("app_subscribe") }}', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                         'X-Requested-With': 'XMLHttpRequest'
-                    }
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        payment_method: paymentMethod.id
+                    })
                 })
                 .then(response => response.json())
                 .then(data => {
@@ -73,14 +104,24 @@
                             window.location.reload();
                         });
                     } else {
+                        console.log(data.success)
                         Swal.fire({
                             icon: 'info',
                             title: 'Déjà abonné',
-                            text: 'Vous êtes déjà abonné à l\'offre premium.',
+                            text: data.message || 'Vous êtes déjà abonné',
                         });
                     }
+                })
+                .catch(error => {
+                    console.error(error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Erreur',
+                        text: 'Une erreur s\'est produite. Veuillez réessayer.',
+                    });
                 });
-            });
+            }
         });
-    </script>
+    });
+</script>
 {% endblock %}
