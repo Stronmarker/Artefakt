@@ -43,7 +43,7 @@ class SubscriptionController extends AbstractController
         $paymentMethod = $data['payment_method']; // Méthode de paiement
 
         // Définit la clé secrète de l'API Stripe
-        Stripe::setApiKey('sk_test_51N1m7HB8NXWXURY9cnq0pT8MVnBwb4s4mUaW3D1z3Pel7jwYQjfsezlh3SXVdfo3Ic4fVej3bdC2P8euKhUpHq8R00FrPw8ACR'); // Clé secrète de Stripe
+        Stripe::setApiKey($_ENV['STRIPE_API_KEY']); // Clé secrète de Stripe
 
         try {
             // Crée un nouveau client Stripe
