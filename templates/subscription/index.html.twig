@@ -1,9 +1,9 @@
-{% extends 'base.logged.html.twig' %}
+{% extends 'base.logged.html.twig' %} {# Héritage de la structure de base.logged.html.twig #}
 
 {% block title %}Abonnements{% endblock %}
 
-{% block body %}
-<style>
+{% block body %} {# Style de la page et conteneur central avec un form #}
+<style> 
     .centered-container {
         display: flex;
         flex-direction: column;
@@ -52,20 +52,22 @@
 {% endblock %}
 
 {% block javascripts %}
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-<script src="https://js.stripe.com/v3/"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script> {# Chargement de la bibliothèque SweetAlert pour les alertes #}
+<script src="https://js.stripe.com/v3/"></script> {# chargement de la bibliothèque Stripe.js pour le traitement des paiements #}
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        const stripe = Stripe('{{ public_key }}');
-        const elements = stripe.elements();
+        const stripe = Stripe('{{ public_key }}'); // Initialise Stripe avec la clé publique
+        const elements = stripe.elements(); // Crée un élément Stripe pour la carte bancaire
         const cardElement = elements.create('card');
-        cardElement.mount('#card-element');
+        cardElement.mount('#card-element'); // Monte l'élément de carte bancaire dans la div avec l'id card-element
 
+        // Ajoute un écouteur d'événement pour le formulaire de souscription qui ..
         document.getElementById('subscription-form').addEventListener('submit', async (event) => {
-            event.preventDefault();
+            event.preventDefault(); //  .. Empêche le formulaire de  se soumettre normalement
 
             const email = document.getElementById('email').value;
+            // Crée une méthode de paiement avec Stripe en utilisant les détails de la carte et l'email
             const { error, paymentMethod } = await stripe.createPaymentMethod({
                 type: 'card',
                 card: cardElement,
@@ -73,6 +75,7 @@
             });
 
             if (error) {
+                // Affiche une alerte en cas d'erreur lors de la création de la méthode de paiement
                 console.error(error);
                 Swal.fire({
                     icon: 'error',
@@ -80,6 +83,7 @@
                     text: error.message,
                 });
             } else {
+                // Envoie une requête POST à la route app_subscribe avec l'email et l'ID de la méthode de paiement
                 fetch('{{ path("app_subscribe") }}', {
                     method: 'POST',
                     headers: {
@@ -94,6 +98,7 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
+                        // Affiche une alerte de sweetalert de succès si l'abonnement est réussi
                         Swal.fire({
                             icon: 'success',
                             title: 'Félicitations !',
@@ -101,9 +106,11 @@
                             showConfirmButton: false,
                             timer: 2000
                         }).then(function() {
+                            // Rechargement de la page après 2 seconde
                             window.location.reload();
                         });
                     } else {
+                        // Affiche une alerte de sweetalert d'information si l'utilisateur est déjà abonné
                         console.log(data.success)
                         Swal.fire({
                             icon: 'info',
@@ -113,6 +120,7 @@
                     }
                 })
                 .catch(error => {
+                    // affiche une alerte de sweetalert en cas d'erreur lors de la requête
                     console.error(error);
                     Swal.fire({
                         icon: 'error',
