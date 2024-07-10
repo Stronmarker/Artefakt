@@ -24,7 +24,7 @@ class SubscriptionController extends AbstractController
         // Rend la vue subscription/index.html.twig avec les variables nécessaires
         return $this->render('subscription/index.html.twig', [
             'isSubscribed' => $isSubscribed,
-            'public_key' => 'pk_test_51N1m7HB8NXWXURY9QWbBOLT9JC5tPWtrBDyfJEO3u6A6owTH8Yu3daMvDoMvmo6fGfQFzkTcAMCb9cfum1cTp51W000XeNlvkv', // Clé publique de Stripe
+            'public_key' => $isSubscribed ? null : $_ENV['STRIPE_PUBLIC_KEY'], // Clé publique de Stripe
         ]);
     }
 
