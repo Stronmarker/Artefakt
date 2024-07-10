@@ -1,6 +1,8 @@
 {% extends 'base.logged.html.twig' %}
+{# Étend le modèle de base pour les utilisateurs connectés #}
 
-{% block title %}Reset your password{% endblock %}
+{% block title %}Réinitialisation Mot De Passe{% endblock %}
+{# Définit le titre de la page #}
 
 {% block body %}
 
@@ -9,42 +11,57 @@
         .form-reset {
             padding: 15px;
         }
+    } 
+   
+    .form-control::placeholder {
+        color: rgb(107, 207, 183);
     }
-    .form-control::placeholder { /* Style for placeholders */
-        color: rgb(252, 201, 201);
-    }
+  
 </style>
 
 <div class="container mt-5 mb-5">
+    {# Conteneur avec des marges supérieures et inférieures #}
     <div class="row justify-content-center">
+        {# Ligne centrée horizontalement #}
         <div class="col-12 col-sm-10 col-md-8 col-lg-6">
-            <form method="post" class="form-reset" style="padding: 20px; background: rgba(85, 85, 85, 0.8); border-radius: 8px; box-shadow: 0 0 15px red;">
+            {# Colonne qui occupe différentes largeurs selon la taille de l'écran #}
+            <form method="post" class="form-reset" style="padding: 20px; background: rgb(254, 253, 253); border-radius: 20px; box-shadow: 0 0 15px white; border: 5px solid black">
+                {# Formulaire avec du padding, un fond blanc cassé, des coins arrondis, une ombre blanche et une bordure noire #}
                 {% for flash_error in app.flashes('reset_password_error') %}
                     <div class="alert alert-danger">{{ flash_error }}</div>
                 {% endfor %}
+                {# Affiche les messages d'erreur en cas de problème de réinitialisation de mot de passe #}
 
-                <h1 class="h1 mb-3 font-weight-normal text-center text-light">Réinitialiser mot de passe</h1>
+                <h1 class="h1 mb-3 font-weight-normal text-center text-dark ft_orbitron">Réinitialiser mot de passe</h1>
+                {# Titre principal du formulaire, centré et avec une marge inférieure #}
 
                 {{ form_start(requestForm, {'attr': {'class': 'form-horizontal'}}) }}
+                {# Démarre le formulaire avec une classe CSS pour un style horizontal #}
                 <div class="form-group mt-4 mb-4">
+                    {# Groupe de formulaire avec des marges supérieures et inférieures #}
                     {{ form_row(requestForm.email, {
                         'label': 'Email',
-                        'attr': {'class': 'form-control', 'style': 'background: transparent; border: 1px solid red; color: white'}
+                        'attr': {'class': 'form-control', 'style': 'background: transparent; border: 2px solid green; color: dark', 'placeholder': 'Enter your email'}
                     }) }}
+                    {# Champ de saisie de l'email avec un fond transparent, une bordure verte, du texte foncé et un placeholder #}
                 </div>
 
                 <div>
-                    <small class="text-light">
-                       Entrer le mail lié à votre compte pour recevoir le mail de Réinitialisation. 
+                    <small class="text-dark fw-bold ft_audiowide">
+                        Entrer le mail lié à votre compte pour recevoir le mail de Réinitialisation.
                     </small>
+                    {# Petit texte explicatif en dessous du champ de saisie de l'email #}
                 </div>
 
-                <button class="btn btn-lg btn-danger btn-block" type="submit" style="border: 1px solid red; display: block; margin: 20px auto; width: 80%; max-width: 300px; padding: 10px 0; font-size: 16px;">Send password reset email</button>
-                
+                <button class="btn btn-lg btn-success btn-block ft_wallpoet fw-bold" type="submit" style="border: 2px solid; display: block; margin: 20px auto; width: 80%; max-width: 300px; padding: 10px 0; font-size: 16px;">Send password reset email</button>
+                {# Bouton de soumission vert, centré avec des marges, un padding et une taille de texte spécifiques #}
+
                 {{ form_end(requestForm) }}
+                {# Termine le formulaire #}
             </form>
         </div>
     </div>
 </div>
 
 {% endblock %}
+{# Fin du bloc body #}

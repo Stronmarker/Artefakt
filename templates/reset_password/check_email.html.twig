@@ -1,21 +1,31 @@
-{% extends 'base.logged.html.twig' %}
+{% extends 'base.logged.html.twig' %} 
+{# Étend le modèle de base pour les utilisateurs connectés #}
 
-{% block title %}Email de réinitialisation envoyé{% endblock %}
+{% block title %}Email de réinitialisation envoyé{% endblock %} 
+{# Définit le titre de la page #}
 
 {% block body %}
 
 <div class="container mt-5 mb-5">
+    {# Conteneur avec des marges supérieures et inférieures #}
     <div class="row justify-content-center">
+        {# Ligne centrée horizontalement #}
         <div class="col-12 col-sm-10 col-md-8 col-lg-6">
-            <div class="p-4" style="background: rgba(85, 85, 85, 0.8); border-radius: 8px; box-shadow: 0 0 15px red; color: white;">
+            {# Colonne qui occupe différentes largeurs selon la taille de l'écran #}
+            <div class="p-4" style="background: rgb(246, 244, 244); border-radius: 20px; box-shadow: 0 0 15px white; color: black; border: 5px solid black">
+                {# Div avec du padding, un fond gris clair, des coins arrondis, une ombre blanche, du texte noir et une bordure noire #}
                 <p>
                     Si un compte correspondant à votre adresse e-mail existe, un email vient d'être envoyé contenant un lien que vous pouvez utiliser pour réinitialiser votre mot de passe.
                     Ce lien expirera dans {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.
+                    {# Message informant l'utilisateur qu'un email de réinitialisation a été envoyé s'il existe un compte correspondant #}
+                    {# Le temps d'expiration du lien est traduit et affiché ici #}
                 </p>
                 <p>Si vous ne recevez pas d'email, veuillez vérifier votre dossier de spam ou <a href="{{ path('app_forgot_password_request') }}" class="text-danger">réessayez</a>.</p>
+                {# Message suggérant de vérifier le dossier de spam ou de réessayer en cas de non-réception de l'email, avec un lien pour réessayer #}
             </div>
         </div>
     </div>
 </div>
 
 {% endblock %}
+{# Fin du bloc body #}

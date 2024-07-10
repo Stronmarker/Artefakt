@@ -29,16 +29,16 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link ft_orbitron" href="{{ path('app_project') }}">Projet</a>
+                        <a class="nav-link ft_orbitron text-light" href="{{ path('app_project') }}">Projet</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link ft_orbitron" href="{{ path('app_subscription') }}">Offre Premium</a>
+                        <a class="nav-link ft_orbitron text-light" href="{{ path('app_subscription') }}">Offre Premium</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link ft_orbitron" href="{{ path('app_help') }}">FAQ</a>
+                        <a class="nav-link ft_orbitron text-light" href="{{ path('app_help') }}">FAQ</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link ft_orbitron" href="{{ path('app_logout') }}">Déconnexion</a>
+                        <a class="nav-link ft_orbitron text-light" href="{{ path('app_logout') }}">Déconnexion</a>
                     </li>
                 </ul>
             </div>
@@ -53,14 +53,14 @@
         {% endblock %}
 
         {% block footer %}
-        <footer class="bg-dark text-light py-3 fixed-bottom w-100">
-            <div class="container-fluid">
+        <footer class="bg-dark text-light mt-auto py-3">
+            <div class="container d-flex flex-column justify-content-center">
                 <div class="row">
                     <div class="col-md-6">
                         <p class="mb-0">© {{ "now"|date("Y") }} Agarta Tous droits réservés.</p>
                     </div>
                     <div class="col-md-6 text-md-right">
-                        <a href="{{ path('app_cgu') }}" style="color: #dc3545; transition: color 0.3s;">Conditions Générales d'Utilisation</a>
+                        <a href="{{ path('app_cgu') }}" style="color: #dc3545; transition: color 0.3s">Conditions Générales d'Utilisation</a>
                     </div>
                 </div>
             </div>

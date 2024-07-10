@@ -1,10 +1,20 @@
 <h1>Bonjour</h1>
+{# Titre principal de la page #}
 
-<p>Vous avez demandé la réinitialisation de votre mot de passe.</p><br>
+<p>Vous avez demandé la réinitialisation de votre mot de passe.</p>
+{# Paragraphe informant l'utilisateur qu'il a demandé une réinitialisation de mot de passe #}
+
+<br>
+{# Saut de ligne pour espacer les paragraphes #}
+
 <p>Le lien ci-dessous vous permettra de changer votre mot de passe.</p>
+{# Paragraphe informant l'utilisateur qu'un lien pour réinitialiser le mot de passe est fourni ci-dessous #}
 
 <a href="{{ url('app_reset_password', {token: resetToken.token}) }}">{{ url('app_reset_password', {token: resetToken.token}) }}</a>
+{# Lien cliquable généré dynamiquement pour réinitialiser le mot de passe en utilisant le token de réinitialisation #}
 
 <p>Ce lien expire dans {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.</p>
+{# Paragraphe indiquant le temps d'expiration du lien, traduit et affiché dynamiquement #}
 
 <p>Merci de votre visite !</p>
+{# Paragraphe de remerciement à l'utilisateur #}

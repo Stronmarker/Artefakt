@@ -1,43 +1,135 @@
-{% extends 'base.logged.html.twig' %}
+{% extends 'base.logged.html.twig' %} {# Héritage de la structure de base.logged.html.twig #}
 
 {% block title %}Abonnements{% endblock %}
 
-{% block body %}
-
-{# stylisation de certains paramètres du code car pas réussi en boostrap #}
-<style>
+{% block body %} {# Style de la page et conteneur central avec un form #}
+<style> 
     .centered-container {
-        display: flex ;
+        display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
-        min-height: 80vh; 
-        
-       
+        min-height: 80vh;
     }
     .card-shadow {
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1); /* Application d'une effet de relief */
-        border-radius: 20px; 
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1), 0 0 15px white;
+        border-radius: 20px;
         border: 7px solid #000;
-        position: absolute;
-        
+        width: 100%;
+        max-width: 600px;
+        padding: 20px;
     }
-      
+    .centered-title {
+        margin-bottom: 20px;
+    }
+    .card-title {
+        margin-bottom: 10px;
+    }
 </style>
 
-<div class="container centered-container mb-4"> 
-    <div class="card card-shadow"> 
+<div class="container centered-container mb-4">
+    <h1 class="text-center text-white centered-title ft_orbitron">Notre Offre Premium</h1>
+    <div class="card card-shadow">
         <div class="card-body">
-            <h5 class="card-title text-success fw-bold text-center ft_orbitron">Abonnement Premium</h5><br>
-            <h6 class="card-subtitle mb-2 text-dark fw-bold text-center">€19.99/mois</h6><br>
-            <ul>
-                <li class="ft_audiowide">Création de projets illimités</li>
-                <li class="ft_audiowide">Outils illimités</li>
-                <li class="ft_audiowide">Assistance par e-mail et téléphone</li>
-                <li class="ft_audiowide">Accés au centre d'aide</li>
+            <h5 class="card-title text-success fw-bold text-center ft_orbitron">Abonnement Premium</h5>
+            <h6 class="card-subtitle mb-2 text-dark fw-bold text-center ft_audiowide">€20/mois</h6>
+            <ul class="list-unstyled">
+                <li class="ft_audiowide text-center">Projets illimités</li>
+                <li class="ft_audiowide text-center">Outils illimités</li>
+                <li class="ft_audiowide text-center">Assistance par e-mail</li>
+                <li class="ft_audiowide text-center">Accès au centre d'aide</li>
             </ul>
-            <a href="#" class="btn btn-success mt-3 fw-bold d-block mx-auto ft_fell">Souscrire</a>
+
+            <form id="subscription-form">
+                <input type="email" id="email" placeholder="Email" required class="form-control mb-3" />
+                <div id="card-element" class="form-control mb-3"></div>
+                <button type="submit" class="btn btn-success mt-3 fw-bold d-block mx-auto ft_wallpoet">Souscrire</button>
+            </form>
         </div>
     </div>
 </div>
 
+{% endblock %}
+
+{% block javascripts %}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script> {# Chargement de la bibliothèque SweetAlert pour les alertes #}
+<script src="https://js.stripe.com/v3/"></script> {# chargement de la bibliothèque Stripe.js pour le traitement des paiements #}
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const stripe = Stripe('{{ public_key }}'); // Initialise Stripe avec la clé publique
+        const elements = stripe.elements(); // Crée un élément Stripe pour la carte bancaire
+        const cardElement = elements.create('card');
+        cardElement.mount('#card-element'); // Monte l'élément de carte bancaire dans la div avec l'id card-element
+
+        // Ajoute un écouteur d'événement pour le formulaire de souscription qui ..
+        document.getElementById('subscription-form').addEventListener('submit', async (event) => {
+            event.preventDefault(); //  .. Empêche le formulaire de  se soumettre normalement
+
+            const email = document.getElementById('email').value;
+            // Crée une méthode de paiement avec Stripe en utilisant les détails de la carte et l'email
+            const { error, paymentMethod } = await stripe.createPaymentMethod({
+                type: 'card',
+                card: cardElement,
+                billing_details: { email: email }
+            });
+
+            if (error) {
+                // Affiche une alerte en cas d'erreur lors de la création de la méthode de paiement
+                console.error(error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erreur',
+                    text: error.message,
+                });
+            } else {
+                // Envoie une requête POST à la route app_subscribe avec l'email et l'ID de la méthode de paiement
+                fetch('{{ path("app_subscribe") }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        payment_method: paymentMethod.id
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Affiche une alerte de sweetalert de succès si l'abonnement est réussi
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Félicitations !',
+                            text: 'Vous avez bien souscrit à l\'offre premium.',
+                            showConfirmButton: false,
+                            timer: 2000
+                        }).then(function() {
+                            // Rechargement de la page après 2 seconde
+                            window.location.reload();
+                        });
+                    } else {
+                        // Affiche une alerte de sweetalert d'information si l'utilisateur est déjà abonné
+                        console.log(data.success)
+                        Swal.fire({
+                            icon: 'info',
+                            title: 'Déjà abonné',
+                            text: data.message || 'Vous êtes déjà abonné',
+                        });
+                    }
+                })
+                .catch(error => {
+                    // affiche une alerte de sweetalert en cas d'erreur lors de la requête
+                    console.error(error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Erreur',
+                        text: 'Une erreur s\'est produite. Veuillez réessayer.',
+                    });
+                });
+            }
+        });
+    });
+</script>
 {% endblock %}
