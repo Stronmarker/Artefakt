@@ -3,17 +3,17 @@
 @import url('https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&family=Wallpoet&display=swap');
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');
 
-html, body {
+/* html, body {
     height: 100%;
-}
+} */
 
 .main-container {
     flex-grow: 1;
     
-}
+} 
 
 body {
-    background-image: url('../images/background.png');
+    background-image: url('../images/background.png'); 
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -21,7 +21,8 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-}
+} 
+
 
 .img_logo {
     height: 30px;  
@@ -46,18 +47,11 @@ body {
     font-family: 'Wallpoet', sans-serif;
 }
 
-#gold {
-    background-image: url('../images/gold_back.png');
-    background-size: cover;
-    background-position: center;
-    color: #fff; /* Change the text color if needed */
-}
-
 .list-group-item-transparent {
     background-color: transparent !important;
 }
 
-/* .comparison-table {
+.comparison-table {
     margin-top: 50px;
 }
 
@@ -73,5 +67,14 @@ body {
 
 .comparison-table i {
     color: #28a745; 
-} */
+} 
 
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    
+    
+}
+ 

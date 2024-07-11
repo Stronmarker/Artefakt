@@ -12,7 +12,7 @@
                     <h1 class="text-center text-dark mb-4 ft_orbitron">Mon Profil</h1>
 
                     {% if app.user %}
-                    <p class="text-center text-dark mb-4 fw-bold ft_audiowide">Bienvenue, {{ app.user.firstname }}</p>
+                    <p class="text-center text-dark mb-4 fw-bold ft_audiowide">Bienvenue, {{ user.firstname }}</p>
                     {% endif %}
 
                     {{ form_start(form, {'attr': {'id': 'profil-form', 'class': 'form-horizontal'}}) }}

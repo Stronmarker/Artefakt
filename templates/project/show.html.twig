@@ -16,10 +16,16 @@
                     <a href="{{ path('rendering_show', {'project_id': project.id, 'rendering_id': rendering.id}) }}">
                         <div class="card-body text-center">
                             <h5 class="card-title">{{ rendering.renderingName }}</h5>
-                        </div>
+                            <img 
+                                style="width:25%"
+                                src="{{ vich_uploader_asset(rendering, 'frontPngFile') }}" 
+                                data-image-toward-png="{{ vich_uploader_asset(rendering, 'towardPngFile') }}"
+                            >
+                        </div>                       
                     </a>
                 </div>
             </div>
+            
         {% endfor %}
     </div>
 

@@ -19,7 +19,9 @@ class ProjectController extends AbstractController
     #[Route('/project', name: 'app_project')]
     public function index(EntityManagerInterface $entityManager): Response
     {
-        $projects = $entityManager->getRepository(Project::class)->findAll();
+        $user = $this->getUser();
+        // $projects = $entityManager->getRepository(Project::class)->findAll(); Ici on affichait tous les projets
+        $projects = $entityManager->getRepository(Project::class)->findBy(['createdBy' => $user]);
 
         return $this->render('project/index.html.twig', [
             'projects' => $projects,
@@ -35,8 +37,8 @@ class ProjectController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $project->getCreatedAt(new \DateTime());
-            $project->getUpdatedAt(new \DateTime());
+            $project->setCreatedBy($this->getUser());
+
 
             $entityManager->persist($project);
             $entityManager->flush();
@@ -52,6 +54,12 @@ class ProjectController extends AbstractController
     #[Route('/project/{id}', name: 'project_show')]
     public function show(Project $project, Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
+
+        
+        if ($project->getCreatedBy() !== $this->getUser()) {
+            throw $this->createAccessDeniedException('Accès refusé : Vous n\'etes pas le créateur de ce projet'); //TODO sweetAlert
+        }
+
         $rendering = new Rendering();
         $form = $this->createForm(AddRenderingType::class, $rendering);
         $form->handleRequest($request);

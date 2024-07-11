@@ -7,10 +7,14 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 #[ORM\Entity(repositoryClass: ProjectRepository::class)]
 class Project
 {
+
+    use TimestampableEntity;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
@@ -19,23 +23,20 @@ class Project
     #[ORM\Column(length: 255)]
     private ?string $projectName = null;
 
-    #[Gedmo\Timestampable(on: 'create')]
-    #[ORM\Column(name: 'created_at', type: 'datetime', nullable: true)]
-    private ?\DateTimeInterface $createdAt = null;
-
-    #[Gedmo\Timestampable(on: 'update')]
-    #[ORM\Column(name: 'updated_at', type: 'datetime', nullable: true)]
-    private ?\DateTimeInterface $updatedAt = null;
-
     #[ORM\Column(name: 'client_name', length: 255, nullable: true)]
     private ?string $clientName = null;
 
     #[ORM\OneToMany(mappedBy: 'project', targetEntity: Rendering::class, cascade: ['persist', 'remove'])]
     private Collection $renderings;
 
+    #[ORM\ManyToOne(inversedBy: 'projects')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $createdBy = null;
+
     public function __construct()
     {
         $this->renderings = new ArrayCollection();
+        $this->createdAt = new \DateTimeImmutable() ;
     }
 
     public function getId(): ?int
@@ -53,16 +54,6 @@ class Project
         $this->projectName = $projectName;
 
         return $this;
-    }
-
-    public function getCreatedAt(): ?\DateTimeInterface
-    {
-        return $this->createdAt;
-    }
-
-    public function getUpdatedAt(): ?\DateTimeInterface
-    {
-        return $this->updatedAt;
     }
 
     public function getClientName(): ?string
@@ -102,6 +93,18 @@ class Project
                 $rendering->setProject(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCreatedBy(): ?User
+    {
+        return $this->createdBy;
+    }
+
+    public function setCreatedBy(?User $createdBy): static
+    {
+        $this->createdBy = $createdBy;
 
         return $this;
     }

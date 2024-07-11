@@ -81,7 +81,6 @@ class AddRenderingType extends AbstractType
                 '148x105' => '148x105',
             ],
         ])
-        ->add('link', TextType::class, ['label' => 'Link', 'required' => false])
         ->add('rendering_name', TextType::class, ['label' => 'rendering_name']);
     }
 

@@ -38,7 +38,7 @@
             <div class="card project-card create-card">
                 <a href="{{ path('project_create') }}">
                     <div class="card-body d-flex align-items-center justify-content-center">
-                        <h3 class="card-title">+ Create a new Project</h3>
+                        <h3 class="card-title">+ Créer un nouveau projet</h3>
                     </div>
                 </a>
             </div>
@@ -49,7 +49,7 @@
                     <a href="{{ path('project_show', {id: project.id}) }}">
                         <div class="card-body text-center">
                             <h3 class="card-title">{{ project.projectName }}</h3>
-                            <p class="card-text">Created on: {{ project.createdAt|date('Y-m-d H:i:s') }}</p>
+                            <p class="card-text ft_orbitron">Créé le : {{ project.createdAt|date('d/m/Y H:i:s') }}</p>
                         </div>
                     </a>
                 </div>
