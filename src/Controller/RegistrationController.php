@@ -16,6 +16,9 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
+use Stripe\Stripe;
+use Stripe\Customer;
+
 
 class RegistrationController extends AbstractController
 {
@@ -38,6 +41,13 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
+
+            Stripe::setApiKey($_ENV['STRIPE_API_KEY']);
+            $customer = Customer::create([
+                'email' => $user->getEmail(),
+                'name' => $user->getFirstname() . ' ' . $user->getLastname(),
+            ]);
+            $user->setStripeCustomerId($customer->id);
 
             $entityManager->persist($user);
             $entityManager->flush();

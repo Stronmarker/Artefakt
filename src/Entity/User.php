@@ -45,6 +45,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'boolean')]
     private bool $isSubscribed = false;
 
+    #[ORM\Column(nullable: true)]
+    private ?string $stripeCustomerId = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -166,5 +169,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->isSubscribed = $isSubscribed;
 
         return $this;
+    }
+
+    public function getStripeCustomerId(): ?string
+    {
+        return $this->stripeCustomerId;
+    }
+
+    public function setStripeCustomerId(?string $stripeCustomerId): self 
+    {
+        $this->stripeCustomerId = $stripeCustomerId;
+        return $this;
+
     }
 }

@@ -46,14 +46,25 @@ class SubscriptionController extends AbstractController
         Stripe::setApiKey($_ENV['STRIPE_API_KEY']); // Clé secrète de Stripe
 
         try {
-            // Crée un nouveau client Stripe
-            $customer = Customer::create([
-                'email' => $email,
-                'payment_method' => $paymentMethod,
-                'invoice_settings' => [
-                    'default_payment_method' => $paymentMethod,
-                ],
-            ]);
+            // Vérifie si l'utilisateur a déjà un client Stripe
+            if ($user->getStripeCustomerId()) {
+                // Utilise le client Stripe existant
+                $customerId = $user->getStripeCustomerId();
+                $customer = Customer::retrieve($customerId);
+                $customer->invoice_settings = ['default_payment_method' => $paymentMethod];
+                $customer->save();
+            } else {
+                // Crée un nouveau client Stripe
+                $customer = Customer::create([
+                    'email' => $email,
+                    'payment_method' => $paymentMethod,
+                    'invoice_settings' => [
+                        'default_payment_method' => $paymentMethod,
+                    ],
+                ]);
+                $user->setStripeCustomerId($customer->id);
+                $em->persist($user); // Persiste l'utilisateur avec le Stripe ID
+            }
 
             // Crée un nouvel abonnement pour le client
             $subscription = Subscription::create([
@@ -66,7 +77,6 @@ class SubscriptionController extends AbstractController
 
             // Marque l'utilisateur comme abonné dans la base de données
             $user->setSubscribed(true);
-            $em->persist($user); // Persiste l'utilisateur dans l'EntityManager
             $em->flush(); // Sauvegarde les changements dans la base de données
 
             // Retourne une réponse JSON avec succès
