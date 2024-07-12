@@ -12,12 +12,13 @@ export default class extends Controller {
         this.scene = new THREE.Scene();
 
         // Initialisation de la caméra
-        this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        this.updateCanvasSize(); // Set initial size
+        this.camera = new THREE.PerspectiveCamera(75, this.canvasWidth / this.canvasHeight, 0.1, 1000);
         this.camera.position.set(0, 2, 10);
 
         // Initialisation du renderer
         this.renderer = new THREE.WebGLRenderer({ antialias: true });
-        this.renderer.setSize(window.innerWidth, window.innerHeight);
+        this.renderer.setSize(this.canvasWidth, this.canvasHeight);
         this.canvasContainerTarget.appendChild(this.renderer.domElement);
 
         // Création du podium
@@ -76,9 +77,6 @@ export default class extends Controller {
     animate() {
         requestAnimationFrame(this.animate.bind(this));
 
-        // Ajout de logs supplémentaires pour vérifier l'état de autoRotate et la rotation
-        
-
         // Rotation automatique de la carte si autoRotate est true
         if (this.autoRotate) {
             this.card.rotation.y += 0.01;
@@ -88,19 +86,20 @@ export default class extends Controller {
         this.renderer.render(this.scene, this.camera);
     }
 
+    updateCanvasSize() {
+        this.canvasWidth = this.canvasContainerTarget.clientWidth;
+        this.canvasHeight = this.canvasContainerTarget.clientHeight;
+    }
+
     onWindowResize() {
-        this.renderer.setSize(window.innerWidth, window.innerHeight);
-        this.camera.aspect = window.innerWidth / window.innerHeight;
+        this.updateCanvasSize();
+        this.renderer.setSize(this.canvasWidth, this.canvasHeight);
+        this.camera.aspect = this.canvasWidth / this.canvasHeight;
         this.camera.updateProjectionMatrix();
     }
 
     toggleRotation() {
-        
-        
         this.autoRotate = !this.autoRotate;
-
-        
-
         this.pauseButtonTarget.textContent = this.autoRotate ? 'Pause Rotation' : 'Resume Rotation';
         this.pauseButtonTarget.style.backgroundColor = this.autoRotate ? '#f00' : '#0f0';
     }

@@ -5,7 +5,8 @@
 {% block title %}Rendering Details{% endblock %}
 
 {% block body %}
-    <h1>{{ rendering.renderingName }}</h1>
+    <h1> Nom du Rendu : {{ rendering.renderingName }}</h1>
+    <h4>Projet : {{ project.projectName}} </h4>
     <div>
         <h2>Images</h2>
         <p>{{ rendering.createdAt|date('d/m/Y H:i:s') }}</p>
@@ -13,7 +14,7 @@
              data-image-front-png="{{ vich_uploader_asset(rendering, 'frontPngFile') }}" 
              data-image-toward-png="{{ vich_uploader_asset(rendering, 'towardPngFile') }}">
              
-            <div data-image-target="canvasContainer" style="width: 100%; height: 400px;"></div>
+             <div data-image-target="canvasContainer" style="width: 500px; height: 300px; border: 1px solid #ccc;"></div>
         
             <button data-action="click->image#toggleRotation">Pause Rotation</button>
             <button data-action="click->image#resetCamera" data-image-target="resetButton">Reset Camera</button>
