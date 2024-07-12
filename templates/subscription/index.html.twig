@@ -9,44 +9,47 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        min-height: 80vh;
+        min-height: 80vh; /* Conteneur centré verticalement */
     }
     .card-shadow {
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1), 0 0 15px white;
-        border-radius: 20px;
-        border: 7px solid #000;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1), 0 0 15px white; /* Ombre pour la carte */
+        border-radius: 20px; /* Bords arrondis */
+        border: 7px solid #000; /* Bordure noire */
         width: 100%;
-        max-width: 600px;
-        padding: 20px;
+        max-width: 600px; /* Largeur maximale de la carte */
+        padding: 20px; /* Padding interne */
     }
     .centered-title {
-        margin-bottom: 20px;
+        margin-bottom: 20px; /* Marges pour le titre centré */
     }
     .card-title {
-        margin-bottom: 10px;
+        margin-bottom: 10px; /* Marges pour le titre de la carte */
     }
 </style>
 
 <div class="container centered-container mb-4">
-    <h1 class="text-center text-white centered-title ft_orbitron">Notre Offre Premium</h1>
+    <h1 class="text-center text-white centered-title ft_orbitron">Notre Offre Premium</h1> <!-- Titre principal de la page -->
     <div class="card card-shadow">
         <div class="card-body">
-            <h5 class="card-title text-success fw-bold text-center ft_orbitron">Abonnement Premium</h5>
-            <h6 class="card-subtitle mb-2 text-dark fw-bold text-center ft_audiowide">€20/mois</h6>
+            <h5 class="card-title text-success fw-bold text-center ft_orbitron">Abonnement Premium</h5> <!-- Titre de la carte -->
+            <h6 class="card-subtitle mb-2 text-dark fw-bold text-center ft_audiowide">€20/mois</h6> <!-- Sous-titre de la carte -->
             <ul class="list-unstyled">
-                <li class="ft_audiowide text-center">Projets illimités</li>
+                <li class="ft_audiowide text-center">Projets illimités</li> <!-- Fonctionnalités incluses dans l'abonnement -->
                 <li class="ft_audiowide text-center">Outils illimités</li>
                 <li class="ft_audiowide text-center">Assistance par e-mail</li>
                 <li class="ft_audiowide text-center">Accès au centre d'aide</li>
             </ul>
 
             {% if not isSubscribed %}
-                <form id="subscription-form">
+                <!-- Formulaire d'abonnement pour les utilisateurs non abonnés -->
+                <form id="subscription-form">   
+                    <input type="text" id="last-name" placeholder="Nom" required class="form-control mb-3"/>
                     <input type="email" id="email" placeholder="Email" required class="form-control mb-3" />
-                    <div id="card-element" class="form-control mb-3"></div>
+                    <div id="card-element" class="form-control mb-3"></div> <!-- Champ de saisie de la carte de crédit -->
                     <button type="submit" class="btn btn-success mt-3 fw-bold d-block mx-auto ft_wallpoet">Souscrire</button>
                 </form>
             {% else %}
+                <!-- Message pour les utilisateurs déjà abonnés -->
                 <p class="text-center text-success fw-bold ft_orbitron">Vous êtes déjà abonné. Merci !</p>
             {% endif %}
         </div>
@@ -56,34 +59,44 @@
 
 {% block javascripts %}
 {% if not isSubscribed %}
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script> 
-<script src="https://js.stripe.com/v3/"></script> 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script> <!-- Importation de SweetAlert2 pour les alertes -->
+<script src="https://js.stripe.com/v3/"></script> <!-- Importation de Stripe.js -->
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+        // Initialisation de Stripe avec la clé publique
         const stripe = Stripe('{{ public_key }}');
         const elements = stripe.elements();
         const cardElement = elements.create('card');
-        cardElement.mount('#card-element');
+        cardElement.mount('#card-element'); // Montre le champ de saisie de la carte de crédit
 
+        // Gestionnaire d'événement pour la soumission du formulaire
         document.getElementById('subscription-form').addEventListener('submit', async (event) => {
-            event.preventDefault();
+            event.preventDefault(); // Empêche la soumission par défaut du formulaire
 
+
+            
+            const lastName = document.getElementById('last-name').value;
             const email = document.getElementById('email').value;
             const { error, paymentMethod } = await stripe.createPaymentMethod({
                 type: 'card',
                 card: cardElement,
-                billing_details: { email: email }
-            });
+                billing_details: { 
+                    name: `${lastName}`,
+                    email: email,
+                   
+                } 
+            }); // Détails de facturation de l'utilisateur
 
             if (error) {
                 console.error(error);
                 Swal.fire({
                     icon: 'error',
                     title: 'Erreur',
-                    text: error.message,
+                    text: error.message, // Affiche le message d'erreur
                 });
             } else {
+                // Envoie les données au serveur pour créer l'abonnement avec la méthode POST
                 fetch('{{ path("app_subscribe") }}', {
                     method: 'POST',
                     headers: {
@@ -91,8 +104,9 @@
                         'X-Requested-With': 'XMLHttpRequest'
                     },
                     body: JSON.stringify({
+                        last_name: lastName,
                         email: email,
-                        payment_method: paymentMethod.id
+                        payment_method: paymentMethod.id // Envoie l'ID de la méthode de paiement au serveur
                     })
                 })
                 .then(response => response.json())
@@ -103,9 +117,9 @@
                             title: 'Félicitations !',
                             text: 'Vous avez bien souscrit à l\'offre premium.',
                             showConfirmButton: false,
-                            timer: 2000
+                            timer: 2000 // Affiche une alerte de succès pendant 2 secondes
                         }).then(function() {
-                            window.location.reload();
+                            window.location.reload(); // Recharge la page après la souscription réussie
                         });
                     } else {
                         Swal.fire({
@@ -129,3 +143,33 @@
 </script>
 {% endif %}
 {% endblock %}
+
+
+{# 
+Blocs de base :
+
+extends : Indique que ce template hérite de base.logged.html.twig.
+block title : Définit le titre de la page.
+block body : Contient le corps principal du template.
+
+CSS Inline :
+
+.centered-container : Conteneur centré verticalement.
+.card-shadow : Style pour la carte avec ombre et bordure.
+
+HTML Structure :
+
+div.container : Conteneur principal pour centrer le contenu.
+h1 : Titre principal de la page.
+div.card : Contient les détails de l'abonnement.
+ul.list-unstyled : Liste des avantages de l'abonnement.
+form#subscription-form : Formulaire pour souscrire à l'abonnement (affiché si l'utilisateur n'est pas abonné).
+
+JavaScript Section :
+
+block javascripts : Blocs de scripts pour gérer la souscription.
+document.addEventListener('DOMContentLoaded') : S'assure que le script est exécuté après le chargement du DOM.
+stripe.createPaymentMethod : Crée un PaymentMethod avec Stripe.
+fetch : Envoie une requête POST au serveur pour créer l'abonnement.
+Swal.fire : Affiche des alertes stylisées avec SweetAlert2. 
+#}
