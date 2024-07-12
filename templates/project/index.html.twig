@@ -8,16 +8,20 @@
         cursor: pointer;
         transition: transform 0.3s ease;
     }
+
     .project-card:hover {
         transform: scale(1.05);
     }
-    .project-card a {
-        text-decoration: none;
-        color: inherit;
+
+    .create-card {
+        cursor: pointer;
+        transition: transform 0.3s ease;
     }
-    .project-card h3 {
-        margin-top: 0;
+
+    .create-card:hover {
+        transform: scale(1.05);
     }
+
     .create-card {
         display: flex;
         justify-content: center;
@@ -25,35 +29,70 @@
         text-align: center;
         font-size: 1.5em;
         background-color: #f8f9fa;
-        border: 2px dashed #6c757d;
+        border: 2px dashed #097303;
         height: 100%;
+        text-decoration: none;
+        color: inherit;
+    }
+    
+    .project-card a {
+        text-decoration: none;
+        color: inherit;
+        border: 3px solid #008909;
+        border-radius: 10px;
+    }
+
+    .project-card h3 {
+        margin-top: 0;
+    }
+
+    .btn-edit,
+    .btn-delete {
+        width: auto;
+        margin: 0;
+    }
+
+    .card-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
     }
 </style>
 
 <div class="container mt-4">
-    <h1>Projects</h1>
+    <h1 class="m-5">Mes Projets</h1>
 
     <div class="row">
         <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card project-card create-card">
-                <a href="{{ path('project_create') }}">
+            <div class="card create-card">
+                <a href="{{ path('project_create') }}" class="text-decoration-none">
                     <div class="card-body d-flex align-items-center justify-content-center">
-                        <h3 class="card-title">+ Créer un nouveau projet</h3>
+                        <h3 class="card-title text-success">+ Créer un nouveau projet</h3>
                     </div>
                 </a>
             </div>
         </div>
         {% for project in projects %}
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card project-card">
-                    <a href="{{ path('project_show', {id: project.id}) }}">
-                        <div class="card-body text-center">
-                            <h3 class="card-title">{{ project.projectName }}</h3>
-                            <p class="card-text ft_orbitron">Créé le : {{ project.createdAt|date('d/m/Y H:i:s') }}</p>
-                        </div>
-                    </a>
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card project-card">
+                <a href="{{ path('project_show', {id: project.id}) }}">
+                    <div class="card-body text-center">
+                        <h3 class="card-title">{{ project.projectName }}</h3>
+                        <p class="card-text ft_orbitron">Créé le : {{ project.createdAt|date('d/m/Y H:i:s') }}</p>
+                    </div>
+                </a>
+                <div class="card-footer d-flex justify-content-between">
+                    <button onclick="window.location.href='{{ path('project_edit', {id: project.id}) }}'"
+                        class="btn btn-dark btn-edit">Modifier
+                    </button>
+                    <form class="delete-form" method="post" action="{{ path('project_delete', {'id': project.id}) }}" class="d-inline">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ project.id) }}">
+                        <button type="submit" class="btn btn-danger btn-delete">Supprimer</button>
+                    </form>                    
                 </div>
             </div>
+        </div>
         {% endfor %}
     </div>
 </div>

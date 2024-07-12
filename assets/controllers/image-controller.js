@@ -20,12 +20,6 @@ export default class extends Controller {
         this.renderer.setSize(window.innerWidth, window.innerHeight);
         this.canvasContainerTarget.appendChild(this.renderer.domElement);
 
-        // Ajouter un fond avec une texture
-        const loader = new THREE.TextureLoader();
-        loader.load('path/to/your/background-image.jpg', (texture) => {
-            this.scene.background = texture;
-        });
-
         // Création du podium
         const podiumGeometry = new THREE.CylinderGeometry(2, 2, 1, 32);
         const podiumMaterial = new THREE.MeshPhongMaterial({ color: 0x555555 });
@@ -82,6 +76,9 @@ export default class extends Controller {
     animate() {
         requestAnimationFrame(this.animate.bind(this));
 
+        // Ajout de logs supplémentaires pour vérifier l'état de autoRotate et la rotation
+        
+
         // Rotation automatique de la carte si autoRotate est true
         if (this.autoRotate) {
             this.card.rotation.y += 0.01;
@@ -98,7 +95,12 @@ export default class extends Controller {
     }
 
     toggleRotation() {
+        
+        
         this.autoRotate = !this.autoRotate;
+
+        
+
         this.pauseButtonTarget.textContent = this.autoRotate ? 'Pause Rotation' : 'Resume Rotation';
         this.pauseButtonTarget.style.backgroundColor = this.autoRotate ? '#f00' : '#0f0';
     }

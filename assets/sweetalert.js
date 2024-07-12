@@ -1,19 +1,51 @@
-import Swal from 'sweetalert2';
+// ----- Sweet alert deleteProject -----
 
-// function showSubscriptionSuccessAlert() {
-//     Swal.fire({
-//         title: "Succès",
-//         text: "Vous avez bien souscrit à l'offre premium",
-//         icon: "success",
-//         confirmButtonText: "Ok",
-//         confirmButtonColor: "#4caf50"
-//     }).then((result) => {
-//         if (result.isConfirmed) {
-//             window.location.href = "/dashboard"; // Redirection vers la page dashboard
-//         }
-//     });
-// }
+import Swal from "sweetalert2";
 
-// if (document.querySelector(".subscription-success-alert")) {
-//     showSubscriptionSuccessAlert();
-// }
+
+document.addEventListener("DOMContentLoaded", function() {
+    document.querySelectorAll(".delete-form").forEach(function(form) {
+        form.addEventListener("submit", function(event) {
+            event.preventDefault();
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'No, cancel!',
+                confirmButtonClass: 'btn btn-primary w-xs me-2 mt-2',
+                cancelButtonClass: 'btn btn-danger w-xs mt-2',
+                customClass: {
+                    confirmButton: "btn btn-success",
+                    cancelButton: "btn btn-danger"
+                  },
+                buttonsStyling: false,
+                showCloseButton: true
+            }).then(function (result) {
+                if (result.value) {
+                    Swal.fire({
+                        title: 'Deleted!',
+                        text: 'Your file has been deleted.',
+                        icon: 'success',
+                        confirmButtonClass: 'btn btn-primary w-xs mt-2',
+                        buttonsStyling: false
+                    }).then(() => {
+                        form.submit(); // Submit the form after confirmation
+                    });
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    Swal.fire({
+                        title: 'Cancelled',
+                        text: 'Your imaginary file is safe :)',
+                        icon: 'error',
+                        confirmButtonClass: 'btn btn-primary mt-2',
+                        customClass: {
+                            confirmButton: "btn btn-dark",
+                          },
+                        buttonsStyling: false
+                    });
+                }
+            });
+        });
+    });
+});

@@ -6,13 +6,15 @@ use App\Entity\Project;
 use App\Entity\Rendering;
 use App\Form\ProjectType;
 use App\Form\AddRenderingType;
+use App\Repository\ProjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+
 
 class ProjectController extends AbstractController
 {
@@ -122,5 +124,36 @@ class ProjectController extends AbstractController
         }
 
         return $newFilename;
+    }
+
+    #[Route('/project/{id}/edit', name: 'project_edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, Project $project, EntityManagerInterface $em): Response
+    {
+        $form = $this->createForm(ProjectType::class, $project);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->flush();
+
+            return $this->redirectToRoute('app_project');
+        }
+
+        return $this->render('project/edit.html.twig', [
+            'project' => $project,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/{id}', name: 'project_delete', methods: ['POST'])]
+    public function delete(Request $request, Project $project, EntityManagerInterface $entityManager): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$project->getId(), $request->getPayload()->getString('_token'))) {
+            $entityManager->remove($project);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Project deleted successfully.');
+        }
+
+        return $this->redirectToRoute('app_project', [], Response::HTTP_SEE_OTHER);
     }
 }

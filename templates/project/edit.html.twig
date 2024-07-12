@@ -1,0 +1,14 @@
+{% extends 'base.logged.html.twig' %}
+
+{% block title %}Modifier le projet{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <h1 class="m-5">Modifier le projet</h1>
+
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button class="btn btn-primary">Enregistrer les modifications</button>
+    {{ form_end(form) }}
+</div>
+{% endblock %}
