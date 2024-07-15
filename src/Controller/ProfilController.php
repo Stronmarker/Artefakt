@@ -41,12 +41,26 @@ class ProfilController extends AbstractController
                     $customer = Customer::update($stripeCustomerId, [
                         'email' => $user->getEmail(),
                         'name' => $user->getFirstname() . ' ' . $user->getLastname(),
+                        'address' => [
+                            'line1' => $user->getAddress(),
+                            'city' => $user->getCity(),
+                            'state' =>$user->getState(),
+                            'postal_code' =>$user->getPostalCode(),
+                            'country' =>$user->getCountry(),
+                        ]
                     ]);
                 } else {
                     // Création d'un nouveau client sur Stripe
                     $customer = Customer::create([
                         'email' => $user->getEmail(),
                         'name' => $user->getFirstname() . ' ' . $user->getLastname(),
+                        'address' => [
+                            'line1' => $user->getAddress(),
+                            'city' => $user->getCity(),
+                            'state' => $user->getState(),
+                            'postal_code' => $user->getPostalCode(), 
+                            'country' => $user->getCountry(),
+                        ],
                     ]);
                     $user->setStripeCustomerId($customer->id);
                 }

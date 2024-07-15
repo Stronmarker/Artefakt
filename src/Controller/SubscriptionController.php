@@ -41,6 +41,11 @@ class SubscriptionController extends AbstractController
         // Récupère les données de la requête JSON
         $data = json_decode($request->getContent(), true);
         $email = $data['email']; // Email de l'utilisateur
+        $address = $data['address'];
+        $city = $data['city'];
+        $postalCode = $data['postal_code'];
+        $state = $data['state'];
+        $country = $data['country'];
         $paymentMethodId = $data['payment_method']; //méthode de paiement stripe
 
         Stripe::setApiKey($_ENV['STRIPE_API_KEY']); // Configuration de la clé privé de l'API stripe
@@ -58,6 +63,13 @@ class SubscriptionController extends AbstractController
                 // Création d'un nouveau client stripe
                 $customer = Customer::create([
                     'email' => $email,
+                    'address' => [
+                        'line1' => $address,
+                        'city' => $city,
+                        'postal_code' => $postalCode,
+                        'state' => $state,
+                        'country' => $country,
+                    ]
                 ]);
                 $user->setStripeCustomerId($customer->id);// Associe l'ID client Stripe à l'utilisateur
                 $em->persist($user); // Persiste l'utilisateur avec le Stripe ID
@@ -72,6 +84,13 @@ class SubscriptionController extends AbstractController
                 'invoice_settings' => [
                     'default_payment_method' => $paymentMethodId,
                 ],
+            'address' => [
+                'line1' => $address,
+                'city' => $city,
+                'postal_code' => $postalCode,
+                'state' => $state,
+                'country' => $country,
+                ],
             ]);
 
             // Crée un nouvel abonnement pour le client
@@ -85,6 +104,11 @@ class SubscriptionController extends AbstractController
 
             // Marque l'utilisateur comme abonné dans la base de données
             $user->setSubscribed(true);
+            $user->setAddress($address);
+            $user->setCity($city);
+            $user->setPostalCode($postalCode);
+            $user->setState($state);
+            $user->setCountry($country);
             $em->flush(); // Sauvegarde les changements dans la base de données
 
              // Retourne une réponse JSON avec succès

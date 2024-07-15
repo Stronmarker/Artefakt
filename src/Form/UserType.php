@@ -8,7 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+
 
 class UserType extends AbstractType
 {
@@ -23,6 +23,22 @@ class UserType extends AbstractType
             ])
             ->add('email', EmailType::class, [
                 'label' => 'Email',
+            ])
+            ->add('address', TextType::class, [
+                'label' => 'Adresse',
+            ])
+            ->add('city', TextType::class, [
+                'label' => 'Ville',
+            ])
+            ->add('postal_code', TextType::class, [
+                'label' => 'Code postal',
+                'required' => false,
+            ])
+            ->add('state', TextType::class, [
+                'label' => 'Département',
+            ])
+            ->add('country', TextType::class, [
+                'label' => 'Pays',
             ]);
             
     }

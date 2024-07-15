@@ -13,6 +13,7 @@ use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Validator\Constraints\Regex;
 
 class RegistrationFormType extends AbstractType
 {
@@ -52,6 +53,10 @@ class RegistrationFormType extends AbstractType
                         'minMessage' => 'Your password should be at least {{ limit }} characters',
                         'max' => 4096,
                     ]),
+                    new Regex([
+                        'pattern' => '/(?=.*[A-Z])(?=.*\d)/',
+                        'message' => 'Votre mot de passe doit contenir au moins une Majuscule et un chiffre.',
+                    ])
                 ],
             ])
             ->add('firstname')
