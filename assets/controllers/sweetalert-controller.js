@@ -5,6 +5,7 @@ export default class extends Controller {
     static targets = ['form'];
 
     connect() {
+        // Sweetalert Supression Projet
         this.element.querySelectorAll(".delete-form").forEach((form) => {
             form.addEventListener("submit", (event) => {
                 event.preventDefault();
@@ -15,8 +16,6 @@ export default class extends Controller {
                     showCancelButton: true,
                     confirmButtonText: 'Yes, delete it!',
                     cancelButtonText: 'No, cancel!',
-                    confirmButtonClass: 'btn btn-primary w-xs me-2 mt-2',
-                    cancelButtonClass: 'btn btn-danger w-xs mt-2',
                     customClass: {
                         confirmButton: "btn btn-success",
                         cancelButton: "btn btn-danger"
@@ -24,12 +23,14 @@ export default class extends Controller {
                     buttonsStyling: false,
                     showCloseButton: true
                 }).then((result) => {
-                    if (result.value) {
+                    if (result.isConfirmed) {
                         Swal.fire({
                             title: 'Deleted!',
                             text: 'Your file has been deleted.',
                             icon: 'success',
-                            confirmButtonClass: 'btn btn-primary w-xs mt-2',
+                            customClass: {
+                                confirmButton: 'btn btn-primary w-xs mt-2',
+                            },
                             buttonsStyling: false
                         }).then(() => {
                             form.submit(); // Submit the form after confirmation
@@ -39,12 +40,32 @@ export default class extends Controller {
                             title: 'Cancelled',
                             text: 'Your imaginary file is safe :)',
                             icon: 'error',
-                            confirmButtonClass: 'btn btn-primary mt-2',
                             customClass: {
                                 confirmButton: "btn btn-dark",
                             },
                             buttonsStyling: false
                         });
+                    }
+                });
+            });
+        });
+
+        // Sweetalert registration form
+
+        this.element.querySelectorAll(".form-signup").forEach((form) => {
+            form.addEventListener("submit", (event) => {
+                event.preventDefault();
+                Swal.fire({
+                    title: 'Success',
+                    text: 'Pour accéder au site votre email doit-être vérifié. Vous avez reçu un lien par mail. Vous allez être redirigé vers une page de remerciment.',
+                    icon: 'success',
+                    confirmButtonText: 'Ok',
+                    customClass: {
+                        popup: 'my-swal-popup'
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit(); // Submit the form after confirmation
                     }
                 });
             });
