@@ -1,5 +1,3 @@
-{# templates/rendering/show.html.twig #}
-
 {% extends 'base.logged.html.twig' %}
 
 {% block title %}Rendering Details{% endblock %}
@@ -17,28 +15,13 @@
                  data-image-front-png="{{ vich_uploader_asset(rendering, 'frontPngFile') }}" 
                  data-image-toward-png="{{ vich_uploader_asset(rendering, 'towardPngFile') }}">
                  
-                 <div data-image-target="canvasContainer" style="width: 250px; height: 150px; border: 1px solid #ccc; margin-bottom: 20px;"></div>
+                 <div data-image-target="canvasContainer" style="width: 450px; height: 300px; border: 1px solid #ccc; margin-bottom: 20px;"></div>
             
-                <button class="btn btn-secondary me-2" data-action="click->image#toggleRotation">Pause Rotation</button>
+                <button class="btn btn-secondary me-2" data-action="click->image#toggleRotation" data-image-target="resetButton">Pause Rotation</button>
                 <button class="btn btn-secondary me-2" data-action="click->image#resetCamera" data-image-target="resetButton">Reset Camera</button>
-                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#canvasModal">Afficher en plein écran</button>
+                <button class="btn btn-success" data-action="click->image#showModalCanvas">Afficher en plein écran</button>
             </div>
         </div>
     </div>
-</div>
-
-<!-- Modale Bootstrap -->
-<div class="modal fade" id="canvasModal" tabindex="-1" aria-labelledby="canvasModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-fullscreen">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="canvasModalLabel">Nom du Rendu : {{ rendering.renderingName }}</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div data-image-target="modalCanvasContainer" style="width: 100%; height: 100%;"></div>
-      </div>
-    </div>
-  </div>
 </div>
 {% endblock %}
