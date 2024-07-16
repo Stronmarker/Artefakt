@@ -65,7 +65,7 @@ export default class extends Controller {
                     }
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        form.submit(); // Submit the form after confirmation
+                        form.submit();
                     }
                 });
             });

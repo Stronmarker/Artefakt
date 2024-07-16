@@ -51,7 +51,7 @@ class RegistrationController extends AbstractController
                     ->htmlTemplate('registration/confirmation_email.html.twig')
             );
 
-            return $this->redirectToRoute('app_register');
+            return $this->redirectToRoute('app_thank_you');
             // do anything else you need here, like send an email
 
             
@@ -87,5 +87,11 @@ class RegistrationController extends AbstractController
         }
 
         return $this->redirectToRoute('app_dashboard');
+    }
+
+    #[Route('/thank-you', name: 'app_thank_you')]
+    public function thankYou(): Response
+    {
+        return $this->render('registration/thank.html.twig');
     }
 }
