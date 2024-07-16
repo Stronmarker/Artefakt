@@ -15,10 +15,10 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
-
+#[route('/project')]
 class ProjectController extends AbstractController
 {
-    #[Route('/project', name: 'app_project')]
+    #[Route('/', name: 'app_project')]
     public function index(EntityManagerInterface $entityManager): Response
     {
         $user = $this->getUser();
@@ -30,7 +30,7 @@ class ProjectController extends AbstractController
         ]);
     }
 
-    #[Route('/project/create', name: 'project_create')]
+    #[Route('/create', name: 'project_create')]
     public function create(Request $request, EntityManagerInterface $entityManager): Response
     {
         $project = new Project();
@@ -53,7 +53,7 @@ class ProjectController extends AbstractController
         ]);
     }
 
-    #[Route('/project/{id}', name: 'project_show')]
+    #[Route('/{id}', name: 'project_show', methods: 'GET')]
     public function show(Project $project, Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
 
@@ -126,7 +126,7 @@ class ProjectController extends AbstractController
         return $newFilename;
     }
 
-    #[Route('/project/{id}/edit', name: 'project_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'project_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Project $project, EntityManagerInterface $em): Response
     {
         $form = $this->createForm(ProjectType::class, $project);
@@ -144,11 +144,11 @@ class ProjectController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'project_delete', methods: ['POST'])]
+    #[Route('/{id}', name: 'project_delete', methods: ['DELETE', 'POST'])]
     public function delete(Request $request, Project $project, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$project->getId(), $request->getPayload()->getString('_token'))) {
-            $entityManager->remove($project);
+            $entityManager->remove($project);  
             $entityManager->flush();
 
             $this->addFlash('success', 'Project deleted successfully.');

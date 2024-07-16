@@ -1,20 +1,92 @@
 {% extends 'base.logged.html.twig' %}
 
-{% block title %}Hello HelpController!{% endblock %}
+{% block title %}FAQ{% endblock %}
 
 {% block body %}
+
 <style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    .faq-container {
+        margin-top: 50px;
+    }
+    .faq-header {
+        text-align: center;
+    }
+    .faq-header h1 {
+        font-size: 3em;
+        color: #097303;
+    }
+    .faq-section {
+        margin-top: 50px;
+    }
+    .faq-question {
+        font-size: 1.5em;
+        color: #097303;
+        cursor: pointer;
+        margin-bottom: 10px;
+        transition: color 0.3s;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+    }
+
+    .faq-question:hover {
+        transform: scale(1.05);
+    }
+
+    .faq-answer {
+        display: none;
+        margin-bottom: 20px;
+        font-size: 1.2em;
+        color: #333;
+    }
+    .arrow {
+        margin-left: 10px;
+        transition: transform 0.2s;
+    }
+    .arrow.down {
+        transform: rotate(90deg);
+    }
 </style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+<div class="container faq-container">
+    <div class="faq-header">
+        <h1>Foire Aux Questions</h1>
+    </div>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/Applications/MAMP/htdocs/Artefakt/src/Controller/HelpController.php</code></li>
-        <li>Your template at <code>/Applications/MAMP/htdocs/Artefakt/templates/help/index.html.twig</code></li>
-    </ul>
+    <div class="faq-section">
+        <div class="faq-question bg-light p-3" onclick="toggleAnswer(this)">
+            Comment fonctionne Artifact Vision ? <span class="arrow">&#9654;</span>
+        </div>
+        <div class="faq-answer">
+            Artifact Vision permet aux graphistes de partager leurs rendus 3D avec leurs clients pour obtenir des retours et des validations rapides.
+        </div>
+
+        <div class="faq-question bg-light p-3" onclick="toggleAnswer(this)">
+            Quels types de fichiers sont pris en charge ? <span class="arrow">&#9654;</span>
+        </div>
+        <div class="faq-answer">
+            Artifact Vision prend en charge une variété de formats de fichiers 3D, y compris .obj, .fbx, et .stl.
+        </div>
+
+        <div class="faq-question bg-light p-3" onclick="toggleAnswer(this)">
+            Comment puis-je inviter des clients à voir mes rendus ? <span class="arrow">&#9654;</span>
+        </div>
+        <div class="faq-answer">
+            Vous pouvez inviter des clients en partageant un lien direct depuis la plateforme Artifact Vision, où ils pourront voir et commenter vos rendus.
+        </div>
+    </div>
 </div>
+
+<script>
+    function toggleAnswer(element) {
+        var answer = element.nextElementSibling;
+        var arrow = element.querySelector('.arrow');
+        if (answer.style.display === "none" || answer.style.display === "") {
+            answer.style.display = "block";
+            arrow.classList.add('down');
+        } else {
+            answer.style.display = "none";
+            arrow.classList.remove('down');
+        }
+    }
+</script>
 {% endblock %}

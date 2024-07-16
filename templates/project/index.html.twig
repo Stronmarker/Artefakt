@@ -34,7 +34,7 @@
         text-decoration: none;
         color: inherit;
     }
-    
+
     .project-card a {
         text-decoration: none;
         color: inherit;
@@ -63,7 +63,7 @@
 <div class="container mt-4">
     <h1 class="m-5">Mes Projets</h1>
 
-    <div class="row">
+    <div class="row" data-controller="sweetalert">
         <div class="col-lg-4 col-md-6 mb-4">
             <div class="card create-card">
                 <a href="{{ path('project_create') }}" class="text-decoration-none">
@@ -73,26 +73,31 @@
                 </a>
             </div>
         </div>
+
         {% for project in projects %}
-        <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card project-card">
-                <a href="{{ path('project_show', {id: project.id}) }}">
-                    <div class="card-body text-center">
-                        <h3 class="card-title">{{ project.projectName }}</h3>
-                        <p class="card-text ft_orbitron">Créé le : {{ project.createdAt|date('d/m/Y H:i:s') }}</p>
+        {% if loop.index % 3 == 1 and not loop.first %}
+        </div><div class="row" data-controller="sweetalert">
+        {% endif %}
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card project-card">
+                    <a href="{{ path('project_show', {id: project.id}) }}">
+                        <div class="card-body text-center">
+                            <h3 class="card-title">{{ project.projectName }}</h3>
+                            <p class="card-text ft_orbitron">Créé le : {{ project.createdAt|date('d/m/Y H:i:s') }}</p>
+                        </div>
+                    </a>
+                    <div class="card-footer d-flex justify-content-between">
+                        <button onclick="window.location.href='{{ path('project_edit', {id: project.id}) }}'"
+                            class="btn btn-dark btn-edit">Modifier
+                        </button>
+                        <form class="delete-form" method="post"
+                            action="{{ path('project_delete', {'id': project.id}) }}" class="d-inline">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ project.id) }}">
+                            <button type="submit" class="btn btn-danger btn-delete">Supprimer</button>
+                        </form>
                     </div>
-                </a>
-                <div class="card-footer d-flex justify-content-between">
-                    <button onclick="window.location.href='{{ path('project_edit', {id: project.id}) }}'"
-                        class="btn btn-dark btn-edit">Modifier
-                    </button>
-                    <form class="delete-form" method="post" action="{{ path('project_delete', {'id': project.id}) }}" class="d-inline">
-                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ project.id) }}">
-                        <button type="submit" class="btn btn-danger btn-delete">Supprimer</button>
-                    </form>                    
                 </div>
             </div>
-        </div>
         {% endfor %}
     </div>
 </div>

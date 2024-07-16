@@ -5,19 +5,40 @@
 {% block title %}Rendering Details{% endblock %}
 
 {% block body %}
-    <h1> Nom du Rendu : {{ rendering.renderingName }}</h1>
-    <h4>Projet : {{ project.projectName}} </h4>
-    <div>
-        <h2>Images</h2>
-        <p>{{ rendering.createdAt|date('d/m/Y H:i:s') }}</p>
-        <div data-controller="image" 
-             data-image-front-png="{{ vich_uploader_asset(rendering, 'frontPngFile') }}" 
-             data-image-toward-png="{{ vich_uploader_asset(rendering, 'towardPngFile') }}">
-             
-             <div data-image-target="canvasContainer" style="width: 500px; height: 300px; border: 1px solid #ccc;"></div>
-        
-            <button data-action="click->image#toggleRotation">Pause Rotation</button>
-            <button data-action="click->image#resetCamera" data-image-target="resetButton">Reset Camera</button>
+<div class="container mt-5">
+    <h1 class="mb-4">Nom du Rendu : {{ rendering.renderingName }}</h1>
+    <div class="card shadow-sm">
+        <div class="card-header bg-success text-white">
+            Détails de l'image
+        </div>
+        <div class="card-body">
+            <p><strong>Date de création :</strong> {{ rendering.createdAt|date('d/m/Y H:i:s') }}</p>
+            <div data-controller="image" 
+                 data-image-front-png="{{ vich_uploader_asset(rendering, 'frontPngFile') }}" 
+                 data-image-toward-png="{{ vich_uploader_asset(rendering, 'towardPngFile') }}">
+                 
+                 <div data-image-target="canvasContainer" style="width: 250px; height: 150px; border: 1px solid #ccc; margin-bottom: 20px;"></div>
+            
+                <button class="btn btn-secondary me-2" data-action="click->image#toggleRotation">Pause Rotation</button>
+                <button class="btn btn-secondary me-2" data-action="click->image#resetCamera" data-image-target="resetButton">Reset Camera</button>
+                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#canvasModal">Afficher en plein écran</button>
+            </div>
         </div>
     </div>
+</div>
+
+<!-- Modale Bootstrap -->
+<div class="modal fade" id="canvasModal" tabindex="-1" aria-labelledby="canvasModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-fullscreen">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="canvasModalLabel">Nom du Rendu : {{ rendering.renderingName }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div data-image-target="modalCanvasContainer" style="width: 100%; height: 100%;"></div>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}

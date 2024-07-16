@@ -3,7 +3,7 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
 export default class extends Controller {
-    static targets = ["canvasContainer", "pauseButton", "resetButton"];
+    static targets = ["canvasContainer", "modalCanvasContainer", "resetButton"];
 
     connect() {
         console.log("Le contrôleur Stimulus est connecté !");
@@ -12,9 +12,9 @@ export default class extends Controller {
         this.scene = new THREE.Scene();
 
         // Initialisation de la caméra
-        this.updateCanvasSize(); // Set initial size
+        this.updateCanvasSize(this.canvasContainerTarget); // Set initial size
         this.camera = new THREE.PerspectiveCamera(75, this.canvasWidth / this.canvasHeight, 0.1, 1000);
-        this.camera.position.set(0, 2, 10);
+        this.camera.position.set(2, 2, 4);
 
         // Initialisation du renderer
         this.renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -67,11 +67,16 @@ export default class extends Controller {
         this.animate();
 
         // Ajuster la taille de la fenêtre
-        window.addEventListener('resize', this.onWindowResize.bind(this));
+        window.addEventListener('resize', () => this.onWindowResize(this.canvasContainerTarget));
 
         // Gérer les boutons
-        this.pauseButtonTarget.addEventListener('click', this.toggleRotation.bind(this));
+        // this.pauseButtonTarget.addEventListener('click', this.toggleRotation.bind(this));
         this.resetButtonTarget.addEventListener('click', this.resetCamera.bind(this));
+
+        // Gérer l'ouverture de la modale
+        const modalElement = document.getElementById('canvasModal');
+        modalElement.addEventListener('show.bs.modal', () => this.showModalCanvas());
+        modalElement.addEventListener('hidden.bs.modal', () => this.hideModalCanvas());
     }
 
     animate() {
@@ -86,13 +91,13 @@ export default class extends Controller {
         this.renderer.render(this.scene, this.camera);
     }
 
-    updateCanvasSize() {
-        this.canvasWidth = this.canvasContainerTarget.clientWidth;
-        this.canvasHeight = this.canvasContainerTarget.clientHeight;
+    updateCanvasSize(target) {
+        this.canvasWidth = target.clientWidth;
+        this.canvasHeight = target.clientHeight;
     }
 
-    onWindowResize() {
-        this.updateCanvasSize();
+    onWindowResize(target) {
+        this.updateCanvasSize(target);
         this.renderer.setSize(this.canvasWidth, this.canvasHeight);
         this.camera.aspect = this.canvasWidth / this.canvasHeight;
         this.camera.updateProjectionMatrix();
@@ -108,5 +113,21 @@ export default class extends Controller {
         this.camera.position.set(0, 2, 10); // Réinitialiser la position de la caméra
         this.camera.lookAt(0, 1, 0); // Assurez-vous que la caméra regarde vers le podium
         this.controls.update(); // Mettre à jour les contrôles pour refléter les changements de la caméra
+    }
+
+    showModalCanvas() {
+        this.updateCanvasSize(this.modalCanvasContainerTarget);
+        this.renderer.setSize(this.canvasWidth, this.canvasHeight);
+        this.modalCanvasContainerTarget.appendChild(this.renderer.domElement);
+        this.camera.aspect = this.canvasWidth / this.canvasHeight;
+        this.camera.updateProjectionMatrix();
+    }
+
+    hideModalCanvas() {
+        this.updateCanvasSize(this.canvasContainerTarget);
+        this.renderer.setSize(this.canvasWidth, this.canvasHeight);
+        this.canvasContainerTarget.appendChild(this.renderer.domElement);
+        this.camera.aspect = this.canvasWidth / this.canvasHeight;
+        this.camera.updateProjectionMatrix();
     }
 }

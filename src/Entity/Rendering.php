@@ -68,12 +68,8 @@ class Rendering
     #[ORM\JoinColumn(nullable: false)]
     private ?Project $project = null;
 
-    #[ORM\ManyToOne(inversedBy: 'renderings')]
-    private ?User $user = null;
-
-
     public function __construct() {
-        $this->createdAt = new \DateTimeImmutable() ;
+    $this->createdAt = new \DateTimeImmutable() ;
     }
 
     // Getters et Setters pour toutes les propriétés
@@ -304,18 +300,6 @@ class Rendering
     public function setProject(?Project $project): self
     {
         $this->project = $project;
-
-        return $this;
-    }
-
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): static
-    {
-        $this->user = $user;
 
         return $this;
     }

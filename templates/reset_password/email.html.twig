@@ -1,20 +1,92 @@
-<h1>Bonjour</h1>
-{# Titre principal de la page #}
+<!DOCTYPE html>
+<html lang="fr">
 
-<p>Vous avez demandé la réinitialisation de votre mot de passe.</p>
-{# Paragraphe informant l'utilisateur qu'il a demandé une réinitialisation de mot de passe #}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>réinitialisation du mot de passe</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
 
-<br>
-{# Saut de ligne pour espacer les paragraphes #}
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
 
-<p>Le lien ci-dessous vous permettra de changer votre mot de passe.</p>
-{# Paragraphe informant l'utilisateur qu'un lien pour réinitialiser le mot de passe est fourni ci-dessous #}
+        .header {
+            text-align: center;
+            padding: 10px 0;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 8px 8px 0 0;
+        }
 
-<a href="{{ url('app_reset_password', {token: resetToken.token}) }}">{{ url('app_reset_password', {token: resetToken.token}) }}</a>
-{# Lien cliquable généré dynamiquement pour réinitialiser le mot de passe en utilisant le token de réinitialisation #}
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
 
-<p>Ce lien expire dans {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.</p>
-{# Paragraphe indiquant le temps d'expiration du lien, traduit et affiché dynamiquement #}
+        .content {
+            padding: 20px;
+        }
 
-<p>Merci de votre visite !</p>
-{# Paragraphe de remerciement à l'utilisateur #}
+        .content p {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .content a {
+            display: inline-block;
+            margin: 20px 0;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 10px;
+            font-size: 14px;
+            color: #777;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Réinitialiser votre mot de passe</h1>
+        </div>
+        <div class="content">
+            <p>Bonjour,<br><br>
+                Vous avez demandé la réinitialisation de votre mot de passe.<br><br>
+                <a href="{{ url('app_reset_password', {token: resetToken.token}) }}">{{ url('app_reset_password', {token:
+                    resetToken.token}) }}</a>
+                <br>
+                <p>Ce lien expire dans {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle')
+                }}.</p>
+            </p>
+            <p>
+                Merci et à bientôt !
+            </p>
+        </div>
+        <div class="footer">
+            <p>&copy; ArtefaktVision 2024 (c) Tous droits réservés.</p>
+        </div>
+    </div>
+</body>
+
+</html>

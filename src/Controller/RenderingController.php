@@ -26,7 +26,6 @@ class RenderingController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $rendering->setProject($project);
-            $rendering->setUser($this->getUser());
 
             $entityManager->persist($rendering);
             $entityManager->flush();
