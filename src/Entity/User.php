@@ -48,6 +48,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(nullable: true)]
     private ?string $stripeCustomerId = null;
 
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $stripeSubscriptionId;
+
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $address = null;
 
@@ -196,6 +199,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->stripeCustomerId = $stripeCustomerId;
         return $this;
 
+    }
+
+    public function getStripeSubscriptionId(): ?string
+    {
+        return $this->stripeSubscriptionId;
+    }
+
+    public function setStripeSubscriptionId(?string $stripeSubscriptionId): self
+    {
+        $this->stripeSubscriptionId = $stripeSubscriptionId;
+
+        return $this;
     }
 
     public function getAddress(): ?string

@@ -109,6 +109,7 @@ class SubscriptionController extends AbstractController
             $user->setPostalCode($postalCode);
             $user->setState($state);
             $user->setCountry($country);
+            $user->setStripeSubscriptionId($subscription->id);
             $em->flush(); // Sauvegarde les changements dans la base de données
 
              // Retourne une réponse JSON avec succès
