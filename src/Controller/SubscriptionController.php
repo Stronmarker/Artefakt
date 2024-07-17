@@ -2,16 +2,16 @@
 
 namespace App\Controller;
 
-use Doctrine\ORM\EntityManagerInterface; // Importation de l'entité interface manager de doctrine
-use Stripe\Stripe; // Importation de la classe stripe
-use Stripe\Customer; // Importation de la classe customer de stripe
-use Stripe\PaymentMethod; // Importation de la classe paymentMethod de stripe
-use Stripe\Subscription; // Importation de la classe subscription de stripe
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController; // Importation de la classe de base des contrôleurs de Symfony
-use Symfony\Component\HttpFoundation\Request; // Importation de la classe Request de Symfony
-use Symfony\Component\HttpFoundation\Response; // Importation de la classe Response de Symfony
-use Symfony\Component\Routing\Annotation\Route; // Importation de la classe Route pour les annotations de routage
-use Symfony\Component\Security\Core\User\UserInterface; // Importation de l'interface UserInterface pour représenter l'utilisateur
+use Doctrine\ORM\EntityManagerInterface; // Gestionnaire d'entités Doctrine pour la persistance des données
+use Stripe\Stripe; // Classe principale de l'API Stripe
+use Stripe\Customer; // Classe pour gérer les clients Stripe
+use Stripe\PaymentMethod; // Classe pour gérer les méthodes de paiement Stripe
+use Stripe\Subscription; // Classe pour gérer les abonnements Stripe
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController; // Contrôleur de base de Symfony
+use Symfony\Component\HttpFoundation\Request; // Classe pour gérer les requêtes HTTP Symfony
+use Symfony\Component\HttpFoundation\Response; // Classe pour gérer les réponses HTTP Symfony
+use Symfony\Component\Routing\Annotation\Route; // Annotation pour définir les routes Symfony
+use Symfony\Component\Security\Core\User\UserInterface; // Interface pour représenter l'utilisateur connecté
 
 class SubscriptionController extends AbstractController
 {
@@ -29,7 +29,7 @@ class SubscriptionController extends AbstractController
         ]);
     }
 
-    // Route qui gére l'abonnement avec une méthode POST uniquement
+    // Route qui gére la souscription à un abonnement (méthode POST)
     #[Route('/subscribe', name: 'app_subscribe', methods: ['POST'])]
     public function subscribe(Request $request, EntityManagerInterface $em, UserInterface $user): Response
     {
@@ -41,19 +41,19 @@ class SubscriptionController extends AbstractController
         // Récupère les données de la requête JSON
         $data = json_decode($request->getContent(), true);
         $email = $data['email']; // Email de l'utilisateur
-        $address = $data['address'];
-        $city = $data['city'];
-        $postalCode = $data['postal_code'];
-        $state = $data['state'];
-        $country = $data['country'];
-        $paymentMethodId = $data['payment_method']; //méthode de paiement stripe
+        $address = $data['address']; // Adresse
+        $city = $data['city']; // Ville
+        $postalCode = $data['postal_code']; // Code postal
+        $state = $data['state']; // Département
+        $country = $data['country']; // Pays
+        $paymentMethodId = $data['payment_method']; //méthode id de paiement stripe
 
         Stripe::setApiKey($_ENV['STRIPE_API_KEY']); // Configuration de la clé privé de l'API stripe
 
         try {
 
 
-            if ($user->getStripeCustomerId()) { // Vérifie si l'utilisateur a déjà un client Stripe
+            if ($user->getStripeCustomerId()) { // Vérifie si l'utilisateur a déjà un id client Stripe
 
                 // Récupère le client Stripe existant
                 $customerId = $user->getStripeCustomerId();
@@ -120,14 +120,16 @@ class SubscriptionController extends AbstractController
         }
     }
 
+    // Route pour gérer l'annulation de l'abonnement (méthode POST)
     #[Route('/cancel-subscription', name: 'app_cancel_subscription', methods: ['POST'])]
     public function cancelSubscription(Request $request, EntityManagerInterface $em, UserInterface $user): Response
     {
         try {
             Stripe::setApiKey($_ENV['STRIPE_API_KEY']);
 
-            $subscriptionId = $user->getStripeSubscriptionId();
+            $subscriptionId = $user->getStripeSubscriptionId(); // Récupération de l'ID de l'abonnement sripe de l'utilisateur
 
+             // Vérifie si aucun ID d'abonnement n'est trouvé pour l'utilisateur
             if (!$subscriptionId) {
                 return new Response(['Aucun abonnement trouvé pour cet utilisateur.', Response::HTTP_BAD_REQUEST]);
             }
