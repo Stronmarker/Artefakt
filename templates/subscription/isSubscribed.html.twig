@@ -40,9 +40,65 @@
                 <li class="ft_audiowide text-center">Accès au centre d'aide</li>
             </ul>
             <button type="submit" class="btn btn-dark mt-3 fw-bold d-block mx-auto ft_wallpoet">Modification C.B</button>
-            <button type="submit" class="btn btn-danger mt-3 fw-bold d-block mx-auto ft_wallpoet">Résilier l'abonnement</button>
+            <button id="cancel-subscription" class="btn btn-danger mt-3 fw-bold d-block mx-auto ft_wallpoet">Résilier l'abonnement</button>
         </div>
     </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Gestionnaire d'événement pour le bouton de résiliation d'abonnement
+        document.getElementById('cancel-subscription').addEventListener('click', function () {
+            Swal.fire({
+                title: 'Êtes-vous sûr de vouloir résilier votre abonnement ?',
+                text: 'Cette action est irréversible.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Oui, résilier !',
+                cancelButtonText: 'Annuler'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Appel à la route Symfony pour résilier l'abonnement
+                    fetch('{{ path("app_cancel_subscription") }}', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-Requested-With': 'XMLHttpRequest'
+                        },
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            return response.text();
+                        }
+                        throw new Error('Échec de la résiliation de l\'abonnement.');
+                    })
+                    .then(data => {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Abonnement résilié !',
+                            text: data,
+                            showConfirmButton: false,
+                            timer: 1500
+                        }).then(() => {
+                            window.location.reload();
+                        });
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Erreur',
+                            text: 'Une erreur s\'est produite. Veuillez réessayer.'
+                        });
+                    });
+                }
+            });
+        });
+    });
+</script>
 
 {% endblock %}

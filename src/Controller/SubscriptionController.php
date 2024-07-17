@@ -119,5 +119,33 @@ class SubscriptionController extends AbstractController
             return $this->json(['success' => false, 'message' => $e->getMessage()], 400);
         }
     }
+
+    #[Route('/cancel-subscription', name: 'app_cancel_subscription', methods: ['POST'])]
+    public function cancelSubscription(Request $request, EntityManagerInterface $em, UserInterface $user): Response
+    {
+        try {
+            Stripe::setApiKey($_ENV['STRIPE_API_KEY']);
+
+            $subscriptionId = $user->getStripeSubscriptionId();
+
+            if (!$subscriptionId) {
+                return new Response(['Aucun abonnement trouvé pour cet utilisateur.', Response::HTTP_BAD_REQUEST]);
+            }
+
+            // Récupère l'abonnement Stripe
+            $subscription = Subscription::retrieve($subscriptionId);
+            $subscription->cancel(); // Annulation de l'abonnement dans Stripe
+
+            // Mettre à jour l'état d'abonnement dans la base de données
+            $user->setSubscribed(false);
+            $user->setStripeSubscriptionId(null);
+            $em->flush();
+
+            return new Response('Abonnement résilié avec succès.', Response::HTTP_OK);
+        } catch (ApiErrorException $e) {
+            return new Response('Erreur lors de la résiliation de l\'abonnement : ' . $e->getMessage(), Response::HTTP_BAD_REQUEST);
+        }
+    }
+
 }
 ?>
