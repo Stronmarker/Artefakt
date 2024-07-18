@@ -1,0 +1,28 @@
+{% extends 'base.logged.html.twig' %}
+
+{% block title %}Vos factures{% endblock %}
+
+{% block body %}
+    <h1>Vos factures</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID de la facture</th>
+                <th>Date</th>
+                <th>Montant</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for invoice in invoices %}
+                <tr>
+                    <td>{{ invoice.getStripeInvoiceId() }}</td>
+                    <td>{{ invoice.getCreatedAt()|date('Y-m-d H:i:s') }}</td>
+                    <td>{{ invoice.getAmount() }}</td>
+                    <td><a href="{{ path('app_invoice_detail', { id: invoice.getId() }) }}">Voir les détails</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
