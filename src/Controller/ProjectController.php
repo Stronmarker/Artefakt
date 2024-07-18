@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\Uid\Uuid;
 
 #[route('/project')]
 class ProjectController extends AbstractController
@@ -72,8 +73,6 @@ class ProjectController extends AbstractController
 
             $frontPngFile = $form->get('frontPng')->getData();
             $towardPngFile = $form->get('towardPng')->getData();
-            $gildingSvgFile = $form->get('gildingSvg')->getData();
-            $laminationSvgFile = $form->get('laminationSvg')->getData();
 
             if ($frontPngFile) {
                 $frontPngFileName = $this->uploadFile($frontPngFile, $slugger);
@@ -83,16 +82,6 @@ class ProjectController extends AbstractController
             if ($towardPngFile) {
                 $towardPngFileName = $this->uploadFile($towardPngFile, $slugger);
                 $rendering->setTowardPng($towardPngFileName);
-            }
-
-            if ($gildingSvgFile) {
-                $gildingSvgFileName = $this->uploadFile($gildingSvgFile, $slugger);
-                $rendering->setGildingSvg($gildingSvgFileName);
-            }
-
-            if ($laminationSvgFile) {
-                $laminationSvgFileName = $this->uploadFile($laminationSvgFile, $slugger);
-                $rendering->setLaminationSvg($laminationSvgFileName);
             }
 
             $entityManager->persist($rendering);

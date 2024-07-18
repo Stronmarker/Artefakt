@@ -11,12 +11,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\Uid\Uuid;
 
 class RenderingController extends AbstractController
 {
-
-
     #[Route('/project/{id}/new-rendering', name: 'rendering_create', methods: ['GET', 'POST'])]
     public function createRendering(Request $request, Project $project, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
@@ -26,6 +24,7 @@ class RenderingController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $rendering->setProject($project);
+            $rendering->setToken(Uuid::v4()->toRfc4122());
 
             $entityManager->persist($rendering);
             $entityManager->flush();
@@ -39,16 +38,7 @@ class RenderingController extends AbstractController
         ]);
     }
 
-
-    #[Route(
-        '/project/{project_id}/rendering/{rendering_id}',
-        name: 'rendering_show',
-        requirements: [
-            'project_id' => '\d+',
-            'rendering_id' => '\d+'
-        ],
-        methods: ['GET']
-    )]
+    #[Route('/project/{project_id}/rendering/{rendering_id}', name: 'rendering_show', requirements: ['project_id' => '\d+', 'rendering_id' => '\d+'], methods: ['GET'])]
     public function showRendering(int $project_id, int $rendering_id, EntityManagerInterface $entityManager): Response
     {
         $rendering = $entityManager->getRepository(Rendering::class)->find($rendering_id);
@@ -58,6 +48,20 @@ class RenderingController extends AbstractController
         }
 
         return $this->render('rendering/show.html.twig', [
+            'rendering' => $rendering,
+        ]);
+    }
+
+    #[Route('/rendering/client/{token}', name: 'rendering_client_show', methods: ['GET'])]
+    public function showClientRendering(string $token, EntityManagerInterface $entityManager): Response
+    {
+        $rendering = $entityManager->getRepository(Rendering::class)->findOneBy(['token' => $token]);
+
+        if (!$rendering) {
+            throw $this->createNotFoundException('Rendering not found');
+        }
+
+        return $this->render('rendering/client_show.html.twig', [
             'rendering' => $rendering,
         ]);
     }

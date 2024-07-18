@@ -26,6 +26,9 @@
         transition: color 0.3s;
         cursor: pointer;
         transition: transform 0.3s ease;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1), 0 0 15px white; /* Effet de relief */
+        border-radius: 20px; /* Coins arrondis */
+        border: 7px solid #000; /* Bordure épaisse */
     }
 
     .faq-question:hover {
@@ -34,9 +37,9 @@
 
     .faq-answer {
         display: none;
-        margin-bottom: 20px;
+        margin: 40px;
         font-size: 1.2em;
-        color: #333;
+        color: #ffffff;
     }
     .arrow {
         margin-left: 10px;
@@ -64,7 +67,8 @@
             Quels types de fichiers sont pris en charge ? <span class="arrow">&#9654;</span>
         </div>
         <div class="faq-answer">
-            Artifact Vision prend en charge une variété de formats de fichiers 3D, y compris .obj, .fbx, et .stl.
+            Artifact Vision ne prends en charge que les fichiers .png pour les rendus 3D <br>
+            Cependant, si vous avez des PDF, nous avons une fonction de coupe
         </div>
 
         <div class="faq-question bg-light p-3" onclick="toggleAnswer(this)">

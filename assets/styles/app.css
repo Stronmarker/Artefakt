@@ -13,7 +13,8 @@
 } 
 
 body {
-    background-image: url('../images/background.png'); 
+    /* background-image: url('../images/background.png');  */
+    background-color: rgb(55, 55, 55);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

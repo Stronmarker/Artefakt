@@ -11,9 +11,9 @@
                 <div class="card-body">
                     <h1 class="text-center text-dark mb-4 ft_orbitron">Mon Profil</h1>
 
-                    {% if app.user %}
+                    {# {% if app.user %}
                     <p class="text-center text-dark mb-4 fw-bold ft_audiowide">Bienvenue, {{ user.firstname }}</p>
-                    {% endif %}
+                    {% endif %} #}
 
                     {{ form_start(form, {'attr': {'id': 'profil-form', 'class': 'form-horizontal'}}) }}
                     <div class="form-group">
@@ -39,6 +39,8 @@
                             style="border: 2px solid green; display: block; margin: 20px auto; width: 80%; max-width: 300px; padding: 10px 0; font-size: 16px;">Enregistrer</button>
                     </div>
                     {{ form_end(form) }}
+
+                    <p><a href="{{ path('app_change_password') }}">Change Password</a></p>
                 </div>
             </div>
         </div>

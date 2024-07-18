@@ -62,7 +62,7 @@ Encore
         from: './assets/images',
         // optionnel: si vous utilisez la version, le nom des fichiers dans le dossier public sera hashé
         to: 'images/[path][name].[hash:8].[ext]',
-        pattern: /\.(png|jpg|jpeg|gif|ico|svg)$/
+        pattern: /\.(png|jpg|jpeg|gif|ico|svg|hdr)$/
     })
 
     // uncomment if you use TypeScript

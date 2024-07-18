@@ -73,14 +73,7 @@ class AddRenderingType extends AbstractType
         //     'asset_helper' => true,
         // ])
         
-        ->add('dimensions', ChoiceType::class, [
-            'label' => 'Dimensions',
-            'choices' => [
-                '84x55' => '84x55',
-                '148x148' => '148x148',
-                '148x105' => '148x105',
-            ],
-        ])
+        
         ->add('rendering_name', TextType::class, ['label' => 'rendering_name']);
     }
 

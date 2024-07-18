@@ -4,15 +4,22 @@
 
 {% block body %}
 
+<style>
+    .box-shadow {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1), 0 0 15px white; /* Effet de relief */
+        border-radius: 20px; /* Coins arrondis */
+        border: 7px solid #000; /* Bordure épaisse */
+    }
+</style>
+
 
 <div class="container mt-4">
 
     <h1 class="m-5">Nom du projet : {{ project.projectName }}</h1>
-    <h1 class="m-5 p-3">Rendus du projet</h1>
-
+    
     <div class="row">
         <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card create-card">
+            <div class="card create-card box-shadow">
                 <a href="{{ path('rendering_create',{ id: project.id }) }}" class="text-decoration-none">
                     <div class="card-body d-flex align-items-center justify-content-center">
                         <h3 class="card-title text-success">+ Créer un nouveau rendu</h3>
@@ -22,7 +29,7 @@
         </div>
         {% for rendering in project.renderings %}
         <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card rendering-card">
+            <div class="card rendering-card box-shadow">
                 <a href="{{ path('rendering_show', {'project_id': project.id, 'rendering_id': rendering.id}) }}">
                     <div class="card-body text-center">
                         <h3 class="card-title">{{ rendering.renderingName }}</h3>

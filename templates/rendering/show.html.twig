@@ -11,6 +11,7 @@
         </div>
         <div class="card-body">
             <p><strong>Date de création :</strong> {{ rendering.createdAt|date('d/m/Y H:i:s') }}</p>
+            <p><strong>Lien client :</strong> <a href="{{ path('rendering_client_show', {'token': rendering.token}) }}" target="_blank">{{ path('rendering_client_show', {'token': rendering.token}) }}</a></p>
             <div data-controller="image" 
                  data-image-front-png="{{ vich_uploader_asset(rendering, 'frontPngFile') }}" 
                  data-image-toward-png="{{ vich_uploader_asset(rendering, 'towardPngFile') }}">
