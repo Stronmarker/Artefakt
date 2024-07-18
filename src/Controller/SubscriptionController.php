@@ -97,9 +97,10 @@ class SubscriptionController extends AbstractController
             $subscription = Subscription::create([
                 'customer' => $customer->id,
                 'items' => [[
-                    'price' => 'price_1Pab22B8NXWXURY9vaFDcA0n', // Id du plan de paiement crée sur stripe
+                    'price' => 'price_1PdqlkB8NXWXURY9OoS4jeid', // Id du plan de paiement crée sur stripe
                 ]],
                 'expand' => ['latest_invoice.payment_intent'], // Étend pour inclure l'objet payment_intent dans la dernière facture
+                'automatic_tax' => ['enabled' => true], // Activation des taxes automatiques
             ]);
 
             // Marque l'utilisateur comme abonné dans la base de données

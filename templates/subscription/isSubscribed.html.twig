@@ -52,14 +52,15 @@
         // Gestionnaire d'événement pour le bouton de résiliation d'abonnement
         document.getElementById('cancel-subscription').addEventListener('click', function () {
             Swal.fire({
-                title: 'Êtes-vous sûr de vouloir résilier votre abonnement ?',
-                text: 'Cette action est irréversible.',
-                icon: 'warning',
+                title: 'Êtes-vous sûr de vouloir abandonner vos privilèges ?',
+                text: 'Aurevoir! Mais pas adieu car vous pouvez encore rester ;)',
+                icon: 'question',
                 showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
+                confirmButtonColor: '#000000',
+                cancelButtonColor: '#5cb85c',
                 confirmButtonText: 'Oui, résilier !',
-                cancelButtonText: 'Annuler'
+                cancelButtonText: 'Non, je reste',
+                background: '#000000',  
             }).then((result) => {
                 if (result.isConfirmed) {
                     // Appel à la route Symfony pour résilier l'abonnement
