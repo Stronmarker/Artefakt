@@ -111,7 +111,9 @@ export default class extends Controller {
         requestAnimationFrame(this.animate.bind(this));
 
         // Rotation automatique de la carte si autoRotate est true
-        if (this.autoRotate) {
+        if (this.autoRotate && this.card)  {
+            // console.log(this.card.rotation.y)
+
             this.card.rotation.y += 0.01;
         }
 
@@ -132,9 +134,9 @@ export default class extends Controller {
     }
 
     toggleRotation() {
+
         this.autoRotate = !this.autoRotate;
-        this.pauseButtonTarget.textContent = this.autoRotate ? 'Pause Rotation' : 'Resume Rotation';
-        this.pauseButtonTarget.style.backgroundColor = this.autoRotate ? '#f00' : '#0f0';
+        
     }
 
     resetCamera() {

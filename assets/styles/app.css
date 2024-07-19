@@ -3,18 +3,13 @@
 @import url('https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&family=Wallpoet&display=swap');
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');
 
-/* html, body {
-    height: 100%;
-} */
-
 .main-container {
     flex-grow: 1;
     
 } 
 
 body {
-    /* background-image: url('../images/background.png');  */
-    background-color: rgb(55, 55, 55);
+    background-image: url('../images/background.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
