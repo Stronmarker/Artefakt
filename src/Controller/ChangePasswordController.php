@@ -39,9 +39,7 @@ class ChangePasswordController extends AbstractController
 
                 $entityManager->flush();
 
-                $this->addFlash('success', 'Your password has been changed successfully.');
-
-                return $this->redirectToRoute('app_profil');
+                return $this->redirectToRoute('app_dashboard');
             } else {
                 $this->addFlash('error', 'The current password is incorrect.');
             }

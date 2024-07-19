@@ -16,27 +16,27 @@ class ChangePasswordFormType extends AbstractType
     {
         $builder
             ->add('oldPassword', PasswordType::class, [
-                'label' => 'Old Password',
+                'label' => 'Ancien mot de passe',
                 'mapped' => false,
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Please enter your current password',
+                        'message' => 'Entrer votre ancien mot de passe',
                     ]),
                     new UserPassword([
-                        'message' => 'The current password is incorrect',
+                        'message' => 'Votre ancien mot de passe est incorrect',
                     ]),
                 ],
             ])
             ->add('newPassword', PasswordType::class, [
-                'label' => 'New Password',
+                'label' => 'Nouveau mot de passe',
                 'mapped' => false,
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Please enter a new password',
+                        'message' => 'Entrer votre nouveau mot de passe',
                     ]),
                     new Length([
                         'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
+                        'minMessage' => 'Votre mot de passe doit compoter au moins {{ limit }} caractères',
                         // max length allowed by Symfony for security reasons
                         'max' => 4096,
                     ]),

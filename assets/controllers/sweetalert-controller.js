@@ -70,5 +70,26 @@ export default class extends Controller {
                 });
             });
         });
+
+        // Sweetalert change password
+
+        this.element.querySelectorAll(".form-change-password").forEach((form) => {
+            form.addEventListener("submit", (event) => {
+                event.preventDefault();
+                Swal.fire({
+                    title: 'Êtes-vous sûr?',
+                    text: "Vous êtes sur le point de changer votre mot de passe.",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Oui, changer!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+                });
+            });
+        });
     }
 }
