@@ -18,28 +18,25 @@
     .faq-section {
         margin-top: 50px;
     }
+    .faq-item {
+        background-color: #ffffff;
+        margin-bottom: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 10px;
+    }
     .faq-question {
         font-size: 1.5em;
         color: #097303;
-        cursor: pointer;
         margin-bottom: 10px;
-        transition: color 0.3s;
         cursor: pointer;
-        transition: transform 0.3s ease;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1), 0 0 15px white; /* Effet de relief */
-        border-radius: 20px; /* Coins arrondis */
-        border: 7px solid #000; /* Bordure épaisse */
-    }
-
-    .faq-question:hover {
-        transform: scale(1.05);
     }
 
     .faq-answer {
         display: none;
-        margin: 40px;
         font-size: 1.2em;
-        color: #ffffff;
+        color: #000000;
+        padding: 15px;
     }
     .arrow {
         margin-left: 10px;
@@ -52,30 +49,35 @@
 
 <div class="container faq-container">
     <div class="faq-header">
-        <h1>Foire Aux Questions</h1>
+        <h1 class="ft_orbitron text-light">Foire Aux Questions</h1>
     </div>
 
     <div class="faq-section">
-        <div class="faq-question bg-light p-3" onclick="toggleAnswer(this)">
-            Comment fonctionne Artifact Vision ? <span class="arrow">&#9654;</span>
-        </div>
-        <div class="faq-answer">
-            Artifact Vision permet aux graphistes de partager leurs rendus 3D avec leurs clients pour obtenir des retours et des validations rapides.
-        </div>
-
-        <div class="faq-question bg-light p-3" onclick="toggleAnswer(this)">
-            Quels types de fichiers sont pris en charge ? <span class="arrow">&#9654;</span>
-        </div>
-        <div class="faq-answer">
-            Artifact Vision ne prends en charge que les fichiers .png pour les rendus 3D <br>
-            Cependant, si vous avez des PDF, nous avons une fonction de coupe
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleAnswer(this)">
+                <h4>Comment fonctionne Artifact Vision ? <span class="arrow">&#9654;</span></h4>
+            </div>
+            <div class="faq-answer">
+                <h5>Artifact Vision permet aux graphistes de partager leurs rendus 3D avec leurs clients pour obtenir des retours et des validations rapides.</h5>
+            </div>
         </div>
 
-        <div class="faq-question bg-light p-3" onclick="toggleAnswer(this)">
-            Comment puis-je inviter des clients à voir mes rendus ? <span class="arrow">&#9654;</span>
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleAnswer(this)">
+                <h4>Quels types de fichiers sont pris en charge ? <span class="arrow">&#9654;</span></h4>
+            </div>
+            <div class="faq-answer">
+                <h5>Artifact Vision ne prends en charge que les fichiers .png pour les rendus 3D.</h5>
+            </div>
         </div>
-        <div class="faq-answer">
-            Vous pouvez inviter des clients en partageant un lien direct depuis la plateforme Artifact Vision, où ils pourront voir et commenter vos rendus.
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleAnswer(this)">
+                <h4>Comment puis-je inviter des clients à voir mes rendus ? <span class="arrow">&#9654;</span></h4>
+            </div>
+            <div class="faq-answer">
+                <h5>Vous pouvez inviter des clients en partageant un lien direct depuis la plateforme Artifact Vision, où ils pourront voir et commenter vos rendus.</h5>
+            </div>
         </div>
     </div>
 </div>
