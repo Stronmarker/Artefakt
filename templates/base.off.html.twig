@@ -19,7 +19,7 @@
   </head>
   <body>
     {% block header %}
-      <nav class="navbar navbar-expand-lg bg-dark">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
           <a class="navbar-brand" href="{{ path('app_home') }}"><img class="img_logo" src="{{ asset('images/logopetit.png') }}" alt="Logo Artefakt" /></a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
@@ -40,21 +40,20 @@
       </nav>
     {% endblock %}
 
-    <main class="main-container py-3">
+   
       {% block body %}
 
       {% endblock %}
-    </main>
-
+   
         {% block footer %}
-        <footer class="bg-dark text-light mt-auto py-3">
+        <footer class="bg-dark text-light py-3">
             <div class="container d-flex flex-column justify-content-center">
                 <div class="row">
                     <div class="col-md-6">
-                        <p class="mb-0">© {{ "now"|date("Y") }} Agarta Tous droits réservés.</p>
+                        <p class="mb-0">© {{ "now"|date("Y") }} ArtefaktVision Tous droits réservés.</p>
                     </div>
                     <div class="col-md-6 text-md-right">
-                        <a href="{{ path('app_cgu') }}" class="text-danger">Conditions Générales d'Utilisation</a> <!-- TODO Hover blanc -->
+                        <a href="{{ path('app_cgu') }}" class="text-success">Conditions Générales d'Utilisation</a>
                     </div>
                 </div>
             </div>

@@ -1,8 +1,9 @@
 {% extends 'base.logged.html.twig' %}
 
-{% block title %}Accueil{% endblock %}
+{% block title %}Tableau de bord{% endblock %}
 
 {% block body %}
+
 <style>
     /* Styles CSS pour le tableau de bord */
     .centered-container {
@@ -26,7 +27,7 @@
 </style>
 
 <div class="container centered-container mb-4">
-    <h1 class="text-center text-white centered-title ft_orbitron">Accueil</h1>
+    <h1 class="text-center text-white centered-title ft_orbitron">Tableau de bord</h1>
     <div class="row justify-content-center">
         <!-- Colonne pour la carte "Mon Abonnement" -->
         <div class="col-md-4 mb-4">
@@ -67,7 +68,7 @@
                 <div class="card-body">
                     <h5 class="card-title text-success fw-bold text-center ft_orbitron">Nouveau Projet</h5><br>
                     <h6 class="card-subtitle mb-2 text-dark fw-bold text-center">Commencer un nouveau projet de graphisme</h6><br>
-                    <a href="#" class="btn btn-success mt-3 fw-bold d-block mx-auto ft_wallpoet">Création</a>
+                    <a href="project/create" class="btn btn-success mt-3 fw-bold d-block mx-auto ft_wallpoet">Création</a>
                 </div>
             </div>
         </div>
