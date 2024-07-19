@@ -1,0 +1,20 @@
+{% extends 'base.off.html.twig' %}
+
+{% block title %}Validation du Rendu{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1 class="mb-4">Validation du Rendu : {{ rendering.renderingName }}</h1>
+    <div class="card shadow-sm">
+        <div class="card-header bg-success text-white">
+            Validez ce rendu
+        </div>
+        <div class="card-body">
+            {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <button class="btn btn-primary">Soumettre</button>
+            {{ form_end(form) }}
+        </div>
+    </div>
+</div>
+{% endblock %}

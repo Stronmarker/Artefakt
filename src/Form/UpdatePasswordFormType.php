@@ -10,12 +10,24 @@ use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class ChangePasswordFormType extends AbstractType
+class UpdatePasswordFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('plainPassword', PasswordType::class, [
+            ->add('oldPassword', PasswordType::class, [
+                'label' => 'Ancien mot de passe',
+                'mapped' => false,
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Entrer votre ancien mot de passe',
+                    ]),
+                    new UserPassword([
+                        'message' => 'Votre ancien mot de passe est incorrect',
+                    ]),
+                ],
+            ])
+            ->add('newPassword', PasswordType::class, [
                 'label' => 'Nouveau mot de passe',
                 'mapped' => false,
                 'constraints' => [

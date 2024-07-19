@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Project;
 use App\Entity\Rendering;
 use App\Form\AddRenderingType;
+use App\Form\RenderingValidationFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -62,6 +63,30 @@ class RenderingController extends AbstractController
         }
 
         return $this->render('rendering/client_show.html.twig', [
+            'rendering' => $rendering,
+        ]);
+    }
+
+    #[Route('/rendering/client/{token}/approve', name: 'rendering_client_approve', methods: ['GET', 'POST'])]
+    public function approveRendering(Request $request, string $token, EntityManagerInterface $entityManager): Response
+    {
+        $rendering = $entityManager->getRepository(Rendering::class)->findOneBy(['token' => $token]);
+
+        if (!$rendering) {
+            throw $this->createNotFoundException('Rendering not found');
+        }
+
+        $form = $this->createForm(RenderingValidationFormType::class, $rendering);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+
+            return $this->redirectToRoute('rendering_client_show', ['token' => $token]);
+        }
+
+        return $this->render('rendering/approve.html.twig', [
+            'form' => $form->createView(),
             'rendering' => $rendering,
         ]);
     }

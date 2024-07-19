@@ -35,12 +35,14 @@ class Rendering
     #[ORM\Column(type: 'string', length: 255)]
     private ?string $renderingName = null;
 
-    #[Gedmo\Slug(fields: ['renderingName'])]
-    #[ORM\Column(type: 'string', length: 255, unique: true)]
-    private ?string $slug = null;
-
     #[ORM\Column(type: 'string', length: 255, unique: true)]
     private ?string $token = null;
+
+    #[ORM\Column(type: 'boolean')]
+    private bool $isAccepted = false;
+
+    #[ORM\Column(type: 'text', nullable: true)]
+    private ?string $rejectReason = null;
 
     #[ORM\ManyToOne(targetEntity: Project::class, inversedBy: 'renderings')]
     #[ORM\JoinColumn(nullable: false)]
@@ -125,18 +127,6 @@ class Rendering
         return $this;
     }
 
-    public function getSlug(): ?string
-    {
-        return $this->slug;
-    }
-
-    public function setSlug(string $slug): self
-    {
-        $this->slug = $slug;
-
-        return $this;
-    }
-
     public function getToken(): ?string
     {
         return $this->token;
@@ -145,6 +135,30 @@ class Rendering
     public function setToken(string $token): self
     {
         $this->token = $token;
+
+        return $this;
+    }
+
+    public function getIsAccepted(): bool
+    {
+        return $this->isAccepted;
+    }
+
+    public function setIsAccepted(bool $isAccepted): self
+    {
+        $this->isAccepted = $isAccepted;
+
+        return $this;
+    }
+
+    public function getRejectReason(): ?string
+    {
+        return $this->rejectReason;
+    }
+
+    public function setRejectReason(?string $rejectReason): self
+    {
+        $this->rejectReason = $rejectReason;
 
         return $this;
     }

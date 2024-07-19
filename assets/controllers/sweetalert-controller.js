@@ -5,6 +5,8 @@ export default class extends Controller {
     static targets = ['form'];
 
     connect() {
+        this.showFlashMessages();
+
         // Sweetalert Supression Projet
         this.element.querySelectorAll(".delete-form").forEach((form) => {
             form.addEventListener("submit", (event) => {
@@ -72,7 +74,6 @@ export default class extends Controller {
         });
 
         // Sweetalert change password
-
         this.element.querySelectorAll(".form-change-password").forEach((form) => {
             form.addEventListener("submit", (event) => {
                 event.preventDefault();
@@ -92,4 +93,18 @@ export default class extends Controller {
             });
         });
     }
+
+    showFlashMessages() {
+        this.element.querySelectorAll(".flash-message").forEach((flashMessage) => {
+            const label = flashMessage.getAttribute('data-label');
+            const message = flashMessage.getAttribute('data-message');
+            Swal.fire({
+                icon: label === 'error' ? 'error' : 'success',
+                title: label === 'error' ? 'Erreur' : 'Succès',
+                text: message,
+            });
+            flashMessage.remove();
+        });
+    }
 }
+

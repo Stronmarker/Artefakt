@@ -2,15 +2,15 @@
 
 namespace App\Controller;
 
-use App\Form\ChangePasswordFormType;
+use App\Form\UpdatePasswordFormType;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 
 #[Route('/profil')]
 class ChangePasswordController extends AbstractController
@@ -24,7 +24,7 @@ class ChangePasswordController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
-        $form = $this->createForm(ChangePasswordFormType::class);
+        $form = $this->createForm(UpdatePasswordFormType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -39,9 +39,10 @@ class ChangePasswordController extends AbstractController
 
                 $entityManager->flush();
 
+                $this->addFlash('success', 'Votre mot de passe a été changé avec succès.');
                 return $this->redirectToRoute('app_dashboard');
             } else {
-                $this->addFlash('error', 'The current password is incorrect.');
+                $this->addFlash('error', 'L\'ancien mot de passe est incorrect.');
             }
         }
 

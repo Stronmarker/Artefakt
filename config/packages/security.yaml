@@ -47,6 +47,7 @@ security:
         - { path: ^/dashboard, roles: ROLE_USER }
         - { path: ^/help, roles: ROLE_USER }
         - { path: ^/project, roles: ROLE_USER }
+        # - { path: ^/reset-password, roles: ROLE_USER }
 
         # - { path: ^/profile/change-password, roles: ROLE_USER }
         - { path: ^/rendering/client/ }
