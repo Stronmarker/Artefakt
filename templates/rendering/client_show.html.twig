@@ -1,18 +1,19 @@
 {% extends 'base.off.html.twig' %}
 
 {% block body %}
-<div class="container mt-5 text-light">
-    <h1 class="mb-4">Nom du Rendu : {{ rendering.renderingName }}</h1>
+<div class="container text-light mt-1">
     <div class="card shadow-sm">
         <div class="card-header bg-success text-white">
-            Détails de l'image
+            <h5>Nom du Rendu : "{{ rendering.renderingName }}"</h5>
         </div>
         <div class="card-body">
-            <p><strong>Date de création :</strong> {{ rendering.createdAt|date('d/m/Y H:i:s') }}</p>
             <div data-controller="image"
                  data-image-front-png="{{ vich_uploader_asset(rendering, 'frontPngFile') }}"
                  data-image-toward-png="{{ vich_uploader_asset(rendering, 'towardPngFile') }}">
-                 
+                 <div class="mb-1"><button class="btn btn-secondary me-2" data-action="click->image#toggleRotation" data-image-target="resetButton">Pause Rotation</button>
+                    <button class="btn btn-secondary me-2" data-action="click->image#resetCamera" data-image-target="resetButton">Reset Camera</button>
+                    <button class="btn btn-success" data-action="click->image#showModalCanvas">Afficher en plein écran</button></div>
+                
                  <div data-image-target="canvasContainer" style="width: 100%; height: 600px; border: 1px solid #ccc; margin-bottom: 20px;"></div>
             </div>
         </div>
