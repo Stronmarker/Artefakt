@@ -47,8 +47,14 @@ security:
         - { path: ^/dashboard, roles: ROLE_USER }
         - { path: ^/help, roles: ROLE_USER }
         - { path: ^/project, roles: ROLE_USER }
+
+        # - { path: ^/profile/change-password, roles: ROLE_USER }
+        - { path: ^/rendering/client/ }
         - { path: ^/rendering, roles: ROLE_USER }
         - { path: ^/subscription, roles: ROLE_USER }
+        - { path: ^/project/\d+/rendering/\d+$, roles: ROLE_USER }
+        - { path: ^/project/\d+/rendering/, roles: ROLE_USER }
+        
 
 when@test:
     security:

@@ -36,53 +36,8 @@ class AddRenderingType extends AbstractType
             'image_uri' => true,
             'asset_helper' => true,
         ])
-        // ->add('gildingFrontPngFile', VichImageType::class, [
-        //     'required' => false,
-        //     'allow_delete' => true,
-        //     'delete_label' => '...',
-        //     'download_label' => '...',
-        //     'download_uri' => true,
-        //     'image_uri' => true,
-        //     'asset_helper' => true,
-        // ])
-        // ->add('gildingTowardPngFile', VichImageType::class, [
-        //     'required' => false,
-        //     'allow_delete' => true,
-        //     'delete_label' => '...',
-        //     'download_label' => '...',
-        //     'download_uri' => true,
-        //     'image_uri' => true,
-        //     'asset_helper' => true,
-        // ])
-        // ->add('laminationFrontPngFile', VichImageType::class, [
-        //     'required' => false,
-        //     'allow_delete' => true,
-        //     'delete_label' => '...',
-        //     'download_label' => '...',
-        //     'download_uri' => true,
-        //     'image_uri' => true,
-        //     'asset_helper' => true,
-        // ])
-        // ->add('laminationTowardPngFile', VichImageType::class, [
-        //     'required' => false,
-        //     'allow_delete' => true,
-        //     'delete_label' => '...',
-        //     'download_label' => '...',
-        //     'download_uri' => true,
-        //     'image_uri' => true,
-        //     'asset_helper' => true,
-        // ])
-        
-        ->add('dimensions', ChoiceType::class, [
-            'label' => 'Dimensions',
-            'choices' => [
-                '84x55' => '84x55',
-                '148x148' => '148x148',
-                '148x105' => '148x105',
-            ],
-        ])
-        ->add('link', TextType::class, ['label' => 'Link', 'required' => false])
-        ->add('rendering_name', TextType::class, ['label' => 'rendering_name']);
+            
+        ->add('renderingName', TextType::class, ['label' => 'renderingName']);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

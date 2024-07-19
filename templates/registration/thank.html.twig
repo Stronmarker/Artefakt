@@ -1,0 +1,20 @@
+{% extends 'base.off.html.twig' %}
+
+{% block title %}Merci{% endblock %}
+
+{% block body %}
+<style>
+    .full-height {
+        height: 85vh;
+    }
+</style>
+
+<div class="container d-flex align-items-center justify-content-center full-height" data-controller="confetti">
+    <div class="text-center text-light">
+        <h1 class="mb-4">Merci pour votre inscription !</h1>
+        <p>Pour accéder au site, merci de confirmer votre adresse mail. Un email vous a été envoyé avec un lien de confirmation.</p>
+        <p>Vous pouvez fermer cette page, le lien vous permettra de vous connecter directement.</p>
+    </div>
+    <canvas id="confetti-canvas" style="position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:9999;"></canvas>
+</div>
+{% endblock %}

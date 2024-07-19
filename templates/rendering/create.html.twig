@@ -2,13 +2,36 @@
 
 {% extends 'base.logged.html.twig' %}
 
-{% block title %}Create Rendering{% endblock %}
+{% block title %}Créer un rendu{% endblock %}
 
 {% block body %}
-    <h1>Create Rendering for Project: {{ project.projectName }}</h1>
-
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <button class="btn btn-primary">Create Rendering</button>
-    {{ form_end(form) }}
+<div class="container mt-5">
+    <h1 class="mb-4 text-light">Ajoute un nouveau rendu au projet: {{ project.projectName }}</h1>
+    
+    <div class="card shadow-sm">
+        <div class="card-header bg-success text-white">
+            Nouveau Rendu
+        </div>
+        <div class="card-body">
+            {{ form_start(form) }}
+                <div class="mb-3">
+                    {{ form_label(form.frontPngFile, 'Face Avant', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.frontPngFile, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.frontPngFile) }}
+                </div>
+                <div class="mb-3">
+                    {{ form_label(form.towardPngFile, 'Face Arrière', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.towardPngFile, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.towardPngFile) }}
+                </div>
+                <div class="mb-3">
+                    {{ form_label(form.renderingName, 'Nom du rendu', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.renderingName, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.renderingName) }}
+                </div>
+                <button type="submit" class="btn btn-success">Ajouter le nouveau rendu</button>
+            {{ form_end(form) }}
+        </div>
+    </div>
+</div>
 {% endblock %}
