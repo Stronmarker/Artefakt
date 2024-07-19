@@ -47,6 +47,27 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'boolean')]
     private bool $isSubscribed = false;
 
+    #[ORM\Column(nullable: true)]
+    private ?string $stripeCustomerId = null;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $stripeSubscriptionId;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $address = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $city = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $state = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $postalCode = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $country = null;
+
     /**
      * @var Collection<int, Project>
      */
