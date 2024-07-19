@@ -20,7 +20,6 @@
                     <td>{{ invoice.getStripeInvoiceId() }}</td>
                     <td>{{ invoice.getCreatedAt()|date('Y-m-d H:i:s') }}</td>
                     <td>{{ invoice.getAmount() }}</td>
-                    <td><a href="{{ path('app_invoice_detail', { id: invoice.getId() }) }}">Voir les détails</a></td>
                 </tr>
             {% endfor %}
         </tbody>

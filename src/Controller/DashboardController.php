@@ -34,17 +34,4 @@ class DashboardController extends AbstractController
         ]);
     }
 
-    #[Route('/invoice/{id}', name: 'app_invoice_detail')]
-    public function viewInvoiceDetail(int $id, UserInterface $user, EntityManagerInterface $em): Response
-    {
-        $invoice = $em->getRepository(Invoice::class)->findOneBy(['id' => $id, 'user' => $user]);
-
-        if (!$invoice) {
-            throw $this->createNotFoundException('Facture non trouvée');
-        }
-
-        return $this->render('dashboard/invoice_detail.html.twig', [
-            'invoice' => $invoice,
-        ]);
-    }
 }
