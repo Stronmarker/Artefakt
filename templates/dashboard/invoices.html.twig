@@ -3,26 +3,77 @@
 {% block title %}Vos factures{% endblock %}
 
 {% block body %}
-    <h1>Vos factures</h1>
+<style>
+    .centered-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 80vh;
+        /* Conteneur centré verticalement */
+    }
 
-    <table>
-        <thead>
-            <tr>
-                <th>Numéro de la facture</th>
-                <th>Date</th>
-                <th>Montant</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for invoice in invoices %}
-                <tr>
-                    <td>{{ invoice.number }}</td>
-                    <td>{{ invoice.created|date('Y-m-d H:i:s', 'U') }}</td>
-                    <td>{{ invoice.amount_due / 100 }} {{ invoice.currency|upper }}</td>
-                    <td><a href="{{ invoice.hosted_invoice_url }}" target="_blank">Voir la facture</a></td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    .card-shadow {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1), 0 0 15px white;
+        /* Ombre pour la carte */
+        border-radius: 20px;
+        /* Bords arrondis */
+        border: 7px solid #000;
+        /* Bordure noire */
+        width: 100%;
+        max-width: 600px;
+        /* Largeur maximale de la carte */
+        padding: 20px;
+        /* Padding interne */
+    }
+
+    .centered-title {
+        margin-bottom: 20px;
+        /* Marges pour le titre centré */
+    }
+
+    .card-title {
+        margin-bottom: 10px;
+        /* Marges pour le titre de la carte */
+    }
+</style>
+
+<div class="container centered-container mb-4">
+    <h1 class="text-center text-white centered-title ft_orbitron">Vos factures</h1>
+    <!-- Titre principal de la page -->
+    <div class="card card-shadow">
+        <div class="card-body">
+            <h5 class="card-title text-success fw-bold text-center ft_orbitron">Historique des factures</h5>
+            <!-- Titre de la carte -->
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Numéro de la facture</th>
+                        <th>Date</th>
+                        <th>Montant</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for invoice in invoices %}
+                        <tr>
+                            <td>{{ invoice.number }}</td>
+                            <td>{{ invoice.created|date('d-m-Y', 'U') }}</td>
+                            <td>{{ invoice.amount_due / 100 }} {{ invoice.currency|upper }}</td>
+                            <td>
+                                {% if invoice.status == 'paid' %}
+                                    Payée
+                                {% else %}
+                                    Non payée
+                                {% endif %}
+                            </td>
+                            <td><a href="{{ invoice.hosted_invoice_url }}" target="_blank">Voir la facture</a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 {% endblock %}
