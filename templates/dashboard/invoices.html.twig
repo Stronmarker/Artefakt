@@ -8,7 +8,7 @@
     <table>
         <thead>
             <tr>
-                <th>ID de la facture</th>
+                <th>Numéro de la facture</th>
                 <th>Date</th>
                 <th>Montant</th>
                 <th>Action</th>
@@ -17,9 +17,10 @@
         <tbody>
             {% for invoice in invoices %}
                 <tr>
-                    <td>{{ invoice.getStripeInvoiceId() }}</td>
-                    <td>{{ invoice.getCreatedAt()|date('Y-m-d H:i:s') }}</td>
-                    <td>{{ invoice.getAmount() }}</td>
+                    <td>{{ invoice.number }}</td>
+                    <td>{{ invoice.created|date('Y-m-d H:i:s', 'U') }}</td>
+                    <td>{{ invoice.amount_due / 100 }} {{ invoice.currency|upper }}</td>
+                    <td><a href="{{ invoice.hosted_invoice_url }}" target="_blank">Voir la facture</a></td>
                 </tr>
             {% endfor %}
         </tbody>

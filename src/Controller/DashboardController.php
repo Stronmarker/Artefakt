@@ -21,16 +21,24 @@ class DashboardController extends AbstractController
     }
 
     #[Route('/invoices', name: 'app_invoices')]
-    public function viewInvoices(UserInterface $user, EntityManagerInterface $em): Response
+    public function viewInvoices(UserInterface $user): Response
     {
-       
+        // Initialisation du client Stripe avec la clé API
         $stripe = new StripeClient($_ENV['STRIPE_API_KEY']);
+
+        // Récupération des factures pour le client Stripe
         $invoices = $stripe->invoices->all(['customer' => $user->getStripeCustomerId()]);
-        dd($invoices);
+        // dd($invoices);
 
+        $invoiceData = [];
+        foreach ($invoices->data as $invoice) {
+            $invoiceData[] = $invoice->toArray();
+        }
+        
 
+        // Transfert des factures au template Twig
         return $this->render('dashboard/invoices.html.twig', [
-            'invoices' => $invoices,
+            'invoices' => $invoices->data,
         ]);
     }
 
