@@ -41,7 +41,7 @@ class ChangePasswordController extends AbstractController
 
                 $this->addFlash('success', 'Your password has been changed successfully.');
 
-                return $this->redirectToRoute('profil');
+                return $this->redirectToRoute('app_profil');
             } else {
                 $this->addFlash('error', 'The current password is incorrect.');
             }
