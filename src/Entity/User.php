@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -45,10 +47,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'boolean')]
     private bool $isSubscribed = false;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
+    #[ORM\Column(nullable: true)]
+    private ?string $stripeCustomerId = null;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $stripeSubscriptionId;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $address = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $city = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $state = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $postalCode = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $country = null;
 
     public function getEmail(): ?string
     {
@@ -164,6 +182,90 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setSubscribed(bool $isSubscribed): static
     {
         $this->isSubscribed = $isSubscribed;
+
+        return $this;
+    }
+
+    public function getStripeCustomerId(): ?string
+    {
+        return $this->stripeCustomerId;
+    }
+
+    public function setStripeCustomerId(?string $stripeCustomerId): self 
+    {
+        $this->stripeCustomerId = $stripeCustomerId;
+        return $this;
+
+    }
+
+    public function getStripeSubscriptionId(): ?string
+    {
+        return $this->stripeSubscriptionId;
+    }
+
+    public function setStripeSubscriptionId(?string $stripeSubscriptionId): self
+    {
+        $this->stripeSubscriptionId = $stripeSubscriptionId;
+
+        return $this;
+    }
+
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    public function setAddress(string $address): static
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(?string $city): static
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    public function getState(): ?int
+    {
+        return $this->state;
+    }
+
+    public function setState(?int $state): static
+    {
+        $this->state = $state;
+
+        return $this;
+    }
+
+    public function getPostalCode(): ?int
+    {
+        return $this->postalCode;
+    }
+
+    public function setPostalCode(?int $postalCode): static
+    {
+        $this->postalCode = $postalCode;
+
+        return $this;
+    }
+
+    public function getCountry(): ?string
+    {
+        return $this->country;
+    }
+
+    public function setCountry(?string $country): static
+    {
+        $this->country = $country;
 
         return $this;
     }

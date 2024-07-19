@@ -49,6 +49,7 @@
         "symfonycasts/verify-email-bundle": "^1.17",
         "twig/extra-bundle": "^2.12|^3.0",
         "twig/twig": "^2.12|^3.0",
+        "vlucas/phpdotenv": "^5.6",
         "vich/uploader-bundle": "^2.4"
     },
     "config": {

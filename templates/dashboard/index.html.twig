@@ -3,52 +3,8 @@
 {% block title %}Accueil{% endblock %}
 
 {% block body %}
-
-{# <style> 
-    /* Style de la page avant de le changer au maximum avec boostrap */
-    .example-wrapper {
-        margin: 1em auto;
-        max-width: 800px;
-        width: 95%;
-        font: 18px/1.5 sans-serif;
-    }
-    .card {
-        background-color: rgba(85, 85, 85, 0.95); 
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 0 15px rgb(110, 236, 240); 
-        color: white; 
-        text-align: center;
-    }
-    .card-title {
-        font-size: 1.25rem;
-        color: black;
-    }
-    .card-text {
-        font-size: 0.875rem;
-    }
-    .img_logo_Home {
-        width: 300px;
-        height: auto;
-        margin-bottom: 20px;
-    }
-    /* Style des boutons */
-    .btn-custom {
-        background-color: rgba(85, 85, 85, 0.8); 
-        color: black; 
-        border: 2px solid white; 
-    }
-    .btn-custom:hover {
-        background-color: white;
-        color: black; 
-    }
-    
-</style> #}
-
-
-
 <style>
-    /* Styles CSS pour le tableau de bord  */
+    /* Styles CSS pour le tableau de bord */
     .centered-container {
         display: flex;
         justify-content: center;
@@ -79,7 +35,6 @@
                     <h5 class="card-title text-success fw-bold text-center ft_orbitron">Mon Abonnement</h5><br>
                     <h6 class="card-subtitle mb-2 text-dark fw-bold text-center">Mettez à jour vos informations</h6><br>
                     <a class="btn btn-success mt-3 fw-bold d-block mx-auto ft_wallpoet" href="user/subscription" role="button">Visualiser votre abonnement</a>
-
                 </div>
             </div>
         </div>
@@ -101,7 +56,7 @@
                 <div class="card-body">
                     <h5 class="card-title text-success fw-bold text-center ft_orbitron">Mes Factures</h5><br>
                     <h6 class="card-subtitle mb-2 text-dark fw-bold text-center">Historique de vos factures</h6><br>
-                    <a href="#" class="btn btn-success mt-3 fw-bold d-block mx-auto ft_wallpoet">Visualiser vos paiements</a>
+                    <a href="{{ path('app_invoices') }}" class="btn btn-success mt-3 fw-bold d-block mx-auto ft_wallpoet">Visualiser vos paiements</a>
                 </div>
             </div>
         </div>

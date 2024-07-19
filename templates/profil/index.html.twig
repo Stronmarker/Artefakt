@@ -17,6 +17,12 @@
 
                     {{ form_start(form, {'attr': {'id': 'profil-form', 'class': 'form-horizontal'}}) }}
                     <div class="form-group">
+                        {{ form_label(form.email, 'Email', {'label_attr': {'class': 'text-dark fw_bold ft_audiowide'}})
+                        }}
+                        {{ form_widget(form.email, {'attr': {'class': 'form-control', 'style': 'background: transparent;
+                        border: 2px solid green; color: dark;'}}) }}
+                    </div>
+                    <div class="form-group">
                         {{ form_label(form.firstname, 'Prénom', {'label_attr': {'class': 'text-dark fw_bold
                         ft_audiowide'}}) }}
                         {{ form_widget(form.firstname, {'attr': {'class': 'form-control', 'style': 'background:
@@ -29,10 +35,24 @@
                         transparent; border: 2px solid green; color: dark;'}}) }}
                     </div>
                     <div class="form-group">
-                        {{ form_label(form.email, 'Email', {'label_attr': {'class': 'text-dark fw_bold ft_audiowide'}})
-                        }}
-                        {{ form_widget(form.email, {'attr': {'class': 'form-control', 'style': 'background: transparent;
-                        border: 2px solid green; color: dark;'}}) }}
+                        {{ form_label(form.address, 'Adresse', {'label_attr': {'class': 'text-dark fw_bold ft_audiowide'}}) }}
+                        {{ form_widget(form.address, {'attr': {'class': 'form-control', 'style': 'background: transparent; border: 2px solid green; color: dark;'}}) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.city, 'Ville', {'label_attr': {'class': 'text-dark fw_bold ft_audiowide'}}) }}
+                        {{ form_widget(form.city, {'attr': {'class': 'form-control', 'style': 'background: transparent; border: 2px solid green; color: dark;'}}) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.postal_code, 'Code-Postal', {'label_attr': {'class': 'text-dark fw_bold ft_audiowide'}}) }}
+                        {{ form_widget(form.postal_code, {'attr': {'class': 'form-control', 'style': 'background: transparent; border: 2px solid green; color: dark;'}}) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.state, 'Département', {'label_attr': {'class': 'text-dark fw_bold ft_audiowide'}}) }}
+                        {{ form_widget(form.state, {'attr': {'class': 'form-control', 'style': 'background: transparent; border: 2px solid green; color: dark;'}}) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.country, 'Pays', {'label_attr': {'class': 'text-dark fw_bold ft_audiowide'}}) }}
+                        {{ form_widget(form.country, {'attr': {'class': 'form-control', 'style': 'background: transparent; border: 2px solid green; color: dark;'}}) }}
                     </div>
                     <div class="text-center">
                         <button id="submit-button" class="btn btn-success btn-block fw-bold ft_wallpoet" type="button"
