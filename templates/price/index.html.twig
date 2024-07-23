@@ -18,7 +18,21 @@
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1), 0 0 15px white; /* Effet de relief plus ombre */
         border-radius: 20px; /* Coins arrondis */
         border: 7px solid #000; /* Bordure épaisse autour de la box */
+        width: 100%; /* Occupe la largeur complète de la colonne */   
+        
     }
+
+    /* Espacement des cartes sur la page */
+    .card-margin {
+        margin: 0 80px;
+    }
+
+    .card-body {
+        text-align: center;
+        padding: 64px; /* Padding interne ajusté */ 
+    }
+
+    
 </style>
 
 <div class="container centered-container mb-4">
@@ -26,9 +40,9 @@
         
         <!-- Colonne pour l'abonnement gratuit -->
         <div class="col-md-6 mb-4 d-flex justify-content-center">
-            <div class="card card-shadow">
+            <div class="card card-shadow card-margin">
                 <div class="card-body text-center">
-                    <h5 class="card-title text-success fw-bold text-center ft_orbitron">Abonnement Gratuit</h5><br>
+                    <h5 class="card-title text-success fw-bold text-center ft_orbitron">Offre Gratuit</h5><br>
                     <h6 class="card-subtitle mb-2 text-dark fw-bold text-center">€0/mois</h6><br>
                     <ul class="list-unstyled">
                         <li class="ft_audiowide">Création de 3 projets</li>
@@ -36,16 +50,16 @@
                         <li class="ft_audiowide">Assistance par e-mail</li>
                         <li class="ft_audiowide">Accès au centre d'aide</li>
                     </ul>
-                    <a class="btn btn-success btn-lg text-white ft_wallpoet" href="register" role="button">Inscrivez-vous</a>
+                    <a class="btn btn-success btn-lg text-white ft_wallpoet" href="register" role="button">S'inscrire</a>
                 </div>
             </div>
         </div>
 
         <!-- Colonne pour l'abonnement Premium -->
         <div class="col-md-6 mb-4 d-flex justify-content-center">
-            <div class="card card-shadow">
+            <div class="card card-shadow card-margin">
                 <div class="card-body text-center">
-                    <h5 class="card-title text-success fw-bold text-center ft_orbitron">Abonnement Premium</h5><br>
+                    <h5 class="card-title text-success fw-bold text-center ft_orbitron">Offre Premium</h5><br>
                     <h6 class="card-subtitle mb-2 text-dark fw-bold text-center">€19.99/mois</h6><br>
                     <ul class="list-unstyled">
                         <li class="ft_audiowide">Projets illimités</li>
@@ -53,7 +67,7 @@
                         <li class="ft_audiowide">Assistance par e-mail</li> 
                         <li class="ft_audiowide">Accès au centre d'aide</li>
                     </ul>
-                    <a class="btn btn-success btn-lg text-white ft_wallpoet" href="{{ path('app_subscription') }}" role="button">Souscrivez maintenant</a>
+                    <a class="btn btn-success btn-lg text-white ft_wallpoet" href="{{ path('app_subscription') }}" role="button">Souscrire</a>
 
                 </div>
             </div>
