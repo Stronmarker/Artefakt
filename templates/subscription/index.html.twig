@@ -96,7 +96,7 @@
             event.preventDefault(); // Empêche la soumission par défaut du formulaire
 
 
-
+            // Je récupère les valeurs des champs de saisie du form par leur identifiant
             const lastName = document.getElementById('last-name').value;
             const email = document.getElementById('email').value;
             const address = document.getElementById('address').value;
@@ -105,19 +105,19 @@
             const postalCode = document.getElementById('postal_code').value;
             const country = document.getElementById('country').value;
 
-
+            // Utilisation de l'api stripe pour créer une méthode de paiement
             const { error, paymentMethod } = await stripe.createPaymentMethod({
-                type: 'card',
-                card: cardElement,
+                type: 'card',// Type de méthode de paiement : C.B
+                card: cardElement, // Elément de la C.B qui est géré par stripe
                 billing_details: {
-                    name: `${lastName}`,
-                    email: email,
+                    name: `${lastName}`, // Nom de famille du titulaire de la carte
+                    email: email, // Adresse mail du titulaire
                     address: {
-                        line1: address,
-                        city: city,
-                        postal_code: postalCode,
-                        state: state,
-                        country: country
+                        line1: address, // Adresse postale du titulaire
+                        city: city, // Ville 
+                        postal_code: postalCode, // Code postale
+                        state: state, // Etat/Région 
+                        country: country // Pays
                     }
 
                 }

@@ -11,48 +11,95 @@
                 <div class="card-body">
                     <h1 class="text-center text-dark mb-4 ft_orbitron">Mon Profil</h1>
 
-                    {# {% if app.user %}
-                    <p class="text-center text-dark mb-4 fw-bold ft_audiowide">Bienvenue, {{ user.firstname }}</p>
-                    {% endif %} #}
 
                     {{ form_start(form, {'attr': {'id': 'profil-form', 'class': 'form-horizontal'}}) }}
                     <div class="form-group">
-                        {{ form_label(form.email, 'Email', {'label_attr': {'class': 'text-dark fw_bold ft_audiowide'}})
-                        }}
-                        {{ form_widget(form.email, {'attr': {'class': 'form-control', 'style': 'background: transparent;
-                        border: 2px solid green; color: dark;'}}) }}
+                        {{ form_label(form.email, 'Email', {'label_attr': {'class': 'text-dark fw_bold ft_audiowide'}}) }}
+                        {{ form_widget(form.email, {
+                            'attr': {
+                                'id': 'email',
+                                'class': 'form-control',
+                                'style': 'background: transparent; border: 2px solid green; color: dark;',
+                                'value': app.user.email
+                            }
+                        }) }}
                     </div>
                     <div class="form-group">
-                        {{ form_label(form.firstname, 'Prénom', {'label_attr': {'class': 'text-dark fw_bold
-                        ft_audiowide'}}) }}
-                        {{ form_widget(form.firstname, {'attr': {'class': 'form-control', 'style': 'background:
-                        transparent; border: 2px solid green; color: dark;'}}) }}
+                        {{ form_label(form.firstname, 'Prénom', {'label_attr': {'class': 'text-dark fw_bold ft_audiowide'}}) }}
+                        {{ form_widget(form.firstname, {
+                            'attr': {
+                                'id': 'firstname',
+                                'class': 'form-control',
+                                'style': 'background: transparent; border: 2px solid green; color: dark;',
+                                'value': app.user.firstname
+                            }
+                        }) }}
                     </div>
                     <div class="form-group">
-                        {{ form_label(form.lastname, 'Nom', {'label_attr': {'class': 'text-dark fw_bold ft_audiowide'}})
-                        }}
-                        {{ form_widget(form.lastname, {'attr': {'class': 'form-control', 'style': 'background:
-                        transparent; border: 2px solid green; color: dark;'}}) }}
+                        {{ form_label(form.lastname, 'Nom', {'label_attr': {'class': 'text-dark fw_bold ft_audiowide'}}) }}
+                        {{ form_widget(form.lastname, {
+                            'attr': {
+                                'id': 'lastname',
+                                'class': 'form-control',
+                                'style': 'background: transparent; border: 2px solid green; color: dark;',
+                                'value': app.user.lastname
+                            }
+                        }) }}
                     </div>
                     <div class="form-group">
                         {{ form_label(form.address, 'Adresse', {'label_attr': {'class': 'text-dark fw_bold ft_audiowide'}}) }}
-                        {{ form_widget(form.address, {'attr': {'class': 'form-control', 'style': 'background: transparent; border: 2px solid green; color: dark;'}}) }}
+                        {{ form_widget(form.address, {
+                            'attr': {
+                                'id': 'address',
+                                'class': 'form-control',
+                                'style': 'background: transparent; border: 2px solid green; color: dark;',
+                                'value': app.user.address
+                            }
+                        }) }}
                     </div>
                     <div class="form-group">
                         {{ form_label(form.city, 'Ville', {'label_attr': {'class': 'text-dark fw_bold ft_audiowide'}}) }}
-                        {{ form_widget(form.city, {'attr': {'class': 'form-control', 'style': 'background: transparent; border: 2px solid green; color: dark;'}}) }}
+                        {{ form_widget(form.city, {
+                            'attr': {
+                                'id': 'city',
+                                'class': 'form-control',
+                                'style': 'background: transparent; border: 2px solid green; color: dark;',
+                                'value': app.user.city
+                            }
+                        }) }}
                     </div>
                     <div class="form-group">
                         {{ form_label(form.postal_code, 'Code-Postal', {'label_attr': {'class': 'text-dark fw_bold ft_audiowide'}}) }}
-                        {{ form_widget(form.postal_code, {'attr': {'class': 'form-control', 'style': 'background: transparent; border: 2px solid green; color: dark;'}}) }}
+                        {{ form_widget(form.postal_code, {
+                            'attr': {
+                                'id': 'postal_code',
+                                'class': 'form-control',
+                                'style': 'background: transparent; border: 2px solid green; color: dark;',
+                                'value': app.user.postalCode
+                            }
+                        }) }}
                     </div>
                     <div class="form-group">
                         {{ form_label(form.state, 'Département', {'label_attr': {'class': 'text-dark fw_bold ft_audiowide'}}) }}
-                        {{ form_widget(form.state, {'attr': {'class': 'form-control', 'style': 'background: transparent; border: 2px solid green; color: dark;'}}) }}
+                        {{ form_widget(form.state, {
+                            'attr': {
+                                'id': 'state',
+                                'class': 'form-control',
+                                'style': 'background: transparent; border: 2px solid green; color: dark;',
+                                'value': app.user.state
+                            }
+                        }) }}
                     </div>
                     <div class="form-group">
                         {{ form_label(form.country, 'Pays', {'label_attr': {'class': 'text-dark fw_bold ft_audiowide'}}) }}
-                        {{ form_widget(form.country, {'attr': {'class': 'form-control', 'style': 'background: transparent; border: 2px solid green; color: dark;'}}) }}
+                        {{ form_widget(form.country, {
+                            'attr': {
+                                'id': 'country',
+                                'class': 'form-control',
+                                'style': 'background: transparent; border: 2px solid green; color: dark;',
+                                'value': app.user.country
+                            }
+                        }) }}
                     </div>
                     <div class="text-center">
                         <button id="submit-button" class="btn btn-success btn-block fw-bold" type="button"
