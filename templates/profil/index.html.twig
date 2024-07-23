@@ -11,10 +11,17 @@
                 <div class="card-body">
                     <h1 class="text-center text-dark mb-4 ft_orbitron">Mon Profil</h1>
 
+                    {# Formulaire de profil de l'utilisateur #}
 
+                    {# Ouverture du formulaire avec Twig form_start #}
                     {{ form_start(form, {'attr': {'id': 'profil-form', 'class': 'form-horizontal'}}) }}
+                    
+                    {# Champ Email #}
                     <div class="form-group">
+                        {# Étiquette du champ Email #}
                         {{ form_label(form.email, 'Email', {'label_attr': {'class': 'text-dark fw_bold ft_audiowide'}}) }}
+                        
+                        {# Widget du champ Email avec des attributs de style et de valeur par défaut #}
                         {{ form_widget(form.email, {
                             'attr': {
                                 'id': 'email',
@@ -24,8 +31,13 @@
                             }
                         }) }}
                     </div>
+                    
+                    {# Champ Prénom #}
                     <div class="form-group">
+                        {# Étiquette du champ Prénom #}
                         {{ form_label(form.firstname, 'Prénom', {'label_attr': {'class': 'text-dark fw_bold ft_audiowide'}}) }}
+                        
+                        {# Widget du champ Prénom avec des attributs de style et de valeur par défaut #}
                         {{ form_widget(form.firstname, {
                             'attr': {
                                 'id': 'firstname',
@@ -35,8 +47,13 @@
                             }
                         }) }}
                     </div>
+                    
+                    {# Champ Nom #}
                     <div class="form-group">
+                        {# Étiquette du champ Nom #}
                         {{ form_label(form.lastname, 'Nom', {'label_attr': {'class': 'text-dark fw_bold ft_audiowide'}}) }}
+                        
+                        {# Widget du champ Nom avec des attributs de style et de valeur par défaut #}
                         {{ form_widget(form.lastname, {
                             'attr': {
                                 'id': 'lastname',
@@ -46,8 +63,13 @@
                             }
                         }) }}
                     </div>
+                    
+                    {# Champ Adresse #}
                     <div class="form-group">
+                        {# Étiquette du champ Adresse #}
                         {{ form_label(form.address, 'Adresse', {'label_attr': {'class': 'text-dark fw_bold ft_audiowide'}}) }}
+                        
+                        {# Widget du champ Adresse avec des attributs de style et de valeur par défaut #}
                         {{ form_widget(form.address, {
                             'attr': {
                                 'id': 'address',
@@ -57,8 +79,13 @@
                             }
                         }) }}
                     </div>
+                    
+                    {# Champ Ville #}
                     <div class="form-group">
+                        {# Étiquette du champ Ville #}
                         {{ form_label(form.city, 'Ville', {'label_attr': {'class': 'text-dark fw_bold ft_audiowide'}}) }}
+                        
+                        {# Widget du champ Ville avec des attributs de style et de valeur par défaut #}
                         {{ form_widget(form.city, {
                             'attr': {
                                 'id': 'city',
@@ -68,8 +95,13 @@
                             }
                         }) }}
                     </div>
+                    
+                    {# Champ Code Postal #}
                     <div class="form-group">
+                        {# Étiquette du champ Code Postal #}
                         {{ form_label(form.postal_code, 'Code-Postal', {'label_attr': {'class': 'text-dark fw_bold ft_audiowide'}}) }}
+                        
+                        {# Widget du champ Code Postal avec des attributs de style et de valeur par défaut #}
                         {{ form_widget(form.postal_code, {
                             'attr': {
                                 'id': 'postal_code',
@@ -79,8 +111,13 @@
                             }
                         }) }}
                     </div>
+                    
+                    {# Champ Département #}
                     <div class="form-group">
+                        {# Étiquette du champ Département #}
                         {{ form_label(form.state, 'Département', {'label_attr': {'class': 'text-dark fw_bold ft_audiowide'}}) }}
+                        
+                        {# Widget du champ Département avec des attributs de style et de valeur par défaut #}
                         {{ form_widget(form.state, {
                             'attr': {
                                 'id': 'state',
@@ -90,8 +127,13 @@
                             }
                         }) }}
                     </div>
+                    
+                    {# Champ Pays #}
                     <div class="form-group">
+                        {# Étiquette du champ Pays #}
                         {{ form_label(form.country, 'Pays', {'label_attr': {'class': 'text-dark fw_bold ft_audiowide'}}) }}
+                        
+                        {# Widget du champ Pays avec des attributs de style et de valeur par défaut #}
                         {{ form_widget(form.country, {
                             'attr': {
                                 'id': 'country',
@@ -101,12 +143,17 @@
                             }
                         }) }}
                     </div>
+                    
+                    {# Bouton de soumission du formulaire #}
                     <div class="text-center">
                         <button id="submit-button" class="btn btn-success btn-block fw-bold" type="button"
                             style="display: block; margin: 20px auto; width: 80%; max-width: 300px; padding: 10px 0;">Enregistrer</button>
                     </div>
+                    
+                    {# Fermeture du formulaire avec Twig form_end #}
                     {{ form_end(form) }}
 
+                    {# Bouton pour changer le mot de passe #}
                     <button class="btn btn-success">
                         <a href="{{ path('app_change_password') }}" style="color: white; text-decoration: none;">
                             Changer mot de passe
@@ -145,23 +192,48 @@
         });
 
         // Préparer les messages flash dans une variable JS
-        const flashMessages = {{ app.flashes| json_encode | raw
-    }};
-    console.log(flashMessages);  // Debugging line to check the structure of flashMessages
+        const flashMessages = {{ app.flashes|json_encode|raw }};
+        console.log(flashMessages);  // Ligne de débogage pour vérifier la structure des flashMessages
 
-    // Vérifier et afficher les messages flash avec SweetAlert
-    if (flashMessages) {
-        for (const [type, messages] of Object.entries(flashMessages)) {
-            messages.forEach((message) => {
-                Swal.fire({
-                    title: type.charAt(0).toUpperCase() + type.slice(1),
-                    text: message,
-                    icon: type,
-                    confirmButtonText: 'OK'
+        // Vérifier et afficher les messages flash avec SweetAlert
+        if (flashMessages) {
+            for (const [type, messages] of Object.entries(flashMessages)) {
+                messages.forEach((message) => {
+                    Swal.fire({
+                        title: type.charAt(0).toUpperCase() + type.slice(1),
+                        text: message,
+                        icon: type,
+                        confirmButtonText: 'OK'
+                    });
                 });
-            });
+            }
         }
-    }
-        });
+    });
 </script>
 {% endblock %}
+
+
+{# 
+
+Déclaration des blocs de Twig :
+
+{% extends 'base.logged.html.twig' %} : Hérite du template de base.
+{% block title %}Mon Profil{% endblock %} : Définit le titre de la page.
+
+Structure du formulaire :
+Le formulaire est rendu en utilisant les helpers de Twig (form_start et form_end), avec des attributs personnalisés comme id et class.
+Chaque champ du formulaire (email, firstname, lastname, etc.) utilise form_label pour l'étiquette et form_widget pour le champ de saisie, avec des attributs supplémentaires pour le style et la valeur par défaut.
+
+Pré-remplissage des champs :
+Les attributs value des champs sont remplis avec les données de l'utilisateur actuel (app.user.email, app.user.firstname, etc.), assurant ainsi que les informations actuelles de l'utilisateur soient affichées et modifiables.
+
+Gestion des actions du formulaire :
+Un bouton de soumission (submit-button) est présent pour enregistrer les modifications. Lorsqu'il est cliqué, une boîte de dialogue SweetAlert est affichée pour confirmer l'action.
+
+Gestion des messages flash :
+Les messages flash sont préparés en JavaScript et affichés à l'utilisateur en utilisant SweetAlert pour une meilleure expérience utilisateur.
+
+Scripts JavaScript :
+Le script SweetAlert gère les confirmations et les affichages des messages flash. Il écoute le clic sur le bouton de soumission et soumet le formulaire si l'utilisateur confirme.
+
+#}
