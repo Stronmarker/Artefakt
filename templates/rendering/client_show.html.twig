@@ -1,23 +1,35 @@
 {% extends 'base.off.html.twig' %}
 
 {% block body %}
-<div class="container text-light mt-1">
-    <div class="card shadow-sm">
-        <div class="card-header bg-success text-white">
-            <h5>Nom du Rendu : "{{ rendering.renderingName }}"</h5>
+
+<style>
+.card-shadow {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1), 0 0 15px white; /* Effet de relief */
+        border-radius: 20px; /* Coins arrondis */
+        border: 7px solid #000; /* Bordure épaisse */
+    }
+</style>
+
+<div class="container text-light card-shadow bg-light mt-3">
+    
+        <div class="card-header bg-white text-success text-center">
+            <h3>Nom du Rendu : "{{ rendering.renderingName }}"</h5>
+
         </div>
-        <div class="card-body">
-            <div data-controller="image"
-                 data-image-front-png="{{ vich_uploader_asset(rendering, 'frontPngFile') }}"
-                 data-image-toward-png="{{ vich_uploader_asset(rendering, 'towardPngFile') }}">
-                 <div class="mb-1"><button class="btn btn-secondary me-2" data-action="click->image#toggleRotation" data-image-target="resetButton">Pause Rotation</button>
-                    <button class="btn btn-secondary me-2" data-action="click->image#resetCamera" data-image-target="resetButton">Reset Camera</button>
-                    <button class="btn btn-success" data-action="click->image#showModalCanvas">Afficher en plein écran</button></div>
-                
-                 <div data-image-target="canvasContainer" style="width: 100%; height: 600px; border: 1px solid #ccc; margin-bottom: 20px;"></div>
+        <div class="card-body bg-light">
+            <div data-controller="image" data-image-front-png="{{ vich_uploader_asset(rendering, 'frontPngFile') }}"
+                data-image-toward-png="{{ vich_uploader_asset(rendering, 'towardPngFile') }}">
+                <div class="mb-1"><button class="btn btn-secondary" data-action="click->image#toggleRotation"
+                        data-image-target="resetButton">Pause Rotation</button>
+                    <button class="btn btn-secondary" data-action="click->image#resetCamera"
+                        data-image-target="resetButton">Reset Camera</button>
+
+                    <a class="btn btn-secondary" href="{{ path('rendering_client_approve', {'token': rendering.token}) }}"
+                        class="btn btn-success mt-2">Valider ou Rejeter le Rendu</a>
+                </div>
+                <div data-image-target="canvasContainer"
+                    style="width: 100%; height: 600px; border: 1px solid #ccc; margin-bottom: 10px;"></div>
             </div>
-            <a href="{{ path('rendering_client_approve', {'token': rendering.token}) }}" class="btn btn-success mt-3">Valider ou Rejeter le Rendu</a>
         </div>
-    </div>
 </div>
 {% endblock %}

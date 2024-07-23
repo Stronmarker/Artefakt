@@ -17,6 +17,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    padding-bottom: 80px;
 } 
 
 
@@ -70,7 +71,5 @@ footer {
     bottom: 0;
     width: 100%;
     text-align: center;
-    
-    
 }
  
