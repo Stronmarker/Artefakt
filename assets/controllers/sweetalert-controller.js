@@ -88,6 +88,13 @@ export default class extends Controller {
                 }).then((result) => {
                     if (result.isConfirmed) {
                         form.submit();
+                        Swal.fire({
+                            title: 'Mot de passe enregistré!',
+                            text: 'Votre mot de passe a été mis à jour avec succès.',
+                            icon: 'success',
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: 'OK'
+                        });
                     }
                 });
             });
@@ -108,6 +115,13 @@ export default class extends Controller {
                 }).then((result) => {
                     if (result.isConfirmed) {
                         form.submit();
+                        Swal.fire({
+                            title: 'Modifications enregistrées!',
+                            text: 'Vos informations ont été mises à jour avec succès.',
+                            icon: 'success',
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: 'OK'
+                        });
                     }
                 });
             });
