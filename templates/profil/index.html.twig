@@ -3,7 +3,7 @@
 {% block title %}Mon Profil{% endblock %}
 
 {% block body %}
-<div class="container mt-5 mb-5">
+<div class="container mt-5 mb-5" data-controller="sweetalert">
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card shadow"
@@ -14,7 +14,7 @@
                     {# Formulaire de profil de l'utilisateur #}
 
                     {# Ouverture du formulaire avec Twig form_start #}
-                    {{ form_start(form, {'attr': {'id': 'profil-form', 'class': 'form-horizontal'}}) }}
+                    {{ form_start(form, {'attr': {'class': 'profil-form', }}) }}
                     
                     {# Champ Email #}
                     <div class="form-group">
@@ -146,7 +146,7 @@
                     
                     {# Bouton de soumission du formulaire #}
                     <div class="text-center">
-                        <button id="submit-button" class="btn btn-success btn-block fw-bold" type="button"
+                        <button class="btn btn-success btn-block fw-bold" type="submit"
                             style="display: block; margin: 20px auto; width: 80%; max-width: 300px; padding: 10px 0;">Enregistrer</button>
                     </div>
                     
@@ -165,51 +165,6 @@
         </div>
     </div>
 </div>
-{% endblock %}
-
-{% block javascripts %}
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-
-<script>
-    document.addEventListener('DOMContentLoaded', (event) => {
-        const form = document.getElementById('profil-form');
-        const submitButton = document.getElementById('submit-button');
-
-        submitButton.addEventListener('click', function () {
-            Swal.fire({
-                title: 'Êtes-vous sûr?',
-                text: "Vous êtes sur le point d'enregistrer les modifications.",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Oui, enregistrer!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    form.submit();
-                }
-            });
-        });
-
-        // Préparer les messages flash dans une variable JS
-        const flashMessages = {{ app.flashes|json_encode|raw }};
-        console.log(flashMessages);  // Ligne de débogage pour vérifier la structure des flashMessages
-
-        // Vérifier et afficher les messages flash avec SweetAlert
-        if (flashMessages) {
-            for (const [type, messages] of Object.entries(flashMessages)) {
-                messages.forEach((message) => {
-                    Swal.fire({
-                        title: type.charAt(0).toUpperCase() + type.slice(1),
-                        text: message,
-                        icon: type,
-                        confirmButtonText: 'OK'
-                    });
-                });
-            }
-        }
-    });
-</script>
 {% endblock %}
 
 

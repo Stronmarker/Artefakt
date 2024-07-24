@@ -92,6 +92,27 @@ export default class extends Controller {
                 });
             });
         });
+
+        //sweetalert profil
+        this.element.querySelectorAll('.profil-form').forEach((form) => {
+            form.addEventListener('submit', (event) => {
+                event.preventDefault();
+                Swal.fire({
+                    title: 'Êtes-vous sûr?',
+                    text: "Vous êtes sur le point d'enregistrer les modifications.",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Oui, enregistrer!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+                });
+            });
+        });
+
     }
 
     showFlashMessages() {
@@ -107,4 +128,5 @@ export default class extends Controller {
         });
     }
 }
+
 
