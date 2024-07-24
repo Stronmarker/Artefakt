@@ -100,7 +100,7 @@ export default class extends Controller {
             });
         });
 
-        //sweetalert profil
+        //sweetalert  modifications profil
         this.element.querySelectorAll('.profil-form').forEach((form) => {
             form.addEventListener('submit', (event) => {
                 event.preventDefault();
