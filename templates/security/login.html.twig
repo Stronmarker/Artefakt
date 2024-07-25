@@ -1,76 +1,55 @@
-{# templates/profil/change_password.html.twig #}
-{% extends 'base.logged.html.twig' %}
+{% extends 'base.off.html.twig' %}
+{# Utilise le modèle de base 'base.off.html.twig' pour la page de connexion #}
 
-{% block title %}Changer le mot de passe{% endblock %}
+{% block title %}Connexion{% endblock %}
+{# Définit le titre de la page comme 'Connexion' #}
 
 {% block body %}
-
 <style>
-    .container {
-        max-width: 800px;
+    /* Styles CSS spécifiques à cette page */
+    @media (max-width: 768px) {
+        .form-signin {
+            padding: 15px;
+        }
+        .mt-sm-5 {
+            margin-top: 0 !important; /* Réduit la marge en haut pour les petits écrans */
+        }
     }
-
-    .btn {
-        padding: 5px 10px;
-        font-size: 0.9rem;
-    }
-
-    h1, h4, h5, p {
-        margin: 5px 0;
-    }
-
-    .card {
-        padding: 10px;
-    }
-
-    .card-shadow {
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1), 0 0 15px white;
-        border-radius: 20px;
-        border: 7px solid #000;
-    }
-
-    .form-control {
-        background: transparent;
-        border: 2px solid green;
-        color: dark !important;
-    }
-
-    .form-group label {
-        margin-bottom: 0.5rem;
-        font-weight: bold;
-    }
-
-    .form-group .form-control {
-        margin-bottom: 1rem;
+    #inputEmail::placeholder, #inputPassword::placeholder {
+        color: rgb(107, 207, 183); /* Couleur du texte de l'attribut placeholder pour les champs email et mot de passe */
     }
 </style>
 
-<div class="container mt-5 mb-3" data-controller="sweetalert">
+<div class="container mt-5 mb-3"> <!-- Conteneur principal avec des marges en haut et en bas -->
     <div class="row justify-content-center">
-        <div class="col-lg-6">
-            <form method="post" class="form-change-password p-5 card-shadow bg-light" data-controller="sweetalert" data-sweetalert-target="form">
+        <div class="col-lg-6"> <!-- Colonne centrée qui prend la moitié de la largeur sur les écrans larges -->
+            <form method="post" class="form-signin" style="background: rgb(255, 255, 255); border-radius: 8px; box-shadow: 0 0 15px white; padding: 20px; border: 5px solid black">
+                {# Formulaire de connexion avec des styles de fond, bordure et ombre spécifiques #}
+
                 {% if error %}
                     <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    {# Affiche un message d'erreur en cas d'échec de la connexion #}
                 {% endif %}
 
                 {% if app.user %}
-                    <div class="mb-3 text-center text-warning">
-                        Vous êtes connecté en tant que {{ app.user.userIdentifier }}, <a class="text-success" href="{{ path('app_logout') }}">Se déconnecter</a><br>
-                        Par soucis de sécurité nous vous demandons de resaisir votre mot de passe.
+                    <div class="mb-3 text-muted">
+                        Vous êtes connecté en tant que {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Se déconnecter</a>
+                        {# Affiche le nom de l'utilisateur connecté et un lien pour se déconnecter s'il est déjà connecté #}
                     </div>
                 {% endif %}
 
-                <h1 class="h1 mb-3 font-weight-normal text-center text-dark ft_orbitron">Modifier le mot de passe</h1>
+                <h1 class="h1 mb-3 font-weight-normal text-center text-dark ft_orbitron">Connexion</h1>
+                {# Titre principal centré de la page de connexion #}
 
                 <div class="form-group mt-4 mb-4">
-                    <label class="p-2 m-1 h5 text-dark ft-audiowide" for="inputEmail">Email</label>
+                    <label class="p-2 m-1 h5 text-dark ft_audiowide" for="inputEmail">Email</label>
                     <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email"
                     placeholder="mail@mail.com" style="background: transparent; border: 2px solid green; color: dark !important" required autofocus>
                     {# Champ d'entrée pour l'email avec style personnalisé #}
                 </div>
 
                 <div class="form-group mt-4 mb-4">
-                    <label class="p-2 m-1 h5 text-dark ft-audiowide" for="inputPassword">Mot de passe</label>
+                    <label class="p-2 m-1 h5 text-dark ft_audiowide" for="inputPassword">Mot de passe</label>
                     <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password"
                     placeholder="******" required style="background: transparent; border: 2px solid green; color: dark !important">
                     {# Champ d'entrée pour le mot de passe avec style personnalisé #}
@@ -82,7 +61,7 @@
                 <div class="checkbox mb-3">
                     <label class="text-dark">
                         <input type="checkbox" name="_remember_me" style="accent-color:green">
-                        <span class="anton-regular text-black">Se souvenir de moi</span>
+                        <span class="ft_audiowide text-black">Se souvenir de moi</span>
                         {# Option pour se souvenir de la session de connexion #}
                     </label>
                 </div>
@@ -96,14 +75,12 @@
                     </p>
                     {# Liens pour créer un compte et réinitialiser le mot de passe #}
                 </div>
+
+                <button type="submit" class="btn btn-lg btn-success btn-block ft_wallpoet fw-bold"
+                style="display: block; margin: 20px auto; width: 80%; max-width: 300px; padding: 10px 0; font-size: 16px;">Se connecter</button>
+
             </form>
         </div>
     </div>
-
-    {% for label, messages in app.flashes %}
-    {% for message in messages %}
-    <div class="flash-message" data-label="{{ label }}" data-message="{{ message }}"></div>
-    {% endfor %}
-    {% endfor %}
 </div>
 {% endblock %}
