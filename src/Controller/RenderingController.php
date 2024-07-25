@@ -1,11 +1,13 @@
 <?php
 
+
 namespace App\Controller;
 
 use App\Entity\Project;
 use App\Entity\Rendering;
 use App\Form\AddRenderingType;
 use App\Form\RenderingValidationFormType;
+use App\Form\EditRenderingType; // Ajouter un formulaire pour l'édition
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -91,6 +93,49 @@ class RenderingController extends AbstractController
             'form' => $form->createView(),
             'rendering' => $rendering,
         ]);
+    }
+
+    #[Route('/project/{project_id}/rendering/{rendering_id}/edit', name: 'rendering_edit', methods: ['GET', 'POST'])]
+    public function editRendering(Request $request, int $project_id, int $rendering_id, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
+    {
+        $rendering = $entityManager->getRepository(Rendering::class)->find($rendering_id);
+
+        if (!$rendering) {
+            throw $this->createNotFoundException('Rendering not found');
+        }
+
+        $form = $this->createForm(EditRenderingType::class, $rendering);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+
+            return $this->redirectToRoute('rendering_show', ['project_id' => $project_id, 'rendering_id' => $rendering_id]);
+        }
+
+        return $this->render('rendering/edit.html.twig', [
+            'form' => $form->createView(),
+            'rendering' => $rendering,
+        ]);
+    }
+
+    #[Route('/project/{project_id}/rendering/{rendering_id}/delete', name: 'rendering_delete', methods: ['POST'])]
+    public function deleteRendering(Request $request, int $project_id, int $rendering_id, EntityManagerInterface $entityManager): Response
+    {
+        $rendering = $entityManager->getRepository(Rendering::class)->find($rendering_id);
+
+        if (!$rendering) {
+            throw $this->createNotFoundException('Rendering not found');
+        }
+
+        if ($this->isCsrfTokenValid('delete'.$rendering->getId(), $request->request->get('_token'))) {
+            $entityManager->remove($rendering);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('project_show', ['id' => $project_id]);
+        }
+
+        return $this->redirectToRoute('rendering_show', ['project_id' => $project_id, 'rendering_id' => $rendering_id]);
     }
 
     private function uploadFile($file, SluggerInterface $slugger): string

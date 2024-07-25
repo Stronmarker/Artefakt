@@ -17,11 +17,6 @@
         padding: 0;
     }
 
-    .btn {
-        padding: 5px 10px;
-        font-size: 0.9rem;
-    }
-
     h3,
     h4,
     h5,
@@ -41,18 +36,39 @@
         border: 7px solid #000;
         /* Bordure épaisse */
     }
+
+    .button-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 10px;
+    }
+
+    .button-container .btn {
+        flex: 1;
+        margin-right: 10px;
+        text-align: center;
+        font-size: 0.8rem; /* Utilisation de btn-sm pour réduire la taille */
+    }
+
+    .button-container .btn:last-child {
+        margin-right: 0;
+    }
+
+    .button-container form {
+        flex: 1;
+        margin-right: 10px;
+    }
 </style>
 
-
 <div class="container mt-4 card-shadow bg-white p-3">
-    <a href="{{ path('project_show', {id: project.id}) }}" class="btn btn-secondary btn-small mb-3">Retour au projet</a>
-    <h3 class="text-success text-center">Nom du Rendu : {{ rendering.renderingName }}</h3>
+    <a href="{{ path('project_show', {id: project.id}) }}" class="btn btn-secondary btn-sm">Retour au projet</a>
+    <h4 class="text-success text-center">Nom du Rendu : {{ rendering.renderingName }}</h4>
     <div class="row">
         <div class="col-md-6">
             <h5>Date de création : {{ rendering.createdAt|date('d/m/Y H:i:s') }}</h5>
             <p><strong>Lien client :</strong>
-                <a href="{{ path('rendering_client_show', {'token': rendering.token}) }}" target="_blank">{{
-                    path('rendering_client_show', {'token': rendering.token}) }}</a>
+                <a href="{{ path('rendering_client_show', {'token': rendering.token}) }}" target="_blank">{{ path('rendering_client_show', {'token': rendering.token}) }}</a>
             </p>
         </div>
         <div class="col-md-6">
@@ -71,12 +87,20 @@
         data-image-toward-png="{{ vich_uploader_asset(rendering, 'towardPngFile') }}">
 
         <div data-image-target="canvasContainer"
-            style="width: 100%; height: 400px; border: 1px solid #ccc; margin-bottom: 10px;"></div>
+            style="width: 100%; height: 380px; border: 1px solid #ccc; margin-bottom: 10px;"></div>
 
-        <button class="btn btn-secondary me-2" data-action="click->image#toggleRotation"
-            data-image-target="resetButton">Pause Rotation</button>
-        <button class="btn btn-secondary me-2" data-action="click->image#resetCamera"
-            data-image-target="resetButton">Reset Camera</button>
+            <div class="button-container d-flex justify-content-between">
+                <button class="btn btn-secondary flex-grow-1 me-2 btn-sm" data-action="click->image#toggleRotation"
+                    data-image-target="resetButton">Rotation</button>
+                <button class="btn btn-secondary flex-grow-1 me-2 btn-sm" data-action="click->image#resetCamera"
+                    data-image-target="resetButton">Caméra</button>
+                <a href="{{ path('rendering_edit', {'project_id': project.id, 'rendering_id': rendering.id}) }}" class="btn btn-primary flex-grow-1 me-2 btn-sm">Modifier</a>
+                <form method="post" action="{{ path('rendering_delete', {'project_id': project.id, 'rendering_id': rendering.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce rendu ?');" class="flex-grow-1">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ rendering.id) }}">
+                    <button type="submit" class="btn btn-danger w-100 btn-sm">Supprimer</button>
+                </form>
+            </div>
+            
     </div>
 </div>
 {% endblock %}

@@ -1,7 +1,6 @@
 import { Controller } from "@hotwired/stimulus";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import { Modal } from "bootstrap";
 
 export default class extends Controller {
     static targets = ["canvasContainer", "resetButton", "pauseButton"];
@@ -35,7 +34,8 @@ export default class extends Controller {
 
         this.updateCanvasSize(this.canvasContainerTarget);
         this.camera = new THREE.PerspectiveCamera(75, this.canvasWidth / this.canvasHeight, 0.1, 1000);
-        this.camera.position.set(2, 2, 4);
+        this.camera.position.set(4.5, 1.95, 0);
+        console.log(this.camera.position)
 
         this.renderer = new THREE.WebGLRenderer({ antialias: true });
         this.renderer.setSize(this.canvasWidth, this.canvasHeight);
@@ -145,59 +145,8 @@ export default class extends Controller {
     }
 
     resetCamera() {
-        this.camera.position.set(0, 2, 10);
+        this.camera.position.set(4.5, 1.95, 0);
         this.camera.lookAt(0, 1, 0);
         this.controls.update();
     }
-
-    // showModalCanvas(event) {
-    //     // Création de la modale
-    //     const modalElement = document.createElement('div');
-    //     modalElement.classList.add('modal', 'fade');
-    //     modalElement.id = 'canvasModal';
-    //     modalElement.setAttribute('tabindex', '-1');
-    //     modalElement.setAttribute('aria-labelledby', 'canvasModalLabel');
-    //     modalElement.setAttribute('aria-hidden', 'true');
-
-    //     modalElement.innerHTML = `
-    //         <div class="modal-dialog modal-fullscreen">
-    //             <div class="modal-content">
-    //                 <div class="modal-header">
-    //                     <div>
-    //                         <button class="btn btn-secondary me-2" data-action="click->image#toggleRotation">Pause Rotation</button>
-    //                         <button class="btn btn-secondary me-2" data-action="click->image#resetCamera">Reset Camera</button>
-    //                     </div>
-    //                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-    //                 </div>
-    //                 <div class="modal-body" style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
-    //                     <div id="modalCanvasContainer" style="width: 100%; height: 100%;"></div>
-    //                 </div>
-    //             </div>
-    //         </div>
-    //     `;
-
-    //     document.body.appendChild(modalElement);
-
-    //     // Afficher la modale
-    //     const modal = new Modal(modalElement);
-    //     modal.show();
-
-    //     modalElement.addEventListener('shown.bs.modal', () => {
-    //         const modalCanvasContainer = document.getElementById('modalCanvasContainer');
-    //         this.updateCanvasSize(modalCanvasContainer);
-    //         this.renderer.setSize(this.canvasWidth, this.canvasHeight);
-    //         modalCanvasContainer.appendChild(this.renderer.domElement);
-    //         this.camera.aspect = this.canvasWidth / this.canvasHeight;
-    //         this.camera.updateProjectionMatrix();
-    //     });
-
-    //     modalElement.addEventListener('hidden.bs.modal', () => {
-    //         this.updateCanvasSize(this.canvasContainerTarget);
-    //         this.renderer.setSize(this.canvasWidth, this.canvasHeight);
-    //         this.canvasContainerTarget.appendChild(this.renderer.domElement);
-    //         this.camera.aspect = this.canvasWidth / this.canvasHeight;
-    //         this.camera.updateProjectionMatrix();
-    //         modalElement.remove();
-    //     });
-    // }
 }

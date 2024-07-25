@@ -1,0 +1,20 @@
+{% extends 'base.logged.html.twig' %}
+
+{% block title %}Modifier le Rendu{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1 class="mb-4">Modifier le Rendu : {{ rendering.renderingName }}</h1>
+    <div class="card shadow-sm">
+        <div class="card-header bg-success text-white">
+            Modifier le rendu
+        </div>
+        <div class="card-body">
+            {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <button class="btn btn-primary" type="submit">Enregistrer</button>
+            {{ form_end(form) }}
+        </div>
+    </div>
+</div>
+{% endblock %}
