@@ -10,13 +10,12 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 
 #[Route('/profil')]
 class ChangePasswordController extends AbstractController
 {
     #[Route('/change-password', name: 'app_change_password', methods: ['GET', 'POST'])]
-    public function changePassword(Request $request, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager, AuthenticationUtils $authenticationUtils): Response
+    public function changePassword(Request $request, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager): Response
     {
         $user = $this->getUser();
 
@@ -39,10 +38,9 @@ class ChangePasswordController extends AbstractController
 
                 $entityManager->flush();
 
-                $this->addFlash('success', 'Votre mot de passe a été changé avec succès.');
-                return $this->redirectToRoute('app_dashboard');
+                return $this->json(['status' => 'success', 'message' => 'Votre mot de passe a été changé avec succès.']);
             } else {
-                $this->addFlash('error', 'L\'ancien mot de passe est incorrect.');
+                return $this->json(['status' => 'error', 'message' => 'L\'ancien mot de passe est incorrect.']);
             }
         }
 
