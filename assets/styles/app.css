@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Orbitron:wght@400..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&family=Wallpoet&display=swap');
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
 
 .main-container {
     flex-grow: 1;
@@ -43,6 +44,14 @@ body {
 .ft_wallpoet {
     font-family: 'Wallpoet', sans-serif;
 }
+
+.anton-regular {
+    font-family: "Anton", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+
 
 .list-group-item-transparent {
     background-color: transparent !important;
