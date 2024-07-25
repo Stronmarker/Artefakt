@@ -12,12 +12,12 @@ export default class extends Controller {
             form.addEventListener("submit", (event) => {
                 event.preventDefault();
                 Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
+                    title: 'Êtes vous sûr ?',
+                    text: "Vous ne pourrez revenir en arrière",
                     icon: 'warning',
                     showCancelButton: true,
-                    confirmButtonText: 'Yes, delete it!',
-                    cancelButtonText: 'No, cancel!',
+                    confirmButtonText: 'Oui, je suis sûr',
+                    cancelButtonText: 'Non, j\'annule',
                     customClass: {
                         confirmButton: "btn btn-success",
                         cancelButton: "btn btn-danger"
@@ -28,7 +28,7 @@ export default class extends Controller {
                     if (result.isConfirmed) {
                         Swal.fire({
                             title: 'Deleted!',
-                            text: 'Your file has been deleted.',
+                            text: 'Fichier supprimé',
                             icon: 'success',
                             customClass: {
                                 confirmButton: 'btn btn-primary w-xs mt-2',
@@ -40,7 +40,7 @@ export default class extends Controller {
                     } else if (result.dismiss === Swal.DismissReason.cancel) {
                         Swal.fire({
                             title: 'Cancelled',
-                            text: 'Your imaginary file is safe :)',
+                            text: 'Pas de soucis, fichier en sécurité',
                             icon: 'error',
                             customClass: {
                                 confirmButton: "btn btn-dark",

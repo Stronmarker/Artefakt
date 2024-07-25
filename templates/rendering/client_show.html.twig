@@ -1,5 +1,7 @@
 {% extends 'base.off.html.twig' %}
 
+{% block title %}Rendu Client{% endblock %}
+
 {% block body %}
 
 <style>
@@ -10,10 +12,10 @@
     }
 </style>
 
-<div class="container text-light card-shadow bg-light mt-3">
+<div class="container text-light card-shadow bg-light mt-4">
     
-        <div class="card-header bg-white text-success text-center">
-            <h3>Nom du Rendu : "{{ rendering.renderingName }}"</h5>
+        <div class="card-header bg-white text-success text-center ft_orbitron">
+            <h2>Nom du Rendu : "{{ rendering.renderingName }}"</h2>
 
         </div>
         <div class="card-body bg-light">
@@ -28,7 +30,7 @@
                         class="btn btn-success mt-2">Valider ou Rejeter le Rendu</a>
                 </div>
                 <div data-image-target="canvasContainer"
-                    style="width: 100%; height: 600px; border: 1px solid #ccc; margin-bottom: 10px;"></div>
+                    style="width: 100%; height: 500px; border: 1px solid #ccc; margin-bottom: 10px;"></div>
             </div>
         </div>
 </div>

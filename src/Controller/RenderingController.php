@@ -42,13 +42,15 @@ class RenderingController extends AbstractController
     #[Route('/project/{project_id}/rendering/{rendering_id}', name: 'rendering_show', requirements: ['project_id' => '\d+', 'rendering_id' => '\d+'], methods: ['GET'])]
     public function showRendering(int $project_id, int $rendering_id, EntityManagerInterface $entityManager): Response
     {
+        $project = $entityManager->getRepository(Project::class)->find($project_id);
         $rendering = $entityManager->getRepository(Rendering::class)->find($rendering_id);
 
-        if (!$rendering) {
-            throw $this->createNotFoundException('Rendering not found');
+        if (!$project || !$rendering) {
+            throw $this->createNotFoundException('Project or rendering not found');
         }
 
         return $this->render('rendering/show.html.twig', [
+            'project' => $project,
             'rendering' => $rendering,
         ]);
     }

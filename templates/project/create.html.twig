@@ -1,36 +1,88 @@
 {% extends 'base.logged.html.twig' %}
 
-{% block title %}Create Project{% endblock %}
+{% block title %}Créer un Projet{% endblock %}
 
 {% block body %}
-    <div class="container mt-5">
-        <h1 class="mb-4 ft_orbitron text-light">Create Project</h1>
-        
-        <div class="card shadow-sm">
-            <div class="card-header bg-success text-white fr_orbitron">
-                Project Details
-            </div>
-            <div class="card-body">
-                {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
-                    <div class="form-group row mb-3">
-                        {{ form_label(form.projectName, 'Nom du Projet', {'label_attr': {'class': 'col-sm-2 col-form-label'}}) }}
-                        <div class="col-sm-10">
-                            {{ form_widget(form.projectName, {'attr': {'class': 'form-control'}}) }}
-                        </div>
+<style>
+    .container {
+        max-width: 800px;
+    }
+
+    .btn {
+        padding: 5px 10px;
+        font-size: 0.9rem;
+    }
+
+    h1, h4, h5, p {
+        margin: 5px 0;
+    }
+
+    .card {
+        padding: 10px;
+    }
+
+    .card-shadow {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1), 0 0 15px white;
+        /* Effet de relief */
+        border-radius: 20px;
+        /* Coins arrondis */
+        border: 7px solid #000;
+        /* Bordure épaisse */
+    }
+
+    .btn-small {
+        padding: 2px 5px;
+    }
+
+    .form-group {
+        display: flex;
+        align-items: center;
+    }
+
+    .form-group label {
+        flex: 0 0 25%;
+        max-width: 25%;
+        margin-bottom: 0;
+        padding-right: 10px;
+        text-align: right;
+    }
+
+    .form-group .col-sm-10 {
+        flex: 1 0 0%;
+        max-width: 75%;
+    }
+</style>
+
+<div class="container mt-4">
+    <div class="card card-shadow bg-white p-3">
+        <div class="d-flex justify-content-start mb-3">
+            <a href="{{ path('app_project') }}" class="btn btn-secondary btn-small">Retour aux projets</a>
+        </div>
+        <h1 class="mb-4 text-success text-center">Créer un Projet</h1>
+        <div class="card-header bg-success text-white">
+            Project Details
+        </div>
+        <div class="card-body">
+            {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+                <div class="form-group row mb-3">
+                    {{ form_label(form.projectName, 'Nom du Projet', {'label_attr': {'class': 'col-form-label'}}) }}
+                    <div class="col-sm-10">
+                        {{ form_widget(form.projectName, {'attr': {'class': 'form-control'}}) }}
                     </div>
-                    <div class="form-group row mb-3">
-                        {{ form_label(form.clientName, 'Nom du Client', {'label_attr': {'class': 'col-sm-2 col-form-label'}}) }}
-                        <div class="col-sm-10">
-                            {{ form_widget(form.clientName, {'attr': {'class': 'form-control'}}) }}
-                        </div>
+                </div>
+                <div class="form-group row mb-3">
+                    {{ form_label(form.clientName, 'Nom du Client', {'label_attr': {'class': 'col-form-label'}}) }}
+                    <div class="col-sm-10">
+                        {{ form_widget(form.clientName, {'attr': {'class': 'form-control'}}) }}
                     </div>
-                    <div class="form-group row">
-                        <div class="col-sm-10 offset-sm-2">
-                            <button type="submit" class="btn btn-success">Créer le Projet</button>
-                        </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-10 offset-sm-2">
+                        <button type="submit" class="btn btn-success">Créer le Projet</button>
                     </div>
-                {{ form_end(form) }}
-            </div>
+                </div>
+            {{ form_end(form) }}
         </div>
     </div>
+</div>
 {% endblock %}

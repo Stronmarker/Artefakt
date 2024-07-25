@@ -3,16 +3,55 @@
 {% block title %}Validation du Rendu{% endblock %}
 
 {% block body %}
-<div class="container mt-5">
-    <h1 class="mb-4">Validation du Rendu : {{ rendering.renderingName }}</h1>
-    <div class="card shadow-sm">
+<style>
+    .container {
+        max-width: 800px;
+    }
+
+    .btn {
+        padding: 5px 10px;
+        font-size: 0.9rem;
+    }
+
+    h3, h4, h5, p {
+        margin: 5px 0;
+    }
+
+    .card {
+        padding: 10px;
+    }
+
+    .card-shadow {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1), 0 0 15px white;
+        /* Effet de relief */
+        border-radius: 20px;
+        /* Coins arrondis */
+        border: 7px solid #000;
+        /* Bordure épaisse */
+    }
+
+    .form-control-fixed {
+        height: 150px; /* Taille fixe pour le champ de texte */
+    }
+</style>
+
+<div class="container mt-4 card-shadow bg-white p-3">
+    <h3 class="text-success text-center">Validation du Rendu : {{ rendering.renderingName }}</h3>
+    <div class="row">
+    </div>
+    <div class="card bg-light mb-3">
         <div class="card-header bg-success text-white">
-            Validez ce rendu
+            <h5 class="card-title mb-0">Formulaire de validation ou de refus de rendu</h5>
         </div>
         <div class="card-body">
             {{ form_start(form) }}
-                {{ form_widget(form) }}
-                <button class="btn btn-primary">Soumettre</button>
+            <div class="mb-3 h5">
+                {{ form_row(form.isAccepted) }}
+            </div>
+            <div class="mb-3 h5">
+                {{ form_row(form.rejectReason, {'attr': {'class': 'form-control form-control-fixed h5'}}) }}
+            </div>
+            <button type="submit" class="btn btn-success">Soumettre</button>
             {{ form_end(form) }}
         </div>
     </div>

@@ -65,7 +65,7 @@ export default class extends Controller {
         this.scene.environment = envMap; 
 
         const geometry = new THREE.SphereGeometry(500, 60, 40);
-        const material = new THREE.MeshBasicMaterial({
+        const material = new THREE.MeshPhysicalMaterial({
             map: texture,
             side: THREE.BackSide
         });
@@ -85,7 +85,7 @@ export default class extends Controller {
 
     addCardToScene() {
         if (this.frontTexture && this.towardTexture) {
-            const whiteMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
+            const whiteMaterial = new THREE.MeshPhysicalMaterial({ color: 0xffffff });
             const cardMaterials = [
                 new THREE.MeshPhysicalMaterial({ map: this.frontTexture }),
                 new THREE.MeshPhysicalMaterial({ map: this.towardTexture }),

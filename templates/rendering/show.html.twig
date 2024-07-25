@@ -3,22 +3,80 @@
 {% block title %}Rendering Details{% endblock %}
 
 {% block body %}
-<div class="container mt-5">
-    <div class="card shadow-sm">
-            <h3 class="mb-2 text-success">Nom du Rendu : {{ rendering.renderingName }}</h3>
-        <div class="card-body">
-            <p><strong>Date de création :</strong> {{ rendering.createdAt|date('d/m/Y H:i:s') }}</p>
-            <p><strong>Lien client :</strong> <a href="{{ path('rendering_client_show', {'token': rendering.token}) }}" target="_blank">{{ path('rendering_client_show', {'token': rendering.token}) }}</a></p>
-            <div data-controller="image" 
-                 data-image-front-png="{{ vich_uploader_asset(rendering, 'frontPngFile') }}" 
-                 data-image-toward-png="{{ vich_uploader_asset(rendering, 'towardPngFile') }}">
-                 
-                 <div data-image-target="canvasContainer" style="width: 100%; height: 550px; border: 1px solid #ccc; margin-bottom: 20px;"></div>
-            
-                <button class="btn btn-secondary me-2" data-action="click->image#toggleRotation" data-image-target="resetButton">Pause Rotation</button>
-                <button class="btn btn-secondary me-2" data-action="click->image#resetCamera" data-image-target="resetButton">Reset Camera</button>
-            </div>
+<style>
+    .container {
+        max-width: 1000px;
+    }
+
+    .row {
+        margin: 0;
+        padding: 0;
+    }
+
+    .col-md-6 {
+        padding: 0;
+    }
+
+    .btn {
+        padding: 5px 10px;
+        font-size: 0.9rem;
+    }
+
+    h3,
+    h4,
+    h5,
+    p {
+        margin: 5px 0;
+    }
+
+    .card {
+        padding: 10px;
+    }
+
+    .card-shadow {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1), 0 0 15px white;
+        /* Effet de relief */
+        border-radius: 20px;
+        /* Coins arrondis */
+        border: 7px solid #000;
+        /* Bordure épaisse */
+    }
+</style>
+
+
+<div class="container mt-4 card-shadow bg-white p-3">
+    <a href="{{ path('project_show', {id: project.id}) }}" class="btn btn-secondary btn-small mb-3">Retour au projet</a>
+    <h3 class="text-success text-center">Nom du Rendu : {{ rendering.renderingName }}</h3>
+    <div class="row">
+        <div class="col-md-6">
+            <h5>Date de création : {{ rendering.createdAt|date('d/m/Y H:i:s') }}</h5>
+            <p><strong>Lien client :</strong>
+                <a href="{{ path('rendering_client_show', {'token': rendering.token}) }}" target="_blank">{{
+                    path('rendering_client_show', {'token': rendering.token}) }}</a>
+            </p>
         </div>
+        <div class="col-md-6">
+            <h5>Statut :</h5>
+            {% if rendering.isAccepted %}
+            <p class="text-success">Ce rendu a été accepté.</p>
+            {% elseif rendering.rejectReason %}
+            <p class="text-danger">Ce rendu a été rejeté.</p>
+            <p><strong>Raison du rejet :</strong> {{ rendering.rejectReason }}</p>
+            {% else %}
+            <p class="text-warning">Ce rendu n'a jamais été présenté au client.</p>
+            {% endif %}
+        </div>
+    </div>
+    <div data-controller="image" data-image-front-png="{{ vich_uploader_asset(rendering, 'frontPngFile') }}"
+        data-image-toward-png="{{ vich_uploader_asset(rendering, 'towardPngFile') }}">
+
+        <div data-image-target="canvasContainer"
+            style="width: 100%; height: 400px; border: 1px solid #ccc; margin-bottom: 10px;"></div>
+
+        <button class="btn btn-secondary me-2" data-action="click->image#toggleRotation"
+            data-image-target="resetButton">Pause Rotation</button>
+        <button class="btn btn-secondary me-2" data-action="click->image#resetCamera"
+            data-image-target="resetButton">Reset Camera</button>
     </div>
 </div>
 {% endblock %}
