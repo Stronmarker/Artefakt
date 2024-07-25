@@ -36,6 +36,10 @@
 </style>
 
 <div class="container mt-4 card-shadow bg-white p-3">
+    <div class="d-flex justify-content-start mb-3">
+        <a href="{{ path('rendering_client_show', {'token': rendering.token}) }}" class="btn btn-secondary btn-small">Retour au rendu</a>
+    </div>
+
     <h3 class="text-success text-center">Validation du Rendu : {{ rendering.renderingName }}</h3>
     <div class="row">
     </div>
