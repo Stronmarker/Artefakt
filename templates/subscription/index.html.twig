@@ -75,18 +75,18 @@
         const cardElement = elements.create('card');
         cardElement.mount('#card-element');
 
-        const user = {
-            lastName: '{{ user.lastname }}',
-            email: '{{ user.email }}',
-            address: '{{ user.address }}',
-            city: '{{ user.city }}',
-            state: '{{ user.state }}',
-            postalCode: '{{ user.postalCode }}',
-            country: '{{ user.country }}'
-        };
-
         document.getElementById('subscription-form').addEventListener('submit', async (event) => {
             event.preventDefault();
+
+            const user = {
+                lastName: document.getElementById('last-name').value,
+                email: document.getElementById('email').value,
+                address: document.getElementById('address').value,
+                city: document.getElementById('city').value,
+                state: document.getElementById('state').value,
+                postalCode: document.getElementById('postal_code').value,
+                country: document.getElementById('country').value
+            };
 
             const { error, paymentMethod } = await stripe.createPaymentMethod({
                 type: 'card',
@@ -118,13 +118,13 @@
                         'X-Requested-With': 'XMLHttpRequest'
                     },
                     body: JSON.stringify({
-                        last_name: lastName,
-                        email: email,
-                        address: address,
-                        city: city,
-                        postal_code: postalCode,
-                        state: state,
-                        country: country,
+                        last_name: user.lastName,
+                        email: user.email,
+                        address: user.address,
+                        city: user.city,
+                        postal_code: user.postalCode,
+                        state: user.state,
+                        country: user.country,
                         payment_method: paymentMethod.id // Envoie l'ID de la méthode de paiement au serveur
                     })
                 })
@@ -145,6 +145,14 @@
                             text: data.message,
                         });
                     }
+                })
+                .catch(error => {
+                    console.error('Erreur:', error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Erreur',
+                        text: 'Une erreur s\'est produite. Veuillez réessayer plus tard.',
+                    });
                 });
             }
         });
