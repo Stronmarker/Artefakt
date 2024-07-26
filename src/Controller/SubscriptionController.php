@@ -75,7 +75,7 @@ class SubscriptionController extends AbstractController
             $subscription = Subscription::create([
                 'customer' => $customer->id,
                 'items' => [[
-                    'price' => 'price_1PdqlkB8NXWXURY9OoS4jeid',
+                    'price' => 'price_1PgSDBBogeNlsS43hKcPTbxL',
                 ]],
                 'expand' => ['latest_invoice.payment_intent'],
                 'automatic_tax' => ['enabled' => true],
