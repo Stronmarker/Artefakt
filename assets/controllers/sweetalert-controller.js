@@ -73,33 +73,6 @@ export default class extends Controller {
             });
         });
 
-        // Sweetalert change password
-        this.element.querySelectorAll(".form-change-password").forEach((form) => {
-            form.addEventListener("submit", (event) => {
-                event.preventDefault();
-                Swal.fire({
-                    title: 'Êtes-vous sûr?',
-                    text: "Vous êtes sur le point de changer votre mot de passe.",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Oui, changer!'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        form.submit();
-                        Swal.fire({
-                            title: 'Mot de passe enregistré!',
-                            text: 'Votre mot de passe a été mis à jour avec succès.',
-                            icon: 'success',
-                            confirmButtonColor: '#3085d6',
-                            confirmButtonText: 'OK'
-                        });
-                    }
-                });
-            });
-        });
-
         //sweetalert  modifications profil
         this.element.querySelectorAll('.profil-form').forEach((form) => {
             form.addEventListener('submit', (event) => {
@@ -123,6 +96,51 @@ export default class extends Controller {
                             confirmButtonText: 'OK'
                         });
                     }
+                });
+            });
+        });
+
+        this.element.querySelectorAll(".form-change-password").forEach((form) => {
+            form.addEventListener("submit", (event) => {
+                event.preventDefault();
+                
+                fetch(form.action, {
+                    method: form.method,
+                    body: new FormData(form),
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        Swal.fire({
+                            title: 'Succès',
+                            text: data.message,
+                            icon: 'success',
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: 'OK'
+                        }).then(() => {
+                            window.location.href = '/dashboard'; // Redirection vers le tableau de bord
+                        });
+                    } else {
+                        Swal.fire({
+                            title: 'Erreur',
+                            text: data.message,
+                            icon: 'error',
+                            confirmButtonColor: '#d33',
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                })
+                .catch(error => {
+                    Swal.fire({
+                        title: 'Erreur',
+                        text: 'Votre ancien mot de passe est incorrect',
+                        icon: 'error',
+                        confirmButtonColor: '#d33',
+                        confirmButtonText: 'OK'
+                    });
                 });
             });
         });

@@ -32,8 +32,8 @@
                 {% endif %}
 
                 {% if app.user %}
-                    <div class="mb-3 text-muted">
-                        Vous êtes connecté en tant que {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Se déconnecter</a>
+                    <div class="mb-3 text-warning">
+                        Vous êtes connecté en tant que {{ app.user.userIdentifier }} Merci de ressasir votre mot de passe.</a>
                         {# Affiche le nom de l'utilisateur connecté et un lien pour se déconnecter s'il est déjà connecté #}
                     </div>
                 {% endif %}
@@ -42,14 +42,14 @@
                 {# Titre principal centré de la page de connexion #}
 
                 <div class="form-group mt-4 mb-4">
-                    <label class="p-2 m-1 h5 text-dark ft-audiowide" for="inputEmail">Email</label>
+                    <label class="p-2 m-1 h5 text-dark ft_audiowide" for="inputEmail">Email</label>
                     <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email"
                     placeholder="mail@mail.com" style="background: transparent; border: 2px solid green; color: dark !important" required autofocus>
                     {# Champ d'entrée pour l'email avec style personnalisé #}
                 </div>
 
                 <div class="form-group mt-4 mb-4">
-                    <label class="p-2 m-1 h5 text-dark ft-audiowide" for="inputPassword">Mot de passe</label>
+                    <label class="p-2 m-1 h5 text-dark ft_audiowide" for="inputPassword">Mot de passe</label>
                     <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password"
                     placeholder="******" required style="background: transparent; border: 2px solid green; color: dark !important">
                     {# Champ d'entrée pour le mot de passe avec style personnalisé #}
@@ -61,7 +61,7 @@
                 <div class="checkbox mb-3">
                     <label class="text-dark">
                         <input type="checkbox" name="_remember_me" style="accent-color:green">
-                        <span class="anton-regular text-black">Se souvenir de moi</span>
+                        <span class="ft_audiowide text-black">Se souvenir de moi</span>
                         {# Option pour se souvenir de la session de connexion #}
                     </label>
                 </div>

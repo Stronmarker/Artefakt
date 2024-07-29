@@ -6,6 +6,8 @@ import './styles/bootstrap.css';
 import './styles/app.css';
 import './bootstrap.js';
 import './bootstrap.min.js'
+import '@fortawesome/fontawesome-free/css/all.min.css';
+
 
 import { Application } from "@hotwired/stimulus";
 //import ThreeController from "./controllers/three-controller";

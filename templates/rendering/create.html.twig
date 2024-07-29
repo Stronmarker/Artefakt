@@ -1,18 +1,42 @@
-{# templates/rendering/create.html.twig #}
-
 {% extends 'base.logged.html.twig' %}
 
 {% block title %}Créer un rendu{% endblock %}
 
 {% block body %}
-<div class="container mt-5">
-    <h1 class="mb-4 text-light">Ajoute un nouveau rendu au projet: {{ project.projectName }}</h1>
-    
-    <div class="card shadow-sm">
-        <div class="card-header bg-success text-white">
-            Nouveau Rendu
-        </div>
-        <div class="card-body">
+<style>
+    .container {
+        max-width: 800px;
+    }
+
+    .btn-small {
+        padding: 2px 5px;
+        
+    }
+
+    h1, h4, h5, p {
+        margin: 5px 0;
+    }
+
+    .card {
+        padding: 10px;
+    }
+
+    .card-shadow {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1), 0 0 15px white;
+        /* Effet de relief */
+        border-radius: 20px;
+        /* Coins arrondis */
+        border: 7px solid #000;
+        /* Bordure épaisse */
+    }
+</style>
+
+<div class="container mt-5 card-shadow bg-white p-3">
+    <a href="{{ path('project_show', {id: project.id}) }}" class="btn btn-secondary btn-small mb-3">Retour au projet</a>
+    <h1 class="mb-4 text-success text-center">Ajoute un nouveau rendu au projet: {{ project.projectName }}</h1>
+
+    <div class="card bg-light mb-3">
+        <div class="card-body bg-light">
             {{ form_start(form) }}
                 <div class="mb-3">
                     {{ form_label(form.frontPngFile, 'Face Avant', {'label_attr': {'class': 'form-label'}}) }}

@@ -27,5 +27,7 @@ class ResetPasswordRequestFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([]);
+        // $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+        // $sql = "SELECT * FROM user where email = ". $_POST['email'];
     }
 }
