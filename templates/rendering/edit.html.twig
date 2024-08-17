@@ -3,59 +3,12 @@
 {% block title %}Modifier le Rendu{% endblock %}
 
 {% block body %}
-<style>
-    .container {
-        max-width: 800px;
-    }
-
-    .btn {
-        padding: 5px 10px;
-        font-size: 0.9rem;
-    }
-
-    h1, h4, h5, p {
-        margin: 5px 0;
-    }
-
-    .card {
-        padding: 10px;
-    }
-
-    .card-shadow {
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1), 0 0 15px white;
-        border-radius: 20px;
-        border: 7px solid #000;
-    }
-
-    .btn-small {
-        padding: 2px 5px;
-    }
-
-    .form-group {
-        display: flex;
-        align-items: center;
-    }
-
-    .form-group label {
-        flex: 0 0 25%;
-        max-width: 25%;
-        margin-bottom: 0;
-        padding-right: 10px;
-        text-align: right;
-    }
-
-    .form-group .col-sm-10 {
-        flex: 1 0 0%;
-        max-width: 75%;
-    }
-</style>
-
-<div class="container mt-5 p-5">
-    <div class="card card-shadow bg-white p-3">
+<div class="container mt-5 p-5" data-controller="sweetalert">
+    <div class="card box-shadow bg-white p-3">
         
         <h1 class="mb-4 text-success text-center ft_orbitron">Modification du Rendu : {{ rendering.renderingName }}</h1>
         <div class="card-body">
-            {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+            {{ form_start(form, {'attr': {'class': 'form-horizontal edit-form'}}) }}
                 <div class="form-group row mb-5">
                     {{ form_label(form.renderingName, 'Nom du Rendu', {'label_attr': {'class': 'col-form-label ft_orbitron'}}) }}
                     <div class="col-sm-10">

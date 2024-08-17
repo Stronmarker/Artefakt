@@ -2,12 +2,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Orbitron:wght@400..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&family=Wallpoet&display=swap');
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');
-@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
 
 .main-container {
     flex-grow: 1;
     
-} 
+}
+
+.img_logo_Home {
+    max-width: 80%;
+    height: auto;
+}
+
 
 body {
     background-image: url('../images/background.png');
@@ -18,7 +23,6 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding-bottom: 80px;
 } 
 
 
@@ -45,14 +49,6 @@ body {
     font-family: 'Wallpoet', sans-serif;
 }
 
-.anton-regular {
-    font-family: "Anton", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-  }
-  
-
-
 .list-group-item-transparent {
     background-color: transparent !important;
 }
@@ -75,10 +71,27 @@ body {
     color: #28a745; 
 } 
 
+.custom-radio-group .form-check {
+    margin-bottom: 1rem;
+}
+
 footer {
     position: fixed;
     bottom: 0;
     width: 100%;
     text-align: center;
 }
- 
+
+@media (max-width: 768px) {
+    footer {
+        position: relative;
+        bottom: auto;
+    }
+}
+
+
+.box-shadow {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1), 0 0 15px white; /* Effet de relief */
+    border-radius: 20px; /* Coins arrondis */
+    border: 7px solid #000; /* Bordure épaisse */
+}

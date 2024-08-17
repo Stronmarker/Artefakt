@@ -3,58 +3,39 @@
 {% block title %}Validation du Rendu{% endblock %}
 
 {% block body %}
-<style>
-    .container {
-        max-width: 800px;
-    }
-
-    .btn {
-        padding: 5px 10px;
-        font-size: 0.9rem;
-    }
-
-    h3, h4, h5, p {
-        margin: 5px 0;
-    }
-
-    .card {
-        padding: 10px;
-    }
-
-    .card-shadow {
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1), 0 0 15px white;
-        /* Effet de relief */
-        border-radius: 20px;
-        /* Coins arrondis */
-        border: 7px solid #000;
-        /* Bordure épaisse */
-    }
-
-    .form-control-fixed {
-        height: 150px; /* Taille fixe pour le champ de texte */
-    }
-</style>
-
-<div class="container mt-4 card-shadow bg-white p-3">
+<div class="container mt-4 box-shadow bg-white p-3" data-controller="sweetalert">
     <div class="d-flex justify-content-start mb-3">
         <a href="{{ path('rendering_client_show', {'token': rendering.token}) }}" class="btn btn-secondary btn-small">Retour au rendu</a>
     </div>
 
-    <h3 class="text-success text-center">Validation du Rendu : {{ rendering.renderingName }}</h3>
+    <h1 class="text-success text-center h2 mb-5">Validation du Rendu : {{ rendering.renderingName }}</h1>
     <div class="row">
     </div>
     <div class="card bg-light mb-3">
         <div class="card-header bg-success text-white">
-            <h5 class="card-title mb-0">Formulaire de validation ou de refus de rendu</h5>
+            <h2 class="card-title mb-0 h4">Formulaire de validation ou de refus de rendu</h2>
         </div>
         <div class="card-body">
             {{ form_start(form) }}
-            <div class="mb-3 h5">
-                {{ form_row(form.isAccepted) }}
+
+            <div class="form-group">
+                <label>{{ form_label(form.isAccepted) }}</label>
+                <div class="p-3">
+                    <p> {{ form_widget(form.isAccepted.children[0], {'attr': {'class': 'form-check-input reject-checkbox'}}) }}
+                        <label class="form-check-label text-danger" for="{{ form.isAccepted.children[0].vars.id }}">
+                            <i class="fas fa-times-circle"></i> {{ form_label(form.isAccepted.children[0]) }}
+                        </label></p>
+                    <p> {{ form_widget(form.isAccepted.children[1], {'attr': {'class': 'form-check-input accept-checkbox'}}) }}
+                        <label class="form-check-label text-success" for="{{ form.isAccepted.children[1].vars.id }}">
+                            <i class="fas fa-check-circle"></i> {{ form_label(form.isAccepted.children[1]) }}
+                        </label></p>
+                </div>
             </div>
-            <div class="mb-3 h5">
-                {{ form_row(form.rejectReason, {'attr': {'class': 'form-control form-control-fixed h5'}}) }}
+
+            <div class="form-group mb-3">
+                {{ form_row(form.comment, {'attr': {'class': 'form-control p-2'}}) }}
             </div>
+            
             <button type="submit" class="btn btn-success">Soumettre</button>
             {{ form_end(form) }}
         </div>
