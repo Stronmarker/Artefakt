@@ -4,34 +4,31 @@
 
 {% block body %}
 
-<style>
-.card-shadow {
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1), 0 0 15px white; /* Effet de relief */
-        border-radius: 20px; /* Coins arrondis */
-        border: 7px solid #000; /* Bordure épaisse */
-    }
-</style>
+<div class="container text-light box-shadow bg-light mt-4">
+    <div class="card-header bg-white text-success text-center ft_orbitron">
+        <h1 class="m-3">Nom du Rendu : "{{ rendering.renderingName }}"</h1>
+    </div>
+    <div class="card-body bg-light">
+        <div data-controller="image" data-image-front-png="{{ vich_uploader_asset(rendering, 'frontPngFile') }}"
+            data-image-toward-png="{{ vich_uploader_asset(rendering, 'towardPngFile') }}">
 
-<div class="container text-light card-shadow bg-light mt-4">
-    
-        <div class="card-header bg-white text-success text-center ft_orbitron">
-            <h2>Nom du Rendu : "{{ rendering.renderingName }}"</h2>
-
-        </div>
-        <div class="card-body bg-light">
-            <div data-controller="image" data-image-front-png="{{ vich_uploader_asset(rendering, 'frontPngFile') }}"
-                data-image-toward-png="{{ vich_uploader_asset(rendering, 'towardPngFile') }}">
-                <div class="mb-1"><button class="btn btn-secondary" data-action="click->image#toggleRotation"
-                        data-image-target="resetButton">Pause Rotation</button>
-                    <button class="btn btn-secondary" data-action="click->image#resetCamera"
-                        data-image-target="resetButton">Reset Camera</button>
-
-                    <a class="btn btn-secondary" href="{{ path('rendering_client_approve', {'token': rendering.token}) }}"
-                        class="btn btn-success mt-2">Valider ou Rejeter le Rendu</a>
-                </div>
-                <div data-image-target="canvasContainer"
-                    style="width: 100%; height: 500px; border: 1px solid #ccc; margin-bottom: 10px;"></div>
+            <div class="d-flex justify-content-between mb-4">
+                <button class="btn btn-secondary flex-grow-1 me-2" data-action="click->image#toggleRotation"
+                    data-image-target="resetButton">
+                    <i class="fas fa-pause-circle"></i> Rotation
+                </button>
+                <button class="btn btn-secondary flex-grow-1 me-2" data-action="click->image#resetCamera"
+                    data-image-target="resetButton">
+                    <i class="fas fa-camera"></i> Camera
+                </button>
+                <a class="btn btn-success flex-grow-1" href="{{ path('rendering_client_approve', {'token': rendering.token}) }}">
+                    <i class="fas fa-check-circle"></i> Valider ou Rejeter le Rendu
+                </a>
             </div>
+
+            <div data-image-target="canvasContainer"
+                style="width: 100%; height: 500px; border: 1px solid #ccc; margin-bottom: 10px;"></div>
         </div>
+    </div>
 </div>
 {% endblock %}

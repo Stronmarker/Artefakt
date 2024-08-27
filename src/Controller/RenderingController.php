@@ -1,13 +1,13 @@
 <?php
 
-
 namespace App\Controller;
 
 use App\Entity\Project;
 use App\Entity\Rendering;
+use App\Entity\Feedback; // Ajouter Feedback
 use App\Form\AddRenderingType;
-use App\Form\RenderingValidationFormType;
-use App\Form\EditRenderingType; // Ajouter un formulaire pour l'édition
+use App\Form\FeedbackFormType;
+use App\Form\EditRenderingType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -41,6 +41,7 @@ class RenderingController extends AbstractController
         ]);
     }
 
+
     #[Route('/project/{project_id}/rendering/{rendering_id}', name: 'rendering_show', requirements: ['project_id' => '\d+', 'rendering_id' => '\d+'], methods: ['GET'])]
     public function showRendering(int $project_id, int $rendering_id, EntityManagerInterface $entityManager): Response
     {
@@ -48,12 +49,20 @@ class RenderingController extends AbstractController
         $rendering = $entityManager->getRepository(Rendering::class)->find($rendering_id);
 
         if (!$project || !$rendering) {
-            throw $this->createNotFoundException('Project or rendering not found');
+            throw $this->createNotFoundException('Aucun Rendu n\' éxiste');
         }
+
+        $feedbacks = $rendering->getFeedbacks()->toArray(); // Convert the Doctrine collection to an array
+    usort($feedbacks, function (Feedback $a, Feedback $b) {
+    return $b->getCreatedAt() <=> $a->getCreatedAt(); // Sort feedbacks by createdAt descending
+    });
+
+    $lastFeedback = $feedbacks[0] ?? null;
 
         return $this->render('rendering/show.html.twig', [
             'project' => $project,
             'rendering' => $rendering,
+            'lastFeedback' => $lastFeedback,
         ]);
     }
 
@@ -80,10 +89,15 @@ class RenderingController extends AbstractController
             throw $this->createNotFoundException('Rendering not found');
         }
 
-        $form = $this->createForm(RenderingValidationFormType::class, $rendering);
+        // Création d'un nouveau feedback
+        $feedback = new Feedback();
+        $feedback->setRendering($rendering);
+
+        $form = $this->createForm(FeedbackFormType::class, $feedback);  // Utilisation de la nouvelle entité Feedback
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($feedback);
             $entityManager->flush();
 
             return $this->redirectToRoute('rendering_client_show', ['token' => $token]);
@@ -94,6 +108,7 @@ class RenderingController extends AbstractController
             'rendering' => $rendering,
         ]);
     }
+
 
     #[Route('/project/{project_id}/rendering/{rendering_id}/edit', name: 'rendering_edit', methods: ['GET', 'POST'])]
     public function editRendering(Request $request, int $project_id, int $rendering_id, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
@@ -154,5 +169,23 @@ class RenderingController extends AbstractController
         }
 
         return $newFilename;
+    }
+
+
+    #[Route('/rendering/{rendering_id}/feedbacks', name: 'rendering_feedbacks', methods: ['GET'])]
+    public function showFeedbacks(int $rendering_id, EntityManagerInterface $entityManager): Response
+    {
+        $rendering = $entityManager->getRepository(Rendering::class)->find($rendering_id);
+
+        if (!$rendering) {
+            throw $this->createNotFoundException('Rendering not found');
+        }
+
+        $feedbacks = $rendering->getFeedbacks();
+
+        return $this->render('rendering/feedbacks.html.twig', [
+            'rendering' => $rendering,
+            'feedbacks' => $feedbacks,
+        ]);
     }
 }

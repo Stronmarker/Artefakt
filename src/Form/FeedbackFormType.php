@@ -2,13 +2,14 @@
 
 namespace App\Form;
 
+use App\Entity\Feedback;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class RenderingValidationFormType extends AbstractType
+class FeedbackFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -21,17 +22,19 @@ class RenderingValidationFormType extends AbstractType
                 'expanded' => true,
                 'multiple' => false,
                 'label' => 'Validez-vous ce rendu ?',
+                'attr' => ['class' => 'custom-radio-group']
             ])
-            ->add('rejectReason', TextareaType::class, [
+        
+            ->add('comment', TextareaType::class, [
                 'required' => false,
-                'label' => 'Raison du rejet (si rejeté)',
+                'label' => 'Commentaire',
             ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            // Configure your form options here
+            'data_class' => Feedback::class, // Spécifie que ce formulaire est associé à l'entité Feedback
         ]);
     }
 }

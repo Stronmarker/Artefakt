@@ -7,40 +7,40 @@ export default class extends Controller {
     connect() {
         this.showFlashMessages();
 
-        // Sweetalert Supression Projet
+        // Sweetalert Supression
         this.element.querySelectorAll(".delete-form").forEach((form) => {
             form.addEventListener("submit", (event) => {
                 event.preventDefault();
                 Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
+                    title: 'Êtes-vous sûr(e) ?',
+                    text: "Cette action est irréversible.",
                     icon: 'warning',
                     showCancelButton: true,
-                    confirmButtonText: 'Yes, delete it!',
-                    cancelButtonText: 'No, cancel!',
+                    confirmButtonText: 'Oui, supprimer !',
+                    cancelButtonText: 'Non, annuler',
                     customClass: {
-                        confirmButton: "btn btn-success",
-                        cancelButton: "btn btn-danger"
+                        confirmButton: "btn btn-success me-2",  
+                        cancelButton: "btn btn-danger ms-2"     
                     },
                     buttonsStyling: false,
                     showCloseButton: true
                 }).then((result) => {
                     if (result.isConfirmed) {
                         Swal.fire({
-                            title: 'Deleted!',
-                            text: 'Your file has been deleted.',
+                            title: 'Supprimé !',
+                            text: 'Votre projet a été supprimé.',
                             icon: 'success',
                             customClass: {
-                                confirmButton: 'btn btn-primary w-xs mt-2',
+                                confirmButton: 'btn btn-dark w-xs mt-2',
                             },
                             buttonsStyling: false
                         }).then(() => {
-                            form.submit(); // Submit the form after confirmation
+                            form.submit(); // Soumettre le formulaire après confirmation
                         });
                     } else if (result.dismiss === Swal.DismissReason.cancel) {
                         Swal.fire({
-                            title: 'Cancelled',
-                            text: 'Your imaginary file is safe :)',
+                            title: 'Annulé',
+                            text: 'Votre projet est en sécurité.',
                             icon: 'error',
                             customClass: {
                                 confirmButton: "btn btn-dark",
@@ -51,6 +51,43 @@ export default class extends Controller {
                 });
             });
         });
+
+        //sweetalert d'édition
+        this.element.querySelectorAll('.edit-form').forEach((form) => {
+            form.addEventListener('submit', (event) => {
+                event.preventDefault();
+                Swal.fire({
+                    title: 'Êtes-vous sûr?',
+                    text: "Vous êtes sur le point d'enregistrer des modifications.",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Oui, enregistrer!',
+                    cancelButtonText: 'Non, annuler',
+                    customClass: {
+                        confirmButton: "btn btn-success me-2",
+                        cancelButton: "btn btn-danger ms-2"
+                    },
+                    buttonsStyling: false
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        Swal.fire({
+                            title: 'Modifications enregistrées!',
+                            text: 'Modifications enregistrées avec succès.',
+                            icon: 'success',
+                            customClass: {
+                                confirmButton: "btn btn-dark me-2",
+                            },
+                            confirmButtonText: 'OK'
+                        }).then(() => {
+                            form.submit();
+                        });
+                    }
+                });
+            });
+        });
+        
 
         // Sweetalert registration form
 
@@ -72,6 +109,11 @@ export default class extends Controller {
                 });
             });
         });
+
+
+        
+        
+
 
         //sweetalert  modifications profil
         this.element.querySelectorAll('.profil-form').forEach((form) => {
@@ -99,6 +141,8 @@ export default class extends Controller {
                 });
             });
         });
+
+        //Change password
 
         this.element.querySelectorAll(".form-change-password").forEach((form) => {
             form.addEventListener("submit", (event) => {

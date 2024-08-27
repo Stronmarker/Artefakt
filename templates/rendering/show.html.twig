@@ -3,104 +3,68 @@
 {% block title %}Rendering Details{% endblock %}
 
 {% block body %}
-<style>
-    .container {
-        max-width: 1000px;
-    }
 
-    .row {
-        margin: 0;
-        padding: 0;
-    }
-
-    .col-md-6 {
-        padding: 0;
-    }
-
-    h3,
-    h4,
-    h5,
-    p {
-        margin: 5px 0;
-    }
-
-    .card {
-        padding: 10px;
-    }
-
-    .card-shadow {
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1), 0 0 15px white;
-        /* Effet de relief */
-        border-radius: 20px;
-        /* Coins arrondis */
-        border: 7px solid #000;
-        /* Bordure épaisse */
-    }
-
-    .button-container {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-top: 10px;
-    }
-
-    .button-container .btn {
-        flex: 1;
-        margin-right: 10px;
-        text-align: center;
-        font-size: 0.8rem; /* Utilisation de btn-sm pour réduire la taille */
-    }
-
-    .button-container .btn:last-child {
-        margin-right: 0;
-    }
-
-    .button-container form {
-        flex: 1;
-        margin-right: 10px;
-    }
-</style>
-
-<div class="container mt-4 card-shadow bg-white p-3">
+<div class="container mt-4 card-shadow bg-white p-3 box-shadow" data-controller="sweetalert">
     <a href="{{ path('project_show', {id: project.id}) }}" class="btn btn-secondary btn-sm">Retour au projet</a>
-    <h4 class="text-success text-center">Nom du Rendu : {{ rendering.renderingName }}</h4>
-    <div class="row">
-        <div class="col-md-6">
-            <h5>Date de création : {{ rendering.createdAt|date('d/m/Y H:i:s') }}</h5>
-            <p><strong>Lien client :</strong>
-                <a href="{{ path('rendering_client_show', {'token': rendering.token}) }}" target="_blank">{{ path('rendering_client_show', {'token': rendering.token}) }}</a>
-            </p>
+    <a href="{{ path('rendering_feedbacks', {'rendering_id': rendering.id}) }}" class="btn btn-dark btn-sm">Voir les Feedbacks</a>
+
+    <h1 class="text-success text-center h2">Nom du Rendu : {{ rendering.renderingName }}</h1>
+    
+    <section class="d-flex align-items-center justify-content-between">
+        <div>
+            <h2 class="h6 p-1">Date de création : {{ rendering.createdAt|date('d/m/Y') }}</h2>
         </div>
-        <div class="col-md-6">
-            <h5>Statut :</h5>
-            {% if rendering.isAccepted %}
-            <p class="text-success">Ce rendu a été accepté.</p>
-            {% elseif rendering.rejectReason %}
-            <p class="text-danger">Ce rendu a été rejeté.</p>
-            <p><strong>Raison du rejet :</strong> {{ rendering.rejectReason }}</p>
-            {% else %}
-            <p class="text-warning">Ce rendu n'a jamais été présenté au client.</p>
-            {% endif %}
-        </div>
-    </div>
+
+        {% if lastFeedback %}
+            <div>
+                <h2 class="h6 p-1">Dernier feedback : {{ lastFeedback.createdAt|date('d/m/Y') }}</h2>
+            </div>
+            <div>
+                <h2 class="h6 p-1">
+                    Statut :
+                    {% if lastFeedback.isAccepted %}
+                        <span class="badge bg-success">Accepté</span>
+                    {% else %}
+                        <span class="badge bg-danger">Rejeté</span>
+                    {% endif %}
+                </h2>
+            </div>
+        {% else %}
+            <div>
+                <h2 class="h6 p-1 text-muted">Aucun feedback disponible</h2>
+            </div>
+        {% endif %}
+    </section>
+
+    <p class="p-1"><strong>Lien client :</strong>
+        <a class="text-success" href="{{ url('rendering_client_show', {'token': rendering.token}) }}" target="_blank">{{ url('rendering_client_show', {'token': rendering.token}) }}</a>
+    </p>
+
     <div data-controller="image" data-image-front-png="{{ vich_uploader_asset(rendering, 'frontPngFile') }}"
         data-image-toward-png="{{ vich_uploader_asset(rendering, 'towardPngFile') }}">
 
         <div data-image-target="canvasContainer"
             style="width: 100%; height: 380px; border: 1px solid #ccc; margin-bottom: 10px;"></div>
 
-            <div class="button-container d-flex justify-content-between">
-                <button class="btn btn-secondary flex-grow-1 me-2 btn-sm" data-action="click->image#toggleRotation"
-                    data-image-target="resetButton">Rotation</button>
-                <button class="btn btn-secondary flex-grow-1 me-2 btn-sm" data-action="click->image#resetCamera"
-                    data-image-target="resetButton">Caméra</button>
-                <a href="{{ path('rendering_edit', {'project_id': project.id, 'rendering_id': rendering.id}) }}" class="btn btn-primary flex-grow-1 me-2 btn-sm">Modifier</a>
-                <form method="post" action="{{ path('rendering_delete', {'project_id': project.id, 'rendering_id': rendering.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce rendu ?');" class="flex-grow-1">
-                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ rendering.id) }}">
-                    <button type="submit" class="btn btn-danger w-100 btn-sm">Supprimer</button>
-                </form>
-            </div>
-            
+        <div class="button-container d-flex justify-content-between p-3">
+            <button class="btn btn-secondary flex-grow-1 me-2 btn-sm" data-action="click->image#toggleRotation"
+                data-image-target="resetButton">
+                <i class="fas fa-sync-alt"></i> Rotation
+            </button>
+            <button class="btn btn-secondary flex-grow-1 me-2 btn-sm" data-action="click->image#resetCamera"
+                data-image-target="resetButton">
+                <i class="fas fa-camera"></i> Caméra
+            </button>
+            <a href="{{ path('rendering_edit', {'project_id': project.id, 'rendering_id': rendering.id}) }}" class="btn btn-dark flex-grow-1 me-2 btn-sm">
+                <i class="fas fa-edit"></i> Modifier
+            </a>
+            <form method="post" action="{{ path('rendering_delete', {'project_id': project.id, 'rendering_id': rendering.id}) }}" class="flex-grow-1 delete-form">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ rendering.id) }}">
+                <button type="submit" class="btn btn-danger w-100 btn-sm">
+                    <i class="fas fa-trash-alt"></i> Supprimer
+                </button>
+            </form>
+        </div>
     </div>
 </div>
 {% endblock %}

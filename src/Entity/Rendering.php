@@ -6,7 +6,8 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\RenderingRepository;
 use Symfony\Component\HttpFoundation\File\File;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
-use Gedmo\Mapping\Annotation as Gedmo;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: RenderingRepository::class)]
@@ -38,21 +39,18 @@ class Rendering
     #[ORM\Column(type: 'string', length: 255, unique: true)]
     private ?string $token = null;
 
-    #[ORM\Column(type: 'boolean')]
-    private bool $isAccepted = false;
-
-    #[ORM\Column(type: 'text', nullable: true)]
-    private ?string $rejectReason = null;
-
     #[ORM\ManyToOne(targetEntity: Project::class, inversedBy: 'renderings')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Project $project = null;
 
-    public function __construct() {
+    #[ORM\OneToMany(mappedBy: 'rendering', targetEntity: Feedback::class, cascade: ['persist', 'remove'])]
+    private Collection $feedbacks;
+
+    public function __construct()
+    {
+        $this->feedbacks = new ArrayCollection();
         $this->createdAt = new \DateTimeImmutable();
     }
-
-    // Getters et Setters pour toutes les propriétés
 
     public function getId(): ?int
     {
@@ -99,11 +97,6 @@ class Rendering
         return $this;
     }
 
-        public function getRenderingName(): ?string
-    {
-        return $this->renderingName;
-    }
-
     public function getTowardPngFile(): ?File
     {
         return $this->towardPngFile;
@@ -118,6 +111,11 @@ class Rendering
         }
 
         return $this;
+    }
+
+    public function getRenderingName(): ?string
+    {
+        return $this->renderingName;
     }
 
     public function setRenderingName(string $renderingName): self
@@ -139,30 +137,6 @@ class Rendering
         return $this;
     }
 
-    public function getIsAccepted(): bool
-    {
-        return $this->isAccepted;
-    }
-
-    public function setIsAccepted(bool $isAccepted): self
-    {
-        $this->isAccepted = $isAccepted;
-
-        return $this;
-    }
-
-    public function getRejectReason(): ?string
-    {
-        return $this->rejectReason;
-    }
-
-    public function setRejectReason(?string $rejectReason): self
-    {
-        $this->rejectReason = $rejectReason;
-
-        return $this;
-    }
-
     public function getProject(): ?Project
     {
         return $this->project;
@@ -171,6 +145,36 @@ class Rendering
     public function setProject(?Project $project): self
     {
         $this->project = $project;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Feedback[]
+     */
+    public function getFeedbacks(): Collection
+    {
+        return $this->feedbacks;
+    }
+
+    public function addFeedback(Feedback $feedback): self
+    {
+        if (!$this->feedbacks->contains($feedback)) {
+            $this->feedbacks[] = $feedback;
+            $feedback->setRendering($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFeedback(Feedback $feedback): self
+    {
+        if ($this->feedbacks->removeElement($feedback)) {
+            // set the owning side to null (unless already changed)
+            if ($feedback->getRendering() === $this) {
+                $feedback->setRendering(null);
+            }
+        }
 
         return $this;
     }

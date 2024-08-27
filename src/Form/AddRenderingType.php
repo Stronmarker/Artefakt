@@ -19,7 +19,7 @@ class AddRenderingType extends AbstractType
         
         $builder
         ->add('frontPngFile', VichImageType::class, [
-            'required' => false,
+            'required' => true,
             'allow_delete' => true,
             'delete_label' => '...',
             'download_label' => '...',
@@ -28,7 +28,7 @@ class AddRenderingType extends AbstractType
             'asset_helper' => true,
         ])
         ->add('towardPngFile', VichImageType::class, [
-            'required' => false,
+            'required' => true,
             'allow_delete' => true,
             'delete_label' => '...',
             'download_label' => '...',
