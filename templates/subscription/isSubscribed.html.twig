@@ -39,7 +39,10 @@
                 <li class="ft-audiowide text-center">Assistance par e-mail</li>
                 <li class="ft-audiowide text-center">Accès au centre d'aide</li>
             </ul>
-            <button id="cancel-subscription" data-turbo="false" class="btn btn-danger mt-3 fw-bold d-block mx-auto ft_wallpoet">Résilier l'abonnement</button>
+            <form class="cancel-subscription">
+                <button type="submit" data-turbo="false" class="btn btn-danger mt-3 fw-bold d-block mx-auto ft_wallpoet">Résilier l'abonnement</button>
+            </form>
+            
         </div>
     </div>
 </div>
@@ -47,9 +50,10 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        // Gestionnaire d'événement pour le bouton de résiliation d'abonnement
-        document.getElementById('cancel-subscription').addEventListener('click', function () {
+
+    document.querySelectorAll(".cancel-subscription").forEach((form) => {
+        form.addEventListener("submit", (event) => {
+            event.preventDefault();
             Swal.fire({
                 title: 'Êtes-vous sûr de vouloir abandonner vos privilèges ?',
                 text: 'Aurevoir! Mais pas adieu car vous pouvez encore rester ;)',
@@ -98,6 +102,7 @@
             });
         });
     });
+    
 </script>
 
 {% endblock %}
